@@ -1,11 +1,6 @@
 Template.existing_block.rendered = function() {
-  $('.preview-block').popover({
-    content: function() {
-      $('.preview-block').not(this).popover('hide');
-      return $(this).find('.block-preview').html(); },
-    trigger: "click",
-    html: "true",
-    placement: "left"
+  $('.preview-block').click(function() {
+  	$('.existingBlockPreview').html($(this).find('.block-preview').html());
   });
 }
 
@@ -22,7 +17,7 @@ Template.existing_block.events = {
       PageBlocks.insert({page_id: page._id, block_id: block._id, label: label, zone: Session.get('block-zone'), added: Date.now()});
     }
 
-    $('#existingBlockModal').modal('hide');
+    utils.closeModal('#existingBlockModal');
     $.pnotify({
       text: label + ' added to page.',
       type: 'success',

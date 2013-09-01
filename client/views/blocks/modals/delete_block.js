@@ -2,7 +2,7 @@ Template.delete_block.events = {
   // Delete only a pageBlock (the actual blocks are kept)
   'click .delete-block-confirm': function(e) {
     e.preventDefault();
-    $('#deleteBlockModal').modal('hide');
+    utils.closeModal('#deleteBlockModal');
 
     var type = Session.get('block-edit-type');
     var id = Session.get('block-edit-id');
@@ -28,7 +28,7 @@ Template.delete_block.events = {
   // Delete a pageBlock and the corresponding block
   'click .delete-all-blocks-confirm': function(e) {
     e.preventDefault();
-    $('#deleteBlockModal').modal('hide');
+    utils.closeModal('#deleteBlockModal');
 
     var type = Session.get('block-edit-type');
     var id = Session.get('block-edit-id');

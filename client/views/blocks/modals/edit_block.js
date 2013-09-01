@@ -41,7 +41,7 @@ Template.edit_block.events = {
     // Set this so we don't have to run the 'hidden' event handler when we close the modal
     Session.set('block-saved', true);
 
-    $('#editBlockModal').modal('hide');
+    utils.closeModal('#editBlockModal');
 
   },
   'click .close-modal': function(e) {
@@ -52,5 +52,6 @@ Template.edit_block.events = {
     if(!Session.get('block-saved') && newBlockId) {
       Blocks.remove(newBlockId);
     }
+    utils.closeModal("#editBlockModal");
   }
 };

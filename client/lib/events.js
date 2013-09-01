@@ -15,12 +15,12 @@ events = {
   },
   showDeletePageModal: function (e) {
   	e.preventDefault();
-    $('#deletePageModal').modal('show');
+    utils.openModal('#deletePageModal');
   },
   deletePage: function () {
     var page = utils.getCurrentPage();
     var title = page.title;
-    $('#deletePageModal').modal('hide');
+    utils.hideModal('#deletePageModal');
 
     // Delete from navs
     Navigation.find().forEach(function(nav) {

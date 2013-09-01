@@ -2,7 +2,7 @@ Template.tag_block.events = {
   'click .add-block-by-tag': function(e) {
   	e.preventDefault();
     var tag = $('#tag').val()
-    $('#blockTagModal').modal('hide');
+    utils.closeModal('#blockTagModal');
 
     if (tag) {
       var page = utils.getCurrentPage();

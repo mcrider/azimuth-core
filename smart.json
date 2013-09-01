@@ -1,4 +1,4 @@
-{
+ {
   "name": "azimuth-core",
   "description": "Core code for Azimuth CMS",
   "homepage": "https://github.com/mcrider/azimuth",
@@ -12,7 +12,6 @@
     "roles": {},
     "router": {},
     "filepicker": {},
-    "bootstrap-wysiwyg": {},
     "analyticsjs": {},
     "ncp": {}
   }

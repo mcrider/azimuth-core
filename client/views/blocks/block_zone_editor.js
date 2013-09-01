@@ -88,21 +88,22 @@ Template.block_zone_editor.events = {
       Template[ block.template + "_edit" ].block = block;
       return Template[ block.template + "_edit" ](block); // this calls the template and returns the HTML.
     });
-    $('#editBlockModal').first().find('.modal-body').html(fragment);
+    var $editBlockModal = $('#editBlockModal').first();
+    $editBlockModal.find('.modal-body').html(fragment);
     Session.set('block-edit-id', block_id);
-    $('#editBlockModal').first().modal('show');
+    utils.openModal("#" + $editBlockModal.attr('id'));
   },
   'click .existing-block': function(e) {
   	e.preventDefault();
     var zone = $(e.currentTarget).closest('.block-zone-container').data('zone');
     Session.set('block-zone', zone);
-    $('#existingBlockModal').modal('show');
+    utils.openModal('#existingBlockModal');
   },
   'click .block-by-tag': function(e) {
   	e.preventDefault();
     var zone = $(e.currentTarget).closest('.block-zone-container').data('zone');
     Session.set('block-zone', zone);
-    $('#blockTagModal').modal('show');
+    utils.openModal('#blockTagModal')
   },
   'click .block-by-type': function(e) {
   	e.preventDefault();
@@ -159,7 +160,7 @@ Template.block_zone_editor.events = {
     } else {
       $("#deleteBlockModal .delete-all-blocks-confirm").hide();
     }
-    $('#deleteBlockModal').modal('show');
+    utils.openModal('#deleteBlockModal');
   },
   'click .edit-block-button': function(e) {
   	e.preventDefault();
@@ -168,9 +169,10 @@ Template.block_zone_editor.events = {
       Template[ block.template + "_edit" ].block = block;
       return Template[ block.template + "_edit" ](block); // this calls the template and returns the HTML.
     });
-    $('#editBlockModal').first().find('.modal-body').html(fragment);
+    var $editBlockModal = $('#editBlockModal').first();
+    $editBlockModal.find('.modal-body').html(fragment);
     Session.set('block-edit-id', block._id);
-    $('#editBlockModal').first().modal('show');
+    utils.openModal($editBlockModal.attr('id'));
   }
 };
 

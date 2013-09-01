@@ -3,10 +3,10 @@ Package.describe({
 });
 
 Package.on_use(function (api) {
-  api.use(['preserve-inputs', 'accounts-base', 'accounts-password', 'backbone', 'underscore', 'jquery', 'pnotify', 'less', 'roles', 'router', 'filepicker', 'bootstrap-wysiwyg', 'font-awesome', 'analyticsjs', 'spiderable', 'bootstrap', 'standard-app-packages', 'HTML5-History-API', 'ncp', 'page-js-ie-support'], 'client');
+  api.use(['preserve-inputs', 'accounts-base', 'accounts-password', 'backbone', 'underscore', 'jquery', 'pnotify', 'less', 'roles', 'router', 'filepicker', 'bootstrap-wysiwyg', 'font-awesome', 'analyticsjs', 'spiderable', 'standard-app-packages', 'HTML5-History-API', 'ncp', 'page-js-ie-support'], 'client');
 
   // Add weak dependencies to our front-end packages
-  api.use(['azimuth-views-bootstrap'], 'client', {weak: true});
+  api.use(['azimuth-views-bootstrap', 'azimuth-views-foundation'], 'client', {weak: true});
 
   api.add_files([
     'server/server_init.js'
@@ -15,12 +15,16 @@ Package.on_use(function (api) {
   api.add_files([
     'client/collections.js',
     'client/lib/events.js',
+    'client/lib/events.js',
+    'client/lib/events.js',
     'client/lib/external/jquery.dragsort-0.5.1.min.js',
     'client/lib/external/jquery.nestable.js',
     'client/lib/helpers.js',
     'client/lib/registry.js',
     'client/lib/utils.js',
     'client/router.js',
+    'client/css/external/nestable.css',
+    'client/css/main.less',
     'client/blocks/basic_content/basic_content.js',
     'client/blocks/basic_content/basic_content_edit.js',
     'client/blocks/blog_post/blog_post.js',
@@ -65,7 +69,16 @@ Package.on_use(function (api) {
     'client/views/header.js',
     'client/views/pages/new_page.js',
     'client/views/pages/page_template_selector.js',
-    'client/index.html'
+    'client/index.html',
+    'img/buttons.gif',
+    'img/toolbar.gif',
+    'img/file.gif',
+    'img/image.gif',
+    'client/css/external/jquery.cleditor.css',
+    'client/lib/external/jquery.cleditor.js',
+    'client/lib/external/jquery.cleditor.image.js',
+    'client/lib/external/jquery.cleditor.file.js',
+    'img/loading.gif'
   ], 'client');
 });
 

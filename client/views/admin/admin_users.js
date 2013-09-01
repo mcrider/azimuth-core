@@ -17,11 +17,11 @@ Template.admin_users.events = {
   'click .delete-user': function (e) {
     e.preventDefault();
     Session.set('delete-user-id', this._id);
-    $('#deleteUserModal').modal('show');
+    utils.openModal('#deleteUserModal');
   },
   'click .delete-user-confirm': function(e) {
     e.preventDefault();
-    $('#deleteUserModal').modal('hide');
+    utils.hideModal('#deleteUserModal');
     var userId = Session.get('delete-user-id')
     if(!userId) return false;
 
