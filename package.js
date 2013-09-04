@@ -3,7 +3,7 @@ Package.describe({
 });
 
 Package.on_use(function (api) {
-  api.use(['preserve-inputs', 'accounts-base', 'accounts-password', 'backbone', 'underscore', 'jquery', 'pnotify', 'less', 'roles', 'router', 'filepicker', 'bootstrap-wysiwyg', 'font-awesome', 'analyticsjs', 'spiderable', 'standard-app-packages', 'HTML5-History-API', 'ncp', 'page-js-ie-support'], 'client');
+  api.use(['preserve-inputs', 'accounts-base', 'accounts-password', 'backbone', 'font-awesome', 'underscore', 'jquery', 'pnotify', 'less', 'roles', 'router', 'filepicker', 'analyticsjs', 'spiderable', 'standard-app-packages', 'HTML5-History-API', 'ncp', 'page-js-ie-support'], 'client');
 
   // Add weak dependencies to our front-end packages
   api.use(['azimuth-views-bootstrap', 'azimuth-views-foundation'], 'client', {weak: true});

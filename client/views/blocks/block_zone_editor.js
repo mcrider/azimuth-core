@@ -169,10 +169,10 @@ Template.block_zone_editor.events = {
       Template[ block.template + "_edit" ].block = block;
       return Template[ block.template + "_edit" ](block); // this calls the template and returns the HTML.
     });
-    var $editBlockModal = $('#editBlockModal').first();
-    $editBlockModal.find('.modal-body').html(fragment);
+
+    $('#editBlockModal').first().find('.modal-body').html(fragment);
     Session.set('block-edit-id', block._id);
-    utils.openModal($editBlockModal.attr('id'));
+    utils.openModal('#editBlockModal');
   }
 };
 
