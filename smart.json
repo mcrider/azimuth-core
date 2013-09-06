@@ -4,7 +4,7 @@
   "homepage": "https://github.com/mcrider/azimuth",
   "author": "Matt Crider (http://matthewcrider.com)",
   "version": "0.1.0",
-  "git": "https://github.com/mcrider/azimuth.git",
+  "git": "https://github.com/mcrider/azimuth-core.git",
   "packages": {
     "underscore-string": {},
     "font-awesome": {},
