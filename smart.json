@@ -1,7 +1,7 @@
  {
   "name": "azimuth-core",
   "description": "Core code for Azimuth CMS",
-  "homepage": "https://github.com/mcrider/azimuth",
+  "homepage": "https://github.com/mcrider/azimuth-core",
   "author": "Matt Crider (http://matthewcrider.com)",
   "version": "0.1.0",
   "git": "https://github.com/mcrider/azimuth-core.git",
