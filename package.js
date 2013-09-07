@@ -3,8 +3,12 @@ Package.describe({
 });
 
 Package.on_use(function (api) {
+  // Include some core meteor smart packages
   api.use(['preserve-inputs', 'accounts-base', 'accounts-password', 'underscore', 'jquery',
     'less', 'spiderable', 'standard-app-packages', 'HTML5-History-API', 'page-js-ie-support'], 'client');
+
+  // Use the meteorite smart packages specified in smart.json
+  api.use(['underscore-string','font-awesome','pnotify','roles','router','filepicker','analyticsj'], 'client');
 
   api.add_files([
     'server/server_init.js'
