@@ -8,7 +8,7 @@ Package.on_use(function (api) {
     'less', 'spiderable', 'standard-app-packages', 'HTML5-History-API', 'page-js-ie-support'], 'client');
 
   // Use the meteorite smart packages specified in smart.json
-  api.use(['underscore-string','font-awesome','pnotify','roles','router','filepicker','analyticsj'], 'client');
+  api.use(['underscore-string','font-awesome','pnotify','roles','router','filepicker','analyticsjs'], 'client');
 
   api.add_files([
     'server/server_init.js'
