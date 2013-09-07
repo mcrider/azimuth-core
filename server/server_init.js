@@ -77,10 +77,14 @@ Meteor.startup(function () {
     }
   });
 
-  Meteor.users.allow({
-    insert: authorize.admins,
-    update: authorize.admins,
-    remove: authorize.admins
+  Meteor.publish('all_users', function () {
+    return Meteor.users.find();
+  });
+  AllUsers = new Meteor.Collection("all_users");
+  AllUsers.allow({
+    insert: authorize.authorsAndAdmins,
+    update: authorize.authorsAndAdmins,
+    remove: authorize.authorsAndAdmins
   });
 
   // Roles

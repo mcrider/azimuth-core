@@ -1,5 +1,5 @@
 Template.admin_users.users = function() {
-  return Meteor.users.find();
+  return AllUsers.find();
 };
 
 Template.admin_users.events = {
@@ -29,6 +29,6 @@ Template.admin_users.events = {
 
     Roles.removeUsersFromRoles([userId], ['admin']);
     Roles.removeUsersFromRoles([userId], ['author']);
-    Meteor.users.remove(userId);
+    AllUsers.remove(userId);
   }
 };

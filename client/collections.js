@@ -10,7 +10,7 @@ PageBlocks = new Meteor.Collection("pageBlocks");
 User_list = new Meteor.Collection("user_list");
 Settings = new Meteor.Collection("settings");
 Navigation = new Meteor.Collection("navigation");
-
+AllUsers = new Meteor.Collection("all_users");
 
 // ID of currently selected page
 Session.set('page-slug', null);
@@ -22,3 +22,4 @@ user_listSubscription = Meteor.subscribe('user_list');
 rolesSubscription = Meteor.subscribe('roles');
 settingsSubscription = Meteor.subscribe('settings');
 navigationSubscription = Meteor.subscribe('navigation');
+allUsersSubscription = Meteor.subscribe('all_users');
