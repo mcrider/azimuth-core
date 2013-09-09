@@ -10,14 +10,14 @@ Package.on_use(function (api) {
   // Use the meteorite smart packages specified in smart.json
   api.use(['font-awesome','roles','router','filepicker','analyticsjs'], 'client');
 
+  api.use('roles', 'server');
+
   api.add_files([
     'server/server_init.js'
   ], 'server');
 
   api.add_files([
     'client/collections.js',
-    'client/lib/events.js',
-    'client/lib/events.js',
     'client/lib/events.js',
     'client/lib/external/jquery.dragsort-0.5.1.min.js',
     'client/lib/external/jquery.nestable.js',
