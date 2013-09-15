@@ -8,7 +8,6 @@
   "packages": {
     "underscore-string": {},
     "font-awesome": {},
-    "pnotify": {},
     "roles": {},
     "router": {},
     "filepicker": {},

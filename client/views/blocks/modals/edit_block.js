@@ -9,21 +9,9 @@ Template.edit_block.events = {
     if(block) {
       var blockData = utils.getFormValues("#editBlockForm");
       Blocks.update({_id: block._id}, {$set: blockData});
-      $.pnotify({
-        text: 'Block Saved.',
-        type: 'success',
-        icon: false,
-        addclass: "stack-bottomright",
-        stack: utils.pnotify_stack_bottomright
-      });
+      noty({text: 'Block Saved.', type: 'success'});
     } else {
-      $.pnotify({
-        text: 'Error: Could not save block.',
-        type: 'Error',
-        icon: false,
-        addclass: "stack-bottomright",
-        stack: utils.pnotify_stack_bottomright
-      });
+    	noty({text: 'Error: Could not save block.', type: 'error'});
     }
 
     // Add block to page

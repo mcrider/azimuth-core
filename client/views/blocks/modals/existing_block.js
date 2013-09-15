@@ -18,13 +18,7 @@ Template.existing_block.events = {
     }
 
     utils.closeModal('#existingBlockModal');
-    $.pnotify({
-      text: label + ' added to page.',
-      type: 'success',
-      icon: false,
-      addclass: "stack-bottomright",
-      stack: utils.pnotify_stack_bottomright
-    });
+    noty({text: label + ' added to page.', type: 'success'});
   }
 };
 

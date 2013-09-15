@@ -117,13 +117,7 @@ Template.block_zone_editor.events = {
       PageBlocks.insert({page_id: page._id, block_type: this.name, label: label, zone: zone, added: Date.now()});
     }
 
-    $.pnotify({
-      text: label + ' blocks added to page.',
-      type: 'success',
-      icon: false,
-      addclass: "stack-bottomright",
-      stack: utils.pnotify_stack_bottomright
-    });
+		noty({text: label + ' blocks added to page.', type: 'success'});
   },
   'click .page-count': function(e) {
     e.preventDefault();

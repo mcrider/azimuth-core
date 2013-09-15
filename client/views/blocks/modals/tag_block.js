@@ -13,13 +13,7 @@ Template.tag_block.events = {
         PageBlocks.insert({page_id: page._id, block_tag: tag, label: tag, zone: zone, added: Date.now()});
       }
 
-      $.pnotify({
-        text: 'Blocks with tag "' + tag + '" added to page.',
-        type: 'success',
-        icon: false,
-        addclass: "stack-bottomright",
-        stack: utils.pnotify_stack_bottomright
-      });
+			noty({text: 'Blocks with tag "' + tag + '" added to page.', type: 'success'});
     }
   }
 };

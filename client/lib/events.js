@@ -5,13 +5,7 @@ events = {
     var pageData = utils.getFormValues("#pageEditForm");
     e.preventDefault();
     Pages.update({_id: this._id}, {$set: pageData});
-    $.pnotify({
-      text: 'Your page changes were saved.',
-      type: 'success',
-      icon: false,
-      addclass: "stack-bottomright",
-			stack: utils.pnotify_stack_bottomright
-    });
+		noty({text: 'Your page changes were saved.', type: 'success'});
   },
   showDeletePageModal: function (e) {
   	e.preventDefault();
@@ -30,12 +24,6 @@ events = {
     Meteor.Router.to('/');
     Pages.remove(page._id);
 
-    $.pnotify({
-      text: '"' + title + '" was successfully deleted.',
-      type: 'success',
-      icon: false,
-      addclass: "stack-bottomright",
-      stack: utils.pnotify_stack_bottomright
-    });
+		noty({text: '"' + title + '" was successfully deleted.', type: 'success'});
   }
 };

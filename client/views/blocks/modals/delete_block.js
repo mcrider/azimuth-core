@@ -17,13 +17,7 @@ Template.delete_block.events = {
       PageBlocks.remove(pageBlock._id);
     });
 
-    $.pnotify({
-      text: 'Block removed from page.',
-      type: 'success',
-      icon: false,
-      addclass: "stack-bottomright",
-      stack: utils.pnotify_stack_bottomright
-    });
+		noty({text: 'Block removed from page', type: 'success'});
   },
   // Delete a pageBlock and the corresponding block
   'click .delete-all-blocks-confirm': function(e) {
@@ -38,21 +32,9 @@ Template.delete_block.events = {
         PageBlocks.remove(pageBlock._id);
       });
       Blocks.remove(id);
-      $.pnotify({
-        text: 'Block deleted.',
-        type: 'success',
-        icon: false,
-        addclass: "stack-bottomright",
-        stack: utils.pnotify_stack_bottomright
-      });
+      noty({text: 'Block deleted.', type: 'success'});
     } else {
-      $.pnotify({
-        text: 'There was an error trying to delete this block.',
-        type: 'warning',
-        icon: false,
-        addclass: "stack-bottomright",
-        stack: utils.pnotify_stack_bottomright
-      });
+			noty({text: 'There was an error trying to delete this block.', type: 'error'});
     }
   }
 };

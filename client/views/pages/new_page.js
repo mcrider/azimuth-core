@@ -6,13 +6,7 @@ Template.new_page.events = {
 
     // Validate input
     if (raw_title == '' || raw_slug == '') {
-      $.pnotify({
-        text: 'Please enter values for all fields.',
-        type: 'error',
-        icon: false,
-        addclass: "stack-bottomright",
-        stack: utils.pnotify_stack_bottomright
-      });
+    	noty({text: 'Please enter values for all fields.', type: 'error'});
       return false;
     }
 
