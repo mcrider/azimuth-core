@@ -10,7 +10,7 @@ Package.on_use(function (api) {
   // Use the meteorite smart packages specified in smart.json
   api.use(['font-awesome','roles','router','filepicker','analyticsjs'], 'client');
 
-  api.use('roles', 'server');
+  api.use(['accounts-base', 'accounts-password', 'spiderable', 'roles'], 'server');
 
   api.add_files([
     'server/server_init.js'
