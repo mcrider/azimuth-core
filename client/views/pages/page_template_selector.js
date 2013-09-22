@@ -6,6 +6,8 @@ Template.page_template_selector.events = {
   'change .page-template-selector': function() {
     var pageData = utils.getFormValues("#pageEditForm");
     Pages.update({_id: this._id}, {$set: pageData});
+
+    var page = Pages.findOne(this._id);
     var fragment = Meteor.render(function () {
       template = page.template ? page.template : 'page_default';
       return Template[ template + "_edit" ](); // this calls the template and returns the HTML.

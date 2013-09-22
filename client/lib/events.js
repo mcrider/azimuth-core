@@ -1,6 +1,6 @@
 // Common event handlers
 
-events = {
+window.events = {
   savePage: function (e) {
     var pageData = utils.getFormValues("#pageEditForm");
     e.preventDefault();
@@ -14,7 +14,7 @@ events = {
   deletePage: function () {
     var page = utils.getCurrentPage();
     var title = page.title;
-    utils.hideModal('#deletePageModal');
+    utils.closeModal('#deletePageModal');
 
     // Delete from navs
     Navigation.find().forEach(function(nav) {

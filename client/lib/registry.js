@@ -1,6 +1,6 @@
 // Register pages and blocks
 
-registry = {
+window.registry = {
   pageTemplates: [],
   pageTemplate: function (pageTemplate) {
     this.pageTemplates.push(pageTemplate);
