@@ -64,6 +64,13 @@ Meteor.Router.add({
       var page = Pages.findOne({slug: page_slug});
       if(!page) return '404';
 
+      // Add common edit page events
+      Template[page.template + '_edit'].events = {
+        'submit #pageEditForm': events.savePage,
+        'click #deletePage': events.showDeletePageModal,
+        'click .delete-page': events.deletePage
+      }
+
       Session.set("page-slug", page_slug);
       return page.template + '_edit';
     }
