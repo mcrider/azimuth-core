@@ -4,35 +4,71 @@
  *
  */
 
+
+Router.configure({
+  layout: 'layout',
+
+  notFoundTemplate: '404',
+
+  // loadingTemplate: 'loading',
+
+  renderTemplates: {
+    'header': { to: 'header' },
+    'footer': { to: 'footer' }
+  }
+});
+
+
+
+Router.map(function() {
+  this.route('loginButtonsFullPage', {path: '/login'});
+
+  // Add routes for admin-level pages if user has correct permissions
+
+  //FIXME: Add 'AdminController' to these routes and deny if not logged in as admin
+  this.route('site_settings', {
+    controller: AdminController
+  });
+  this.route('new_page', {
+    controller: AdminController
+  });
+  this.route('navigation', {
+    controller: AdminController
+  });
+  this.route('admin_users', {
+    controller: AdminController,
+    path: '/users'
+  });
+
+  // Route pages
+  this.route('page', {
+    path: '/:page',
+    controller: PageController
+  })
+
+
+  // this.route('showPost', {
+  //   path: '/posts/:_id',
+  //   data: function() { return Posts.findOne(this.params._id); },
+  //   waitOn: postsSub,
+  //   loadingTemplate: 'loading',
+  //   notFoundTemplate: 'notFound'
+  // });
+
+
+  // this.route('showPost', {
+  //   path: '/posts/:_id',
+  //   data: function() { return Posts.findOne(this.params._id); }
+  // });
+});
+/*
 Meteor.Router.add({
-  "/settings": function() {
-    if (!Roles.userIsInRole(Meteor.user(), ['admin'])) {
-      return false;
-    }
-    return 'site_settings';
-  },
-  "/new_page": function() {
-    if (!Roles.userIsInRole(Meteor.user(), ['admin'])) {
-      return false;
-    }
-    return 'new_page';
-  },
-  "/navigation": function() {
-    if (!Roles.userIsInRole(Meteor.user(), ['admin'])) {
-      return false;
-    }
-    return 'navigation';
-  },
+
   "/login": function() {
     return 'loginButtonsFullPage';
   },
 
-  "/users": function() {
-    if (!Roles.userIsInRole(Meteor.user(), ['admin'])) {
-      return false;
-    }
-    return 'admin_users';
-	},
+  "
   "/": function() {
     // Don't render until we have our data
     if (!pagesSubscription.ready() || !settingsSubscription.ready()) {
@@ -50,7 +86,7 @@ Meteor.Router.add({
       return page.template;
     }
   },
-  "*/edit": function (page_slug) {
+  "* / edit": function (page_slug) {
     if (!Roles.userIsInRole(Meteor.user(), ['author','admin'])) {
       return false;
     }
@@ -90,3 +126,4 @@ Meteor.Router.add({
     }
   }
 });
+*/

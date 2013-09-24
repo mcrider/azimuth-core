@@ -8,7 +8,7 @@ Package.on_use(function (api) {
     'less', 'spiderable', 'standard-app-packages', 'HTML5-History-API', 'page-js-ie-support'], 'client');
 
   // Use the meteorite smart packages specified in smart.json
-  api.use(['font-awesome','roles','router','filepicker','analyticsjs'], 'client');
+  api.use(['font-awesome','roles','iron-router','filepicker','analyticsjs'], 'client');
 
   api.use(['accounts-base', 'accounts-password', 'spiderable', 'roles'], 'server');
 
@@ -28,6 +28,7 @@ Package.on_use(function (api) {
     'client/lib/helpers.js',
     'client/lib/registry.js',
     'client/lib/utils.js',
+    'client/controllers.js',
     'client/router.js',
     'client/css/external/nestable.css',
     'client/css/main.less',

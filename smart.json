@@ -9,7 +9,7 @@
     "underscore-string": {},
     "font-awesome": {},
     "roles": {},
-    "router": {},
+    "iron-router": {},
     "filepicker": {},
     "analyticsjs": {}
   }
