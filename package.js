@@ -4,8 +4,8 @@ Package.describe({
 
 Package.on_use(function (api) {
   // Include some core meteor smart packages
-  api.use(['preserve-inputs', 'accounts-base', 'accounts-password', 'underscore', 'jquery',
-    'less', 'spiderable', 'standard-app-packages', 'HTML5-History-API', 'page-js-ie-support'], 'client');
+  api.use([ 'accounts-base', 'accounts-password', 'underscore', 'jquery',
+    'less', 'spiderable', 'standard-app-packages'], 'client');
 
   // Use the meteorite smart packages specified in smart.json
   api.use(['font-awesome','roles','iron-router','filepicker','analyticsjs'], 'client');
