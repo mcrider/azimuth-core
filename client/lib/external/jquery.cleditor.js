@@ -798,8 +798,9 @@
 
   // imagesPath - returns the path to the images folder
   function imagesPath() {
-    var href = $("link[href*=cleditor]").attr("href");
-    return href.replace(/^(.*\/)[^\/]+$/, '$1') + "images/";
+    // var href = $("link[href*=cleditor]").attr("href");
+    // return href.replace(/^(.*\/)[^\/]+$/, '$1') + "images/";
+    return '/img/';
   }
 
   // imageUrl - Returns the css url string for a filemane
