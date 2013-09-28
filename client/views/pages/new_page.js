@@ -35,7 +35,7 @@ Template.new_page.events = {
       updatePageNav('footer_disabled');
     }
 
-    Meteor.Router.to('/' + raw_slug + '/edit', {trigger: true});
+    Router.go('/' + raw_slug + '/edit');
   },
   'keyup .title': function () {
     var raw_title = $('.title').val();

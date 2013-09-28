@@ -21,7 +21,7 @@ window.events = {
       if(nav._id) Navigation.update({ _id: nav._id }, {$pull : {  "pages" : { slug: page.slug }}});
     });
 
-    Meteor.Router.to('/');
+    Router.go('/');
     Pages.remove(page._id);
 
 		noty({text: '"' + title + '" was successfully deleted.', type: 'success'});
