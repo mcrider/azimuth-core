@@ -1,8 +1,8 @@
 Template.new_page.events = {
   'click .submit-new-page': function (e) {
     e.preventDefault();
-    var raw_title = $('.title').val();
-    var raw_slug = $('.slug').val();
+    var raw_title = $('.new-page-title').val();
+    var raw_slug = $('.new-page-slug').val();
 
     // Validate input
     if (raw_title == '' || raw_slug == '') {
