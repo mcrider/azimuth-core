@@ -2,8 +2,8 @@
 
 Getting Azimuth installed is easy.  Get a copy of [node.js](http://nodejs.org/) and npm (node package manager) installed on your machine and run the following commands (some of which you may have already done).
 
-1.  Install Meteor.js: <pre>curl https://install.meteor.com | /bin/sh`
-2.  Install Meteorite (Meteor's semi-official package manager): <pre>sudo npm install -g meteorite`
+1.  Install Meteor.js: `curl https://install.meteor.com | /bin/sh`
+2.  Install Meteorite (Meteor's semi-official package manager): `sudo npm install -g meteorite`
 3.  Create a project from the command line: `mrt create my-project` (You can delete the generated my-project html, css, and js files
 4.  Its a good idea to disable autopublish: `mrt remove autopublish`
 5.  Pick a front-end framework: `mrt add azimuth-views-foundation` or `mrt add azimuth-views-bootstrap`
@@ -61,8 +61,9 @@ Then create the custom_layout template [modeled after the default layout](https:
 Azimuth uses handlebars helpers to make creating form elements easier. Though you can always roll your own form inputs (except in the case of WYSIWYG editors), form helpers make it easy to consolidate form code into a centralized location in the clients/views/form/ directory (which you are free to edit)
 
 Form helper calls take this form:
-
-  <pre>{{formHelper value=[contents] type="[type]" label="[label]" fieldName="[contents]" }}`
+```
+{{formHelper value=[contents] type="[type]" label="[label]" fieldName="[contents]" }}
+```
 
 *   `value`Variable used to store the field's contents.  This variable is the same as the one used whtpen display the field in the page/block.
 *   `type`The type of form element.  Can be one of tag, text, textarea, or wysiwyg (other form elements can in the *_edit.html file or by creating a new form helper).
