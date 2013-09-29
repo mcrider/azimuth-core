@@ -2,28 +2,16 @@
 
 Getting Azimuth installed is easy.  Get a copy of [node.js](http://nodejs.org/) and npm (node package manager) installed on your machine and run the following commands (some of which you may have already done).
 
-1.  Install Meteor.js: <pre>curl https://install.meteor.com | /bin/sh</pre>
-2.  Install Meteorite (a lovely package manager for Meteor): <pre>sudo npm install -g meteorite</pre>
-3.  Clone Azimuth (or download): <pre>git clone git@github.com:mcrider/azimuth.git</pre>
-4.  Start Azimuth by going into its directory (which you've cloned from github or downloaded) and run: <pre>mrt</pre>
-5.  Your Azimuth project is now accesible from http://localhost:3000
-6.  Create an account from the account dropdown menu.  The first account created will be the administrator account
+1.  Install Meteor.js: <pre>curl https://install.meteor.com | /bin/sh`
+2.  Install Meteorite (Meteor's semi-official package manager): <pre>sudo npm install -g meteorite`
+3.  Create a project from the command line: `mrt create my-project` (You can delete the generated my-project html, css, and js files
+4.  Its a good idea to disable autopublish: `mrt remove autopublish`
+5.  Pick a front-end framework: `mrt add azimuth-views-foundation` or `mrt add azimuth-views-bootstrap`
+6.  (optional) Install a theme (drop down of themes with screenshots, when selected, changes command)
+7.  Add azimuth Core: mrt add azimuth-core
+8.  Start your server: `mrt`
 
 **New to Meteor?**  There is a vibrant and growing community for Meteor developers.  Check out the [canonical Meteor docs](http://docs.meteor.com/#meteor_startup), [Sacha Grief's new book](http://www.discovermeteor.com/), the [Meteor Google group](https://groups.google.com/forum/?fromgroups=#!forum/meteor-talk), and of course [Stack Overflow](http://stackoverflow.com/questions/tagged/meteor) for more help working with Meteor.
-
-### File structure
-
-The Azimuth code is laid out as follows:
-
-*   <pre class="inline">/.meteor/</pre> Meteor/Meteorite specific files.
-*   <pre class="inline">/client/</pre> JS/HTML/CSS that is available to the browser.  The bulk of the code lives here.
-*   <pre class="inline">/client/blocks/</pre> Block templates, and their accompanying JS/CSS files are stored here.  Block are stored in a modular fashion where everything needed to display a type of block them is stored in its own directory. [See below](#blocks) for more information on how to structure a page.
-*   <pre class="inline">/client/css/</pre>
- Core CSS (in [LESS](http://lesscss.org/) format) as well as the packaged Azimuth theme and any external CSS files.*   <pre class="inline">/client/lib/</pre>
- Core JS files as well as external JS.*   <pre class="inline">/client/views</pre>
- Core templates and their accompanying JS files.*   <pre class="inline">/client/pages/</pre>Page templates, and their accompanying JS/CSS files are stored here.  Pages are stored in a modular fashion where everything needed to display a page template is stored in its own directory. [See below](#pages) for more information on how to structure a page.
-*   <pre class="inline">/public/</pre> Any assets (Images, fonts, etc.) in this directory are served from the web root (e.g. a favicon.ico in the root of this directory is accessible at http://yourdomain/favicon.ico).
-*   <pre class="inline">/server</pre> JS that is run only on the server and not sent to the client.
 
 ### Pages
 
@@ -31,15 +19,14 @@ Azimuth comes with an assortment of page layouts, but you might find you need to
 
 #### Page files
 
-*   <pre class="inline">[page_name].css</pre>Any styles specific to the page.  Note that this CSS is compiled into the main CSS file and will affect elements outside of the page.
-*   <pre class="inline">[page_name].html</pre>Describes the layout of the page.
-*   <pre class="inline">[page_name].js</pre>Registers the page to make it available to the system.  It is important to edit this when creating a new page.  You may also add event handlers and other javascript you want executed on this page (see the [meteor.js docs](http://docs.meteor.com/#templates_api) for more information)
-*   <pre class="inline">[page_name]_edit.html</pre>What you will see when editing the page.  All fields are specified in this file using the form helper method and block zones.
-*   <pre class="inline">[page_name]_edit.js</pre>Code needed to make the page's edit page work.  You probably don't need to modify this.
+*   `[page_name].css` Any styles specific to the page.  Note that this CSS is compiled into the main CSS file and will affect elements outside of the page.  A good practice is to scope this CSS within a high-level selector (e.g. a class) in your template.
+*   `[page_name].html` Describes the layout of the page.
+*   `[page_name].js` Registers the page to make it available to the system.  It is important to edit this when creating a new page.  You may also add event handlers and other javascript you want executed on this page (see the [meteor.js docs](http://docs.meteor.com/#templates_api) for more information)
+*   `[page_name]_edit.html` What you will see when editing the page.  All fields are specified in this file using the form helper methods and block zones.
 
 #### Creating a new page template
 
-The easiest way to create a new page template is to copy an existing one and rename it (including each file's filename and the template name inside the code).  You are then free to edit the page layout in the [page_name].html file and add/remove fields in the [page_name]_edit.html file.  You may also just want to tweak the layout or fields for an existing page.
+The easiest way to create a new page template is to copy an existing one from Github and rename it (including each file's filename and the template name inside the code).  You are then free to edit the page layout in the [page_name].html file and add/remove fields in the [page_name]_edit.html file.  Place your new page template anywhere within your project (usually within its own folder in the client/ directory)
 
 ### Blocks
 
@@ -47,15 +34,27 @@ Blocks are how Azimuth adds small bits of content to an existing page layout.  A
 
 #### Block files
 
-*   <pre class="inline">[block_name].css</pre>Any styles specific to the page.  Note that this CSS is compiled into the main CSS file and will affect elements outside of the page.
-*   <pre class="inline">[block_name].html</pre>Describes the layout of the block.
-*   <pre class="inline">[block_name].js</pre>Registers the page to make it available to the system.  It is important to edit this when creating a new page.  You may also add event handlers and other javascript you want executed on this page (see the [meteor.js docs](http://docs.meteor.com/#templates_api) for more information)
-*   <pre class="inline">[block_name]_edit.html</pre>What you will see when editing the page.  All fields are specified in this file using the form helper method.
-*   <pre class="inline">[block_name]_edit.js</pre>Accompanying JS for the block edit form.  This is typically empty but you may want to add some code to handle special events for the edit form (e.g. an autocomplete handler).
+*   `[block_name].css`Any styles specific to the page.  Note that this CSS is compiled into the main CSS file and will affect elements outside of the page.
+*   `[block_name].html`Describes the layout of the block.
+*   `[block_name].js`Registers the page to make it available to the system.  It is important to edit this when creating a new page.  You may also add event handlers and other javascript you want executed on this page (see the [meteor.js docs](http://docs.meteor.com/#templates_api) for more information)
+*   `[block_name]_edit.html`What you will see when editing the page.  All fields are specified in this file using the form helper method.
+*   `[block_name]_edit.js`Accompanying JS for the block edit form.  This is typically empty but you may want to add some code to handle special events for the edit form (e.g. an autocomplete handler).
 
 #### Creating a new block template
 
-The easiest way to create a new block template is to copy an existing one and rename it (including each file's filename and the template name inside the code).
+The easiest way to create a new block template is to copy an existing one from github and rename it (including each file's filename and the template name inside the code).  Your new block can be added to your project just like how pages are.
+
+### Overriding the default layout
+
+Azimuth uses [Iron Router](https://github.com/EventedMind/iron-router) to render templates and route the user to the correct page.  Iron Router uses a layout template to define the general layout of your pages and how other templates are rendered within it.  In your own project, you can override this layout, allowing you to create a custom header or footer or otherwise display your pages however you like.  To do this, `mrt add iron-router` to your project and direct it to use a custom layout like so:
+
+```
+Router.configure({
+  layout: 'custom_layout'
+});
+```
+
+Then create the custom_layout template [modeled after the default layout](https://github.com/mcrider/azimuth-core/blob/master/client/views/layout.html).  You can then replace the header and footer yields to point to your custom header and footer templates.
 
 ### Form Elements
 
@@ -63,17 +62,17 @@ Azimuth uses handlebars helpers to make creating form elements easier. Though yo
 
 Form helper calls take this form:
 
-  <pre>{{formHelper value=[contents] type="[type]" label="[label]" fieldName="[contents]" }}</pre>
+  <pre>{{formHelper value=[contents] type="[type]" label="[label]" fieldName="[contents]" }}`
 
-*   <pre class="inline">value</pre>Variable used to store the field's contents.  This variable is the same as the one used whtpen display the field in the page/block.
-*   <pre class="inline">type</pre>The type of form element.  Can be one of tag, text, textarea, or wysiwyg (other form elements can in the *_edit.html file or by creating a new form helper).
-*   <pre class="inline">label</pre>The label to display next to the field when editing it
-*   <pre class="inline">fieldName</pre>The value of the 'name' attribute on the element (can be the same name as the contents attribute)</section>
+*   `value`Variable used to store the field's contents.  This variable is the same as the one used whtpen display the field in the page/block.
+*   `type`The type of form element.  Can be one of tag, text, textarea, or wysiwyg (other form elements can in the *_edit.html file or by creating a new form helper).
+*   `label`The label to display next to the field when editing it
+*   `fieldName`The value of the 'name' attribute on the element (can be the same name as the contents attribute)</section>
 <section id="theming">
 
 ### Theming
 
-Though CSS added anywhere to your meteor project will be included in the global CSS file, by convention the site theme is stored in the client/css/theme/ directory.  Styles can be added in the form of CSS files or .less files (Meteor will automatically parse either).  Azimuth uses Twitter Bootstrap 2.x, though you can certainly switch it out for another framework (or roll your own).  The default theme shipped with Azimuth is based off of [1pxdeep](http://rriepe.github.io/1pxdeep/), a flat Bootstrap theme generator.
+CSS added anywhere to your meteor project will be included in the global CSS file.  Styles can be added in the form of CSS files or .less files (Meteor will automatically parse LESS files once you 'mrt add less' to your project).
 
 ### SEO
 
@@ -83,3 +82,7 @@ Until Meteor comes out with a better implementation, Azimuth uses the [Spiderabl
 ### Deploying Azimuth
 
 While its easy enough to get Azimuth running on your local machine, it can be a little confusing to get it running on a public server (other than [Meteor's own public servers](http://docs.meteor.com/#deploying)).  Thankfully, there's been some solid work recently in the Meteor community to help get Meteor projects running on cloud servers such as [Amazon EC2](https://github.com/netmute/meteor.sh) and [Heroku](https://github.com/oortcloud/heroku-buildpack-meteorite).  This web site is hosted on EC2 using the above deploy script and the deployment process is simple and painless.
+
+### Support and contributions
+
+Visit the Azimuth [Github Issues](http://github.com/mcrider/azimuth/issues) page to post bug reports or questions (just label your issues appropriately as question/bug/etc.)  This is also a good place to look for issues to fix if you feel like contributing.
