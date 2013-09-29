@@ -25,7 +25,8 @@ PageEditController = RouteController.extend({
   run: function() {
     var page_slug = this.params.page;
     var page = Pages.findOne({slug: page_slug});
-    if(!page) return '404';
+    if (!page) return false;
+
 
     Session.set("page-slug", page_slug);
 
@@ -36,9 +37,13 @@ PageEditController = RouteController.extend({
       'click .delete-page': events.deletePage
     }
 
-    this.template = page.template + '_edit';
-
-    this.render();
+    if(Roles.userIsInRole(Meteor.user(), ['admin', 'author'])) {
+      this.template = page.template + '_edit';
+      this.render();
+    } else {
+      this.template = 'not_authorized'
+      this.render();
+    }
 
     this.render({
       header: {to: 'header'},
@@ -78,12 +83,16 @@ HomePageController = RouteController.extend({
 
 AdminController = RouteController.extend({
   run: function() {
-    if(Roles.userIsInRole(Meteor.user(), ['admin'])) {
+    if(Roles.userIsInRole(Meteor.user(), ['admin', 'author'])) {
+      this.render();
+    } else {
+      this.template = 'not_authorized'
       this.render();
     }
     this.render({
       header: {to: 'header'},
       footer: {to: 'footer'}
     })
-  }
+  },
+  notFoundTemplate: '404'
 });
