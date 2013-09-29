@@ -14,11 +14,12 @@ if (typeof Handlebars !== 'undefined') {
     var skip = Session.get("zone_"+zone+"_skip") ? Session.get("zone_"+zone+"_skip") * limit : 0; // The current 'page' of blocks
 
     if (limit > 0) {
-      Template["block_display"].pageBlocks = PageBlocks.find({page_id: this._id, zone: zone}, {skip: skip, limit: limit});
+      Template["block_display"].pageBlocks = PageBlocks.find({page_id: page._id, zone: zone}, {skip: skip, limit: limit});
     } else {
-      Template["block_display"].pageBlocks = PageBlocks.find({page_id: this._id, zone: zone});
+      Template["block_display"].pageBlocks = PageBlocks.find({page_id: page._id, zone: zone});
     }
-    var numSets = limit > 0 ? Math.ceil(PageBlocks.find({page_id: this._id, zone: zone}).count() / limit) : false;
+
+    var numSets = limit > 0 ? Math.ceil(PageBlocks.find({page_id: page._id, zone: zone}).count() / limit) : false;
     Template["block_display"].numSets = numSets > 1 ? _.range(1, numSets + 1) : false;
     Template["block_display"].zone = zone;
     return Template["block_display"]();
@@ -59,26 +60,6 @@ if (typeof Handlebars !== 'undefined') {
     }
 
     return fragment;
-  });
-
-  // Renders the header template (delaying load until site settings are available)
-  Handlebars.registerHelper('renderHeader', function (block) {
-    if (settingsSubscription.ready()) {
-      var fragment = Template['header'](); // this calls the template and returns the HTML.
-      return fragment;
-    } else {
-      return '';
-    }
-  });
-
-  // Renders the footer template (delaying load until site settings are available)
-  Handlebars.registerHelper('renderFooter', function (block) {
-    if (settingsSubscription.ready()) {
-      var fragment = Template['footer'](); // this calls the template and returns the HTML.
-      return fragment;
-    } else {
-      return '';
-    }
   });
 
   // Renders a form element using a template in views/form/
