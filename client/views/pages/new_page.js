@@ -37,9 +37,9 @@ Template.new_page.events = {
 
     Router.go('/' + raw_slug + '/edit');
   },
-  'keyup .title': function () {
-    var raw_title = $('.title').val();
+  'keyup .new-page-title': function () {
+    var raw_title = $('.new-page-title').val();
     raw_title = raw_title.toLowerCase().replace(/ /g,'-').replace(/[^\w-]+/g,'');
-    $('.slug').val(raw_title);
+    $('.new-page-slug').val(raw_title);
   }
 };
