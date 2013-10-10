@@ -7,7 +7,7 @@ Template.edit_block.events = {
     e.preventDefault();
     var block = Blocks.findOne({_id: Session.get('block-edit-id')});
     if(block) {
-      var blockData = utils.getFormValues("#editBlockForm");
+      var blockData = utils.getFormValues(".edit-block-modal:visible form");
       Blocks.update({_id: block._id}, {$set: blockData});
       noty({text: 'Block Saved.', type: 'success'});
     } else {
