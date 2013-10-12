@@ -3,7 +3,7 @@
   // Define the hello button
   $.cleditor.buttons.file = {
     name: "file",
-    image: "../../../../img/file.gif",
+    image: "../packages/azimuth-core/img/file.gif",
     title: "Insert File",
     command: "inserthtml",
     popupName: "file",
