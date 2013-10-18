@@ -1,5 +1,17 @@
 // Server-side startup code (set up collections, add default data if needed)
 
+// Initialize asset collection outside of startup
+Assets = new CollectionFS("assets")
+var handler = {
+  "default": function (options) {
+    return {
+      blob: options.blob,
+      fileRecord: options.fileRecord
+    };
+  }
+}
+Assets.fileHandlers(handler);
+
 Meteor.startup(function () {
 
   // Helper functions for authorization
@@ -141,4 +153,23 @@ Meteor.startup(function () {
     Navigation.insert({location: "footer_active", pages: nav});
     Navigation.insert({location: "footer_disabled", pages: []});
   }
+
+  // Asset Library (uses CollectionFS package)
+  Meteor.publish('assets', function() {
+    return Assets.find();
+  });
+  Assets.allow({
+    insert: authorize.authorsAndAdmins,
+    update: authorize.authorsAndAdmins,
+    remove: authorize.authorsAndAdmins
+  });
+  var handler = {
+    "default": function (options) {
+      return {
+        blob: options.blob,
+        fileRecord: options.fileRecord
+      };
+    }
+  }
+  Assets.fileHandlers(handler);
 });

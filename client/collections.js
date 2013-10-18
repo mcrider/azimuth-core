@@ -11,6 +11,8 @@ User_list = new Meteor.Collection("user_list");
 Settings = new Meteor.Collection("settings");
 Navigation = new Meteor.Collection("navigation");
 AllUsers = new Meteor.Collection("all_users");
+Assets = new CollectionFS('assets');
+
 
 // ID of currently selected page
 Session.set('page-slug', null);
@@ -23,3 +25,5 @@ rolesSubscription = Meteor.subscribe('roles');
 settingsSubscription = Meteor.subscribe('settings');
 navigationSubscription = Meteor.subscribe('navigation');
 allUsersSubscription = Meteor.subscribe('all_users');
+assetsSubscription = Meteor.subscribe('assets');
+

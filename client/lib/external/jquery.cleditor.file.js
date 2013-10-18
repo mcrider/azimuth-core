@@ -8,7 +8,7 @@
     command: "inserthtml",
     popupName: "file",
     popupClass: "cleditorPrompt",
-    popupContent: "Insert file using...<br><input type='button' value='filepicker.io' />",
+    popupContent: '<div id="file_asset_list">No files uploaded.</div>',
     buttonClick: insertFile
   };
 
@@ -18,18 +18,15 @@
 
   // Handle the hello button click event
   function insertFile(e, data) {
+
+    $("#file_asset_list").html(Template.file_list());
+    $(data.popup).css('margin-left', '-348px');
+
     // Wire up the submit button click event
-    $(data.popup).children(":button")
-      .unbind("click")
-      .bind("click", function(e) {
-        filepicker.setKey(Settings.findOne().filepickerKey);
+    $(data.popup).find(".file-row").click(function(e) {
+        e.preventDefault();
         var editor = data.editor;
-        filepicker.pick(
-          function(FPFile){
-            editor.execCommand(data.command, '<a href="'+FPFile.url+'">'+FPFile.filename+'</a>', null, data.button);
-            console.log(FPFile.url);
-          }
-        );
+        editor.execCommand(data.command, '<a href="'+$(this).data('link')+'">'+$(this).data('name')+'</a>', null, data.button);
 
         editor.hidePopups();
         editor.focus();

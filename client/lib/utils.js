@@ -26,12 +26,11 @@ utils.getFormValues = function(selector) {
   return values;
 }
 
-// Return a formatted time from a timestamp
 utils.displayHumanReadableTime = function(timestamp){
   var a = new Date(timestamp);
   var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   var year = a.getFullYear();
-  var month = a.getMonth();
+  var month = a.getMonth() + 1;
   var date = a.getDate();
   var hour = a.getHours();
   if(hour < 10) hour = "0" + hour;
@@ -39,7 +38,17 @@ utils.displayHumanReadableTime = function(timestamp){
   if(min < 10) min = "0" + min;
   var sec = a.getSeconds();
   if(sec < 10) sec = "0" + sec;
-  var time = date+'/'+month+'/'+year.toString().slice(2)+' @ '+hour+':'+min+':'+sec ;
+  var time = month+'/'+date+'/'+year.toString().slice(2)+' @ '+hour+':'+min+':'+sec ;
+  return time;
+}
+
+utils.displayHumanReadableDate = function(timestamp){
+  var a = new Date(timestamp);
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var year = a.getFullYear();
+  var month = a.getMonth() + 1;
+  var date = a.getDate();
+  var time = month+'/'+date+'/'+year.toString().slice(2);
   return time;
 }
 

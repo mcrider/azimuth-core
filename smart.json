@@ -10,7 +10,7 @@
     "font-awesome": {},
     "roles": {},
     "iron-router": {},
-    "filepicker": {},
+    "collectionFS": {},
     "analyticsjs": {}
   }
 }

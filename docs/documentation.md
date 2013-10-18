@@ -27,7 +27,7 @@ New pages are added to your site by click on the 'New Page' menu item from the a
 
 #### Editing Pages
 
-When you create a new page, or navigate to a page from the Administration &gt; Edit Page submenu, you will be presented with a form to edit the page in question.  The first two fields allow you to set the page template and the page title.  After these fields, the form displays template-specific fields including any regular form fields as well as a standard WYSIWYG editor (with a [Filepicker.io-backed](#filepicker) file/image tool) and areas to add [blocks](#blocks).  When saving the form, the form data will immediately update all clients on this particular page.
+When you create a new page, or navigate to a page from the Administration &gt; Edit Page submenu, you will be presented with a form to edit the page in question.  The first two fields allow you to set the page template and the page title.  After these fields, the form displays template-specific fields including any regular form fields as well as a standard WYSIWYG editor and areas to add [blocks](#blocks).  When saving the form, the form data will immediately update all clients on this particular page.
 
 #### Adding Pages to Navigation
 
@@ -43,12 +43,14 @@ You can add a new block to your page by going to a block zone element on a page'
 
 #### Managing Blocks
 
-  Each page's block zone area displays the blocks or block groups (grouped by type or tag) that will appear on that page.  You can drag-and-drop the order of these blocks or edit/delete them from this interface.
+Each page's block zone area displays the blocks or block groups (grouped by type or tag) that will appear on that page.  You can drag-and-drop the order of these blocks or edit/delete them from this interface.
 
 #### Pagination
 
 From the block zone's menu, you can limit the number of blocks that will appear before a pagination list appears.  When set to off, all blocks in the blockzone will appear on the client; Otherwise, the selected number will be used to limit the amount of blocks that will appear per 'page'.
 
-### File Picker
+### Asset Library
 
-Azimuth uses [Filepicker.io](http://filepicker.io) to add images and other files to your site's pages and blocks.  To use this interface, you'll need a Filepicker API key, which is registered through the system via the site settings.  After doing this, two new buttons will appear in the WYSIWYG editor allowing you to insert an image or a link to a file.
+Azimuth includes an asset library (accessible from the Admin menu) allowing you to upload files and images to access through your site.  This interface is also accessible through the wysiwyg editor via the file and image upload buttons.
+
+

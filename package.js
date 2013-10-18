@@ -8,9 +8,10 @@ Package.on_use(function (api) {
     'less', 'spiderable', 'standard-app-packages'], 'client');
 
   // Use the meteorite smart packages specified in smart.json
-  api.use(['font-awesome','roles','iron-router','filepicker','analyticsjs'], 'client');
+  api.use(['font-awesome','roles','iron-router','analyticsjs', 'collectionFS'], 'client');
 
-  api.use(['accounts-base', 'accounts-password', 'spiderable', 'roles'], 'server');
+  // And ensure we have the packages we need server-side available to the server
+  api.use(['accounts-base', 'accounts-password', 'spiderable', 'roles', 'collectionFS', 'cfs-public-folder'], 'server');
 
   api.add_files([
     'server/server_init.js'
@@ -53,6 +54,7 @@ Package.on_use(function (api) {
     'client/views/admin/admin_users.js',
     'client/views/admin/navigation.js',
     'client/views/admin/site_settings.js',
+    'client/views/admin/assets.js',
     'client/views/blocks/block_display.js',
     'client/views/blocks/block_zone_editor.js',
     'client/views/blocks/modals/delete_block.js',
@@ -69,6 +71,7 @@ Package.on_use(function (api) {
     'img/toolbar.gif',
     'img/file.gif',
     'img/image.gif',
+    'img/file-large.png',
     'client/css/external/jquery.cleditor.css',
     'client/lib/external/jquery.cleditor.js',
     'client/lib/external/jquery.cleditor.image.js',

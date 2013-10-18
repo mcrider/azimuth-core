@@ -117,4 +117,13 @@ if (typeof Handlebars !== 'undefined') {
     if (Roles.userIsInRole({_id: userId}, ['author'])) return block(this);
     else return '';
   });
+
+  // Check if file extension is image
+  Handlebars.registerHelper('ifImage', function(filename, options) {
+    if((/\.(gif|jpg|jpeg|tiff|png)$/i).test(filename)) {
+      return options.fn(this);
+    } else {
+      return options.inverse(this);
+    }
+  });
 }

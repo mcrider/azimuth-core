@@ -25,6 +25,9 @@ Router.map(function() {
   this.route('site_settings', {
     controller: AdminController
   });
+  this.route('assets', {
+    controller: AdminController
+  });
   this.route('new_page', {
     controller: AdminController
   });
