@@ -13,15 +13,8 @@ Template.header.rendered = function() {
     $('.mobile-login').remove();
   }
 
-  // FIXME: Find out why this template is being re-rendered e.g. when clicking login buttons ({{#isolate}} does not help)
-  if(!this.headerRendered) {
-    // Fade in the page
-    $(".loading-overlay").fadeOut('slow', function() {
-     $("#contents").hide().removeClass('hidden').fadeIn('slow');
-    });
+  if(utils.postHeaderRendered != 'undefined') utils.postHeaderRendered();
 
-    this.headerRendered = true;
-  }
 }
 
 Template.header.helpers({

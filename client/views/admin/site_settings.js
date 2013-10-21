@@ -30,13 +30,6 @@ Template.site_settings.events = {
     Settings.update({_id: this._id}, {$set: settings});
 
 		noty({text: 'Site settings saved.', type: 'success'});
-  },
-  'click .theme-option': function(e) {
-    e.preventDefault();
-    Settings.update(Settings.findOne()._id, {$set: {theme: this.path}});
-
-    $(".loading-overlay").show();
-    Meteor.call('selectTheme', this.path);
   }
 };
 
