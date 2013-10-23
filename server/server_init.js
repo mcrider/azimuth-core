@@ -13,7 +13,6 @@ var handler = {
 Assets.fileHandlers(handler);
 
 Meteor.startup(function () {
-
   // Helper functions for authorization
   authorize = {
     authorsAndAdmins: function() {
@@ -29,6 +28,40 @@ Meteor.startup(function () {
       return false;
     }
   }
+
+  AccountsEntry = {
+    settings: {
+      homeRoute: '/',
+      defaultProfile: {}
+    },
+    config: function(appConfig) {
+      return this.settings = _.extend(this.settings, appConfig);
+    }
+  };
+  Meteor.methods({
+    entrySettings: function() {
+      return {
+        profileRoute: AccountsEntry.settings.profileRoute,
+        homeRoute: AccountsEntry.settings.homeRoute
+      };
+    },
+    accountsCreateUser: function(username, email, password) {
+      if (username) {
+        return Accounts.createUser({
+          username: username,
+          email: email,
+          password: password,
+          profile: AccountsEntry.settings.defaultProfile || {}
+        });
+      } else {
+        return Accounts.createUser({
+          email: email,
+          password: password,
+          profile: AccountsEntry.settings.defaultProfile || {}
+        });
+      }
+    }
+  });
 
   // Pages
   Pages = new Meteor.Collection("pages");

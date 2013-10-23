@@ -21,3 +21,7 @@ The (Azimuth core library)[http://github.com/mcrider/azimuth-core] is laid out a
 *   `/client/views` Core templates and their accompanying JS files.
 *   `/client/pages/` Default Page templates, and their accompanying JS/CSS files are stored here.  Pages are stored in a modular fashion where everything needed to display a page template is stored in its own directory.
 *   `/server` JS that is run only on the server and not sent to the client.
+
+### Shoutouts
+
+Thanks to [BeDifferential](https://github.com/BeDifferential/accounts-entry/) for creating the basis of the account templates.

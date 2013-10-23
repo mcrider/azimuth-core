@@ -126,4 +126,16 @@ if (typeof Handlebars !== 'undefined') {
       return options.inverse(this);
     }
   });
+
+  Handlebars.registerHelper("signedInAs", function() {
+    if (Meteor.user() && Meteor.user().username) {
+      return Meteor.user().username;
+    } else if (Meteor.user() && Meteor.user().profile && Meteor.user().profile.name) {
+      return Meteor.user().profile.name;
+    } else if (Meteor.user() && Meteor.user().emails && Meteor.user().emails[0]) {
+      return Meteor.user().emails[0].address;
+    } else {
+      return false;
+    }
+  });
 }

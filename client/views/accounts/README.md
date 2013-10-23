@@ -1,3 +1,3 @@
-This package is based off of meteor-accounts-ui-bootstrap-dropdown (https://github.com/erobit/meteor-accounts-ui-bootstrap-dropdown).
+This code is based off of accounts-entry (https://github.com/BeDifferential/accounts-entry).
 
 It has been integrated into Azimuth CMS and probably won't work very well in general use cases.

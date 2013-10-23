@@ -19,7 +19,27 @@ Router.configure({
 });
 
 Router.map(function() {
-  this.route('loginButtonsFullPage', {path: '/login'});
+  // Account routes
+  this.route("login", {
+    path: "/login",
+    onBeforeRun: function() {
+      Session.set('error', void 0);
+      Session.set('buttonText', 'in');
+    }
+  });
+  this.route("sign_up", {
+    path: "/sign-up",
+    onBeforeRun: function() {
+      Session.set('error', void 0);
+      Session.set('buttonText', 'up');
+    }
+  });
+  this.route("forgot_password", {
+    path: "/forgot-password",
+    onBeforeRun: function() {
+      Session.set('error', void 0);
+    }
+  });
 
   // Add routes for admin-level pages if user has correct permissions
   this.route('site_settings', {

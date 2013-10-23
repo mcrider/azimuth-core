@@ -4,7 +4,7 @@ Package.describe({
 
 Package.on_use(function (api) {
   // Include some core meteor smart packages
-  api.use([ 'accounts-base', 'accounts-password', 'underscore', 'jquery',
+  api.use([ 'service-configuration', 'accounts-ui', 'accounts-base', 'accounts-password', 'underscore', 'jquery',
     'less', 'spiderable', 'standard-app-packages'], 'client');
 
   // Use the meteorite smart packages specified in smart.json
@@ -45,12 +45,12 @@ Package.on_use(function (api) {
     'client/pages/sidebar_left/sidebar_left.js',
     'client/pages/sidebar_left_fixed/sidebar_left_fixed.js',
     'client/pages/sidebar_right/sidebar_right.js',
-    'client/views/accounts/accounts_ui.js',
-    'client/views/accounts/login_buttons.js',
-    'client/views/accounts/login_buttons_dialogs.js',
-    'client/views/accounts/login_buttons_dropdown.js',
-    'client/views/accounts/login_buttons_fullpage.js',
-    'client/views/accounts/login_buttons_single.js',
+    'client/views/accounts/account_buttons.js',
+    'client/views/accounts/error.js',
+    'client/views/accounts/forgot_password.js',
+    'client/views/accounts/login.js',
+    'client/views/accounts/sign_up.js',
+    'client/views/accounts/social.js',
     'client/views/admin/admin_users.js',
     'client/views/admin/navigation.js',
     'client/views/admin/site_settings.js',
