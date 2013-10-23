@@ -4,10 +4,10 @@ Getting Azimuth installed is easy.  Get a copy of [node.js](http://nodejs.org/) 
 
 1.  Install Meteor.js: `curl https://install.meteor.com | /bin/sh`
 2.  Install Meteorite (Meteor's semi-official package manager): `sudo npm install -g meteorite`
-3.  Create a project from the command line: `mrt create my-project` (You can delete the generated my-project html, css, and js files
+3.  Create a project from the command line: `mrt create my-project` (You can delete the generated my-project html, css, and js files)
 4.  Its a good idea to disable autopublish: `mrt remove autopublish`
 5.  Pick a front-end framework: `mrt add azimuth-views-foundation` or `mrt add azimuth-views-bootstrap`
-6.  (optional) Install a theme (drop down of themes with screenshots, when selected, changes command)
+6.  (optional) Install a theme
 7.  Add azimuth Core: mrt add azimuth-core
 8.  Start your server: `mrt`
 
