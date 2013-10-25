@@ -18,30 +18,28 @@ Handlebars.registerHelper('loginServices', function() {
 });
 
 Template.sign_up.events({
-  'submit #signUp': function(event, t) {
-    var email, emailRequired, fields, password, passwordErrors, signupCode, trimInput, username, usernameRequired;
-    event.preventDefault();
-    username = t.find('input[name="username"]') ? t.find('input[name="username"]').value : void 0;
-    signupCode = t.find('input[name="signupCode"]') ? t.find('input[name="signupCode"]').value : void 0;
-    email = t.find('input[type="email"]').value;
-    password = t.find('input[type="password"]').value;
-    fields = Accounts.ui._options.passwordSignupFields;
-    trimInput = function(val) {
+  'submit #signUp': function(e, t) {
+    e.preventDefault();
+    // var username = t.find('input[name="username"]') ? t.find('input[name="username"]').value : void 0;
+    var signupCode = t.find('input[name="signupCode"]') ? t.find('input[name="signupCode"]').value : void 0;
+    var email = t.find('input[type="email"]').value;
+    var password = t.find('input[type="password"]').value;
+    var fields = Accounts.ui._options.passwordSignupFields;
+    var trimInput = function(val) {
       return val.replace(/^\s*|\s*$/g, "");
     };
-    passwordErrors = (function(password) {
-      var errMsg, msg;
-      errMsg = [];
-      msg = false;
-      if (password.length < 7) {
-        errMsg.push("7 character minimum password.");
+    var passwordErrors = (function(password) {
+      var errMsg = [];
+      var msg = false;
+      if (password.length < 4) {
+        errMsg.push("4 character minimum password.");
       }
-      if (password.search(/[a-z]/i) < 0) {
-        errMsg.push("Password requires 1 letter.");
-      }
-      if (password.search(/[0-9]/) < 0) {
-        errMsg.push("Password must have at least one digit.");
-      }
+      // if (password.search(/[a-z]/i) < 0) {
+      //   errMsg.push("Password requires 1 letter.");
+      // }
+      // if (password.search(/[0-9]/) < 0) {
+      //   errMsg.push("Password must have at least one digit.");
+      // }
       if (errMsg.length > 0) {
         msg = "";
         errMsg.forEach(function(e) {
@@ -56,15 +54,27 @@ Template.sign_up.events({
       return;
     }
     email = trimInput(email);
-    emailRequired = _.contains(['USERNAME_AND_EMAIL', 'EMAIL_ONLY'], fields);
-    usernameRequired = _.contains(['USERNAME_AND_EMAIL', 'USERNAME_ONLY'], fields);
-    if (usernameRequired && email.length === 0) {
-      Session.set('error', 'Username is required');
-      return;
-    }
+    // emailRequired = _.contains(['USERNAME_AND_EMAIL', 'EMAIL_ONLY'], fields);
+    // usernameRequired = _.contains(['USERNAME_AND_EMAIL', 'USERNAME_ONLY'], fields);
+    // if (usernameRequired && email.length === 0) {
+    //   Session.set('error', 'Username is required');
+    //   return;
+    // }
+    var emailRequired = true;
     if (emailRequired && email.length === 0) {
       Session.set('error', 'Email is required');
       return;
     }
+
+    // Everything okay so far, lets create the account
+    return Meteor.call('accountsCreateUser', email, email, password, function(err, data) {
+      if (err) {
+        Session.set('error', err.reason);
+        return;
+      }
+      Meteor.loginWithPassword(email, password);
+      noty({text: 'Your account has been created!', type: 'success'});
+      return Router.go('/');
+    });
   }
 });
