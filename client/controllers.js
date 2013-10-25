@@ -1,6 +1,6 @@
 
 PageController = RouteController.extend({
-  run: function() {
+  before: function() {
     var page_slug = this.params.page;
     var page = Pages.findOne({slug: page_slug});
     if (page) {
@@ -22,7 +22,7 @@ PageController = RouteController.extend({
 });
 
 PageEditController = RouteController.extend({
-  run: function() {
+  before: function() {
     var page_slug = this.params.page;
     var page = Pages.findOne({slug: page_slug});
     if (!page) return false;
@@ -58,7 +58,7 @@ PageEditController = RouteController.extend({
 });
 
 HomePageController = RouteController.extend({
-  run: function() {
+  before: function() {
     var page_slug = utils.getSetting('indexPage');
     var page = Pages.findOne({slug: page_slug});
     if(!page) {
@@ -82,7 +82,7 @@ HomePageController = RouteController.extend({
 });
 
 AdminController = RouteController.extend({
-  run: function() {
+  before: function() {
     if(Roles.userIsInRole(Meteor.user(), ['admin', 'author'])) {
       this.render();
     } else {

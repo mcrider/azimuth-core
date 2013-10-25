@@ -4,39 +4,40 @@
  *
  */
 
-
+// Global configuration
 Router.configure({
-  layout: 'layout',
+  layoutTemplate: 'layout',
 
   notFoundTemplate: '404',
 
   // loadingTemplate: 'loading',
 
-  renderTemplates: {
+  yieldTemplates: {
     'header': { to: 'header' },
     'footer': { to: 'footer' }
   }
 });
 
+// Set up our routes
 Router.map(function() {
   // Account routes
   this.route("login", {
     path: "/login",
-    onBeforeRun: function() {
+    before: function() {
       Session.set('error', void 0);
       Session.set('buttonText', 'in');
     }
   });
   this.route("sign_up", {
     path: "/sign-up",
-    onBeforeRun: function() {
+    before: function() {
       Session.set('error', void 0);
       Session.set('buttonText', 'up');
     }
   });
   this.route("forgot_password", {
     path: "/forgot-password",
-    onBeforeRun: function() {
+    before: function() {
       Session.set('error', void 0);
     }
   });
@@ -83,8 +84,4 @@ Router.map(function() {
     controller: PageController
   })
 
-  this.route('page', {
-    path: '*',
-    controller: PageController
-  })
 });

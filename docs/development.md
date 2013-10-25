@@ -50,7 +50,7 @@ Azimuth uses [Iron Router](https://github.com/EventedMind/iron-router) to render
 
 ```
 Router.configure({
-  layout: 'custom_layout'
+  layoutTemplate: 'custom_layout'
 });
 ```
 
