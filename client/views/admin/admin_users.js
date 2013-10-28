@@ -1,5 +1,5 @@
 Template.admin_users.users = function() {
-  return AllUsers.find();
+  return Meteor.users.find();
 };
 
 Template.admin_users.events = {
@@ -21,7 +21,7 @@ Template.admin_users.events = {
   },
   'click .delete-user-confirm': function(e) {
     e.preventDefault();
-    utils.hideModal('#deleteUserModal');
+    utils.closeModal('#deleteUserModal');
     var userId = Session.get('delete-user-id')
     if(!userId) return false;
 
@@ -29,6 +29,6 @@ Template.admin_users.events = {
 
     Roles.removeUsersFromRoles([userId], ['admin']);
     Roles.removeUsersFromRoles([userId], ['author']);
-    AllUsers.remove(userId);
+    Meteor.users.remove(userId);
   }
 };

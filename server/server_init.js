@@ -112,24 +112,16 @@ Meteor.startup(function () {
   });
 
   // Users
-  Meteor.publish('user_list', function () {
-    if (Roles.userIsInRole(this.userId, ['admin'])) {
-      return Meteor.users.find();
-    } else {
-      // Not authorized
-      this.stop();
-      return;
-    }
-  });
+  Meteor.publish('users', function () {
+  	if(authorize.admins) return Meteor.users.find();
 
-  Meteor.publish('all_users', function () {
-    return Meteor.users.find();
+  	this.stop();
+	  return;
   });
-  AllUsers = new Meteor.Collection("all_users");
-  AllUsers.allow({
-    insert: authorize.authorsAndAdmins,
-    update: authorize.authorsAndAdmins,
-    remove: authorize.authorsAndAdmins
+  Meteor.users.allow({
+    insert: authorize.admins,
+    update: authorize.admins,
+    remove: authorize.admins
   });
 
   // Roles

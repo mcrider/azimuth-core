@@ -9,12 +9,12 @@ Template.delete_block.events = {
     page = utils.getCurrentPage();
 
     var pageBlocks = null;
-    if (type == 'block_type') pageBlocks = PageBlocks.find({ page_id : page._id, block_type: id });
-    else if (type == 'block_tag') pageBlocks = PageBlocks.find({ page_id : page._id, block_tag: id });
-    else pageBlocks = PageBlocks.find({ page_id : page._id, block_id: id });
+    if (type == 'block_type') pageBlocks = Azimuth.collections.PageBlocks.find({ page_id : page._id, block_type: id });
+    else if (type == 'block_tag') pageBlocks = Azimuth.collections.PageBlocks.find({ page_id : page._id, block_tag: id });
+    else pageBlocks = Azimuth.collections.PageBlocks.find({ page_id : page._id, block_id: id });
 
     pageBlocks.forEach(function(pageBlock) {
-      PageBlocks.remove(pageBlock._id);
+      Azimuth.collections.PageBlocks.remove(pageBlock._id);
     });
 
 		noty({text: 'Block removed from page', type: 'success'});
@@ -28,10 +28,10 @@ Template.delete_block.events = {
     var id = Session.get('block-edit-id');
 
     if (type == 'id') {
-      PageBlocks.find({block_id: id}).forEach(function(pageBlock) {
-        PageBlocks.remove(pageBlock._id);
+      Azimuth.collections.PageBlocks.find({block_id: id}).forEach(function(pageBlock) {
+        Azimuth.collections.PageBlocks.remove(pageBlock._id);
       });
-      Blocks.remove(id);
+      Azimuth.collections.Blocks.remove(id);
       noty({text: 'Block deleted.', type: 'success'});
     } else {
 			noty({text: 'There was an error trying to delete this block.', type: 'error'});

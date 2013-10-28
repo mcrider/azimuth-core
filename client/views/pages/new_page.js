@@ -10,7 +10,7 @@ Template.new_page.events = {
       return false;
     }
 
-    Pages.insert({
+    Azimuth.collections.Pages.insert({
       title: raw_title,
       slug: raw_slug,
       contents: "<p>This page is empty.</p>",
@@ -19,9 +19,9 @@ Template.new_page.events = {
 
     // Add to navigation
     var updatePageNav = function(location) {
-      var currentPages = Navigation.findOne({location: location}).pages;
+      var currentPages = Azimuth.collections.Navigation.findOne({location: location}).pages;
       currentPages.push({title: raw_title, slug: raw_slug});
-      Navigation.update(Navigation.findOne({location: location})._id, {$set: {pages: currentPages}});
+      Azimuth.collections.Navigation.update(Azimuth.collections.Navigation.findOne({location: location})._id, {$set: {pages: currentPages}});
     };
 
     if (utils.getSetting('addNewPagesToHeader')) {

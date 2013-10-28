@@ -2,7 +2,7 @@
 PageController = RouteController.extend({
   before: function() {
     var page_slug = this.params.page;
-    var page = Pages.findOne({slug: page_slug});
+    var page = Azimuth.collections.Pages.findOne({slug: page_slug});
     if (page) {
       Session.set("page-slug", page_slug); // Fixme: Abstract this away, its legacy code
       this.template = page.template;
@@ -16,7 +16,7 @@ PageController = RouteController.extend({
   },
   notFoundTemplate: '404',
   data: function() {
-    return Pages.findOne({slug: this.params.page});
+    return Azimuth.collections.Pages.findOne({slug: this.params.page});
   },
   template: 'sidebar_left'
 });
@@ -24,7 +24,7 @@ PageController = RouteController.extend({
 PageEditController = RouteController.extend({
   before: function() {
     var page_slug = this.params.page;
-    var page = Pages.findOne({slug: page_slug});
+    var page = Azimuth.collections.Pages.findOne({slug: page_slug});
     if (!page) return false;
 
 
@@ -52,7 +52,7 @@ PageEditController = RouteController.extend({
   },
   notFoundTemplate: '404',
   data: function() {
-    return Pages.findOne({slug: this.params.page});
+    return Azimuth.collections.Pages.findOne({slug: this.params.page});
   },
   template: 'sidebar_left'
 });
@@ -60,9 +60,9 @@ PageEditController = RouteController.extend({
 HomePageController = RouteController.extend({
   before: function() {
     var page_slug = utils.getSetting('indexPage');
-    var page = Pages.findOne({slug: page_slug});
+    var page = Azimuth.collections.Pages.findOne({slug: page_slug});
     if(!page) {
-      page = Pages.findOne();
+      page = Azimuth.collections.Pages.findOne();
       if (!page) return '404';
       else page_slug = page.slug;
     }

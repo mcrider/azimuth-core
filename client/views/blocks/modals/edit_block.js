@@ -5,10 +5,10 @@ Template.edit_block.rendered = function() {
 Template.edit_block.events = {
   'click .edit-block-confirm': function(e) {
     e.preventDefault();
-    var block = Blocks.findOne({_id: Session.get('block-edit-id')});
+    var block = Azimuth.collections.Blocks.findOne({_id: Session.get('block-edit-id')});
     if(block) {
       var blockData = utils.getFormValues(".edit-block-modal:visible form");
-      Blocks.update({_id: block._id}, {$set: blockData});
+      Azimuth.collections.Blocks.update({_id: block._id}, {$set: blockData});
       noty({text: 'Block Saved.', type: 'success'});
     } else {
     	noty({text: 'Error: Could not save block.', type: 'error'});
@@ -22,7 +22,7 @@ Template.edit_block.events = {
       if (block && !page.notFound) {
         var template = block.template;
         var label = Template[template].label || 'Single Block';
-        PageBlocks.insert({page_id: page._id, block_id: block._id, label: label, zone: Session.get('block-zone'), added: Date.now()});
+        Azimuth.collections.PageBlocks.insert({page_id: page._id, block_id: block._id, label: label, zone: Session.get('block-zone'), added: Date.now()});
       }
     }
 
@@ -38,7 +38,7 @@ Template.edit_block.events = {
     //  the block must be created first then added after the modal is closed
     var newBlockId = Session.get('new-block-id');
     if(!Session.get('block-saved') && newBlockId) {
-      Blocks.remove(newBlockId);
+      Azimuth.collections.Blocks.remove(newBlockId);
     }
     utils.closeModal("#editBlockModal");
   }

@@ -6,11 +6,11 @@ Template.site_settings.rendered = function() {
 }
 
 Template.site_settings.settings = function() {
-  return Settings.findOne();
+  return Azimuth.collections.Settings.findOne();
 }
 
 Template.site_settings.pages = function () {
-  return Pages.find();
+  return Azimuth.collections.Pages.find();
 };
 
 Template.site_settings.themes = function () {
@@ -18,7 +18,7 @@ Template.site_settings.themes = function () {
 };
 
 Template.site_settings.isCurrentTheme = function(theme) {
-  if (theme == Settings.findOne().theme) return true;
+  if (theme == Azimuth.collections.Settings.findOne().theme) return true;
   return false;
 }
 
@@ -27,7 +27,7 @@ Template.site_settings.events = {
   'submit #siteSettingsForm': function(e) {
     e.preventDefault();
   	var settings = utils.getFormValues("#siteSettingsForm");
-    Settings.update({_id: this._id}, {$set: settings});
+    Azimuth.collections.Settings.update({_id: this._id}, {$set: settings});
 
 		noty({text: 'Site settings saved.', type: 'success'});
   }

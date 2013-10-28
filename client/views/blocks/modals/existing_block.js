@@ -11,10 +11,10 @@ Template.existing_block.events = {
 
     var label = Template[this.template].label || 'Single Block';
     //find the block by the (block)-id of the insert button
-    block = Blocks.findOne(e.target.id);
+    block = Azimuth.collections.Blocks.findOne(e.target.id);
     // Attach the block to the page
     if (!page.notFound) {
-      PageBlocks.insert({page_id: page._id, block_id: block._id, label: label, zone: Session.get('block-zone'), added: Date.now()});
+      Azimuth.collections.PageBlocks.insert({page_id: page._id, block_id: block._id, label: label, zone: Session.get('block-zone'), added: Date.now()});
     }
 
     utils.closeModal('#existingBlockModal');
@@ -23,5 +23,5 @@ Template.existing_block.events = {
 };
 
 Template.existing_block.allBlocks = function() {
-  return Blocks.find();
+  return Azimuth.collections.Blocks.find();
 }

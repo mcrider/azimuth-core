@@ -28,13 +28,13 @@ Template.block_zone_editor.rendered = function() {
     }).get();
 
     // Delete current blocks for this blockzone
-    PageBlocks.find({ page_id : pageId, zone: zone }).forEach(function(pageBlock) {
+    Azimuth.collections.PageBlocks.find({ page_id : pageId, zone: zone }).forEach(function(pageBlock) {
       PageBlocks.remove(pageBlock._id);
     });
 
     // Reset page blocks with updated array
     _.each(currentPageBlocks, function(pageBlock) {
-      PageBlocks.insert(pageBlock);
+      Azimuth.collections.PageBlocks.insert(pageBlock);
     });
   };
 
@@ -80,8 +80,8 @@ Template.block_zone_editor.events = {
     blockData.created = Date.now();
     blockData.template = template;
 
-    var block_id = Blocks.insert(blockData);
-    var block = Blocks.findOne({_id: block_id});
+    var block_id = Azimuth.collections.Blocks.insert(blockData);
+    var block = Azimuth.collections.Blocks.findOne({_id: block_id});
     Session.set('new-block-id', block_id);
 
     var fragment = Meteor.render(function () {
@@ -114,7 +114,7 @@ Template.block_zone_editor.events = {
 
     // Attach the block to the page
     if (!page.notFound) {
-      PageBlocks.insert({page_id: page._id, block_type: this.name, label: label, zone: zone, added: Date.now()});
+      Azimuth.collections.PageBlocks.insert({page_id: page._id, block_type: this.name, label: label, zone: zone, added: Date.now()});
     }
 
 		noty({text: label + ' blocks added to page.', type: 'success'});
@@ -128,7 +128,7 @@ Template.block_zone_editor.events = {
     var limit = {};
     limit["zone_"+zone+"_limit"] = this.valueOf();
 
-    Pages.update(page._id, {$set: limit});
+    Azimuth.collections.Pages.update(page._id, {$set: limit});
   },
   'click .delete-block-button': function(e) {
   	e.preventDefault();
@@ -158,7 +158,7 @@ Template.block_zone_editor.events = {
   },
   'click .edit-block-button': function(e) {
   	e.preventDefault();
-    var block = Blocks.findOne({_id: this.block_id});
+    var block = Azimuth.collections.Blocks.findOne({_id: this.block_id});
     var fragment = Meteor.render(function () {
       Template[ block.template + "_edit" ].block = block;
       return Template[ block.template + "_edit" ](block); // this calls the template and returns the HTML.
@@ -178,7 +178,7 @@ Template.block_zone_editor.pageBlocks = function() {
   }
 
   var page = utils.getCurrentPage();
-  return PageBlocks.find({page_id: page._id, zone: this.zone});
+  return Azimuth.collections.PageBlocks.find({page_id: page._id, zone: this.zone});
 }
 
 Template.block_zone_editor.templates = function() {

@@ -4,7 +4,7 @@ window.events = {
   savePage: function (e) {
     var pageData = utils.getFormValues("#pageEditForm");
     e.preventDefault();
-    Pages.update({_id: this._id}, {$set: pageData});
+    Azimuth.collections.Pages.update({_id: this._id}, {$set: pageData});
 		noty({text: 'Your page changes were saved.', type: 'success'});
   },
   showDeletePageModal: function (e) {
@@ -17,12 +17,12 @@ window.events = {
     utils.closeModal('#deletePageModal');
 
     // Delete from navs
-    Navigation.find().forEach(function(nav) {
-      if(nav._id) Navigation.update({ _id: nav._id }, {$pull : {  "pages" : { slug: page.slug }}});
+    Azimuth.collections.Navigation.find().forEach(function(nav) {
+      if(nav._id) Azimuth.collections.Navigation.update({ _id: nav._id }, {$pull : {  "pages" : { slug: page.slug }}});
     });
 
     Router.go('/');
-    Pages.remove(page._id);
+    Azimuth.collections.Pages.remove(page._id);
 
 		noty({text: '"' + title + '" was successfully deleted.', type: 'success'});
   }

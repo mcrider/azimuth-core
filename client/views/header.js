@@ -28,11 +28,11 @@ Template.header.helpers({
 });
 
 Template.header.headerNav = function () {
-  var nav = Navigation.findOne({location: "header_active"});
+  var nav = Azimuth.collections.Navigation.findOne({location: "header_active"});
   if (nav) return nav.pages;
   return false;
 };
 
 Template.header.pages = function () {
-  return Pages.find();
+  return Azimuth.collections.Pages.find();
 };

@@ -14,12 +14,12 @@ if (typeof Handlebars !== 'undefined') {
     var skip = Session.get("zone_"+zone+"_skip") ? Session.get("zone_"+zone+"_skip") * limit : 0; // The current 'page' of blocks
 
     if (limit > 0) {
-      Template["block_display"].pageBlocks = PageBlocks.find({page_id: page._id, zone: zone}, {skip: skip, limit: limit});
+      Template["block_display"].pageBlocks = Azimuth.collections.PageBlocks.find({page_id: page._id, zone: zone}, {skip: skip, limit: limit});
     } else {
-      Template["block_display"].pageBlocks = PageBlocks.find({page_id: page._id, zone: zone});
+      Template["block_display"].pageBlocks = Azimuth.collections.PageBlocks.find({page_id: page._id, zone: zone});
     }
 
-    var numSets = limit > 0 ? Math.ceil(PageBlocks.find({page_id: page._id, zone: zone}).count() / limit) : false;
+    var numSets = limit > 0 ? Math.ceil(Azimuth.collections.PageBlocks.find({page_id: page._id, zone: zone}).count() / limit) : false;
     Template["block_display"].numSets = numSets > 1 ? _.range(1, numSets + 1) : false;
     Template["block_display"].zone = zone;
     return Template["block_display"]();
@@ -30,16 +30,16 @@ if (typeof Handlebars !== 'undefined') {
     var fragment = '';
     if (pageBlock.block_tag) {
       // Fetch blocks with a given tag and add to fragments
-      Blocks.find({tag: pageBlock.block_tag}).forEach(function(block) {
+      Azimuth.collections.Blocks.find({tag: pageBlock.block_tag}).forEach(function(block) {
         fragment = fragment.concat(utils.getBlockFragment(block));
       });
     } else if (pageBlock.block_type) {
       // Fetch each block with the given template (== type) and add to fragments
-      Blocks.find({template: pageBlock.block_type}).forEach(function(block) {
+      Azimuth.collections.Blocks.find({template: pageBlock.block_type}).forEach(function(block) {
         fragment = fragment.concat(utils.getBlockFragment(block));
       });
     } else {
-      var block = Blocks.findOne(pageBlock.block_id);
+      var block = Azimuth.collections.Blocks.findOne(pageBlock.block_id);
       if (block && block.template) {
         Template[block.template].block = block;
         var fragment = Template[block.template](); // this calls the template and returns the HTML.
@@ -89,7 +89,7 @@ if (typeof Handlebars !== 'undefined') {
 
   // Get a boolean setting value (i.e. check a setting's truth value to determine to display block)
   Handlebars.registerHelper("ifSetting", function (settingName, block) {
-  	var settings = Settings.findOne();
+  	var settings = Azimuth.collections.Settings.findOne();
   	if (!settings || !settingName) return false;
   	if (settings[settingName] != false) return block(this);
   });

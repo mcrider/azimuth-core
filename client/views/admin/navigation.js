@@ -2,10 +2,10 @@
 Template.navigation.rendered = function() {
   var updateNav = function(location) {
     return function() {
-      var active = Navigation.findOne({location: location + '_active'});
-      var disabled = Navigation.findOne({location: location + '_disabled'});
-      Navigation.update({_id: active._id}, {$set: {pages: $('#'+location + '_active').nestable('serialize')}});
-      Navigation.update({_id: disabled._id}, {$set: {pages: $('#'+location + '_disabled').nestable('serialize')}});
+      var active = Azimuth.collections.Navigation.findOne({location: location + '_active'});
+      var disabled = Azimuth.collections.Navigation.findOne({location: location + '_disabled'});
+      Azimuth.collections.Navigation.update({_id: active._id}, {$set: {pages: $('#'+location + '_active').nestable('serialize')}});
+      Azimuth.collections.Navigation.update({_id: disabled._id}, {$set: {pages: $('#'+location + '_disabled').nestable('serialize')}});
     }
   }
 
@@ -14,25 +14,25 @@ Template.navigation.rendered = function() {
 }
 
 Template.navigation.headerNav = function() {
-  var nav = Navigation.findOne({location: "header_active"});
+  var nav = Azimuth.collections.Navigation.findOne({location: "header_active"});
   if (nav) return nav.pages;
   return false;
 }
 
 Template.navigation.headerNavDisabled = function() {
-  var nav = Navigation.findOne({location: "header_disabled"});
+  var nav = Azimuth.collections.Navigation.findOne({location: "header_disabled"});
   if (nav) return nav.pages;
   return false;
 }
 
 Template.navigation.footerNav = function() {
-  var nav = Navigation.findOne({location: "footer_active"});
+  var nav = Azimuth.collections.Navigation.findOne({location: "footer_active"});
   if (nav) return nav.pages;
   return false;
 }
 
 Template.navigation.footerNavDisabled = function() {
-  var nav = Navigation.findOne({location: "footer_disabled"});
+  var nav = Azimuth.collections.Navigation.findOne({location: "footer_disabled"});
   if (nav) return nav.pages;
   return false;
 }

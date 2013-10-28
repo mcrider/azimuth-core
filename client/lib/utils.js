@@ -7,7 +7,7 @@ utils.getCurrentPage = function() {
   var page_slug = Session.get('page-slug');
   if (!page_slug)
     return {notFound: true, title: 'Sorry, we couldn\'t find the requested page'};
-  return Pages.findOne({slug: page_slug});
+  return Azimuth.collections.Pages.findOne({slug: page_slug});
 }
 
 // Get an array of form values for a form
@@ -61,9 +61,9 @@ utils.loadTemplate = function(template) {
 
 // Get a setting value
 utils.getSetting = function(settingName) {
-  var settings = Settings.findOne();
+  var settings = Azimuth.collections.Settings.findOne();
   if (!settings || !settingName) return '';
-  return Settings.findOne()[settingName];
+  return Azimuth.collections.Settings.findOne()[settingName];
 }
 
 // Get a block fragment filled with block data

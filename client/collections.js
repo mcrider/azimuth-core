@@ -1,29 +1,30 @@
 /* init.js
  *
- * Startup code for the front-end.
+ * Startup code for the front-end.  Defines the collections and subscriptions that Azimuth interacts with.
  *
  */
-
-Pages = new Meteor.Collection("pages");
-Blocks = new Meteor.Collection("blocks");
-PageBlocks = new Meteor.Collection("pageBlocks");
-User_list = new Meteor.Collection("user_list");
-Settings = new Meteor.Collection("settings");
-Navigation = new Meteor.Collection("navigation");
-AllUsers = new Meteor.Collection("all_users");
-Assets = new CollectionFS('assets');
 
 
 // ID of currently selected page
 Session.set('page-slug', null);
 
+window.Azimuth = window.Azimuth || {};
+
+Azimuth.collections = {
+  Pages: new Meteor.Collection("pages"),
+  Blocks: new Meteor.Collection("blocks"),
+  PageBlocks: new Meteor.Collection("pageBlocks"),
+  Settings: new Meteor.Collection("settings"),
+  Navigation: new Meteor.Collection("navigation"),
+  Assets: new CollectionFS('assets')
+}
+
 pagesSubscription = Meteor.subscribe('pages');
 blocksSubscription = Meteor.subscribe('blocks');
 pageBlocksSubscription = Meteor.subscribe('pageBlocks');
-user_listSubscription = Meteor.subscribe('user_list');
 rolesSubscription = Meteor.subscribe('roles');
 settingsSubscription = Meteor.subscribe('settings');
 navigationSubscription = Meteor.subscribe('navigation');
-allUsersSubscription = Meteor.subscribe('all_users');
 assetsSubscription = Meteor.subscribe('assets');
 
+if(Roles.userIsInRole(Meteor.user(), ['admin'])) allUsersSubscription = Meteor.subscribe('users');
