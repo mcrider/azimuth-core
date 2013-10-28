@@ -4,10 +4,25 @@ window.utils = window.utils || {};
 
 // Get the page object corresponding to the current page slug
 utils.getCurrentPage = function() {
-  var page_slug = Session.get('page-slug');
-  if (!page_slug)
-    return {notFound: true, title: 'Sorry, we couldn\'t find the requested page'};
-  return Azimuth.collections.Pages.findOne({slug: page_slug});
+  var notFound = {notFound: true, title: 'Sorry, we couldn\'t find the requested page'};
+  if (!Router.current().path) return notFound;
+
+  var page_slug = Router.current().path.split('/')[1];
+  var page;
+
+  if (!page_slug || page_slug == '') {
+    page_slug = utils.getSetting('indexPage');
+    page = Azimuth.collections.Pages.findOne({slug: page_slug});
+    if(!page) {
+      page = Azimuth.collections.Pages.findOne();
+      if (!page) return notFound;
+      else page_slug = page.slug;
+    }
+  }
+  page = Azimuth.collections.Pages.findOne({slug: page_slug});
+
+  if (!page) return notFound;
+  return page;
 }
 
 // Get an array of form values for a form

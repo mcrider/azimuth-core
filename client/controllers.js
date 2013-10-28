@@ -4,7 +4,6 @@ PageController = RouteController.extend({
     var page_slug = this.params.page;
     var page = Azimuth.collections.Pages.findOne({slug: page_slug});
     if (page) {
-      Session.set("page-slug", page_slug); // Fixme: Abstract this away, its legacy code
       this.template = page.template;
     }
     this.render();
@@ -26,10 +25,7 @@ PageEditController = RouteController.extend({
     var page_slug = this.params.page;
     var page = Azimuth.collections.Pages.findOne({slug: page_slug});
     if (!page) return false;
-
-
-    Session.set("page-slug", page_slug);
-
+    
     // Add common edit page events
     Template[page.template + '_edit'].events = {
       'submit #pageEditForm': events.savePage,
@@ -66,7 +62,6 @@ HomePageController = RouteController.extend({
       if (!page) return '404';
       else page_slug = page.slug;
     }
-    Session.set("page-slug", page_slug);
 
     this.template = page.template;
 

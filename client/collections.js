@@ -4,10 +4,6 @@
  *
  */
 
-
-// ID of currently selected page
-Session.set('page-slug', null);
-
 window.Azimuth = window.Azimuth || {};
 
 Azimuth.collections = {
