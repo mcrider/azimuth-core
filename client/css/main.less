@@ -187,3 +187,28 @@ footer {
     }
   }
 }
+
+// Custom Modals
+.azimuth-modal {
+  display: none;
+  width: 50%;
+  top: 50%;
+  left: 25%;
+  position: fixed;
+  padding: 2em;
+  background-color: white;
+  z-index: 1;
+  overflow: auto;
+
+  -webkit-box-shadow: 3px 3px 8px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow:    3px 3px 8px rgba(50, 50, 50, 0.75);
+  box-shadow:         3px 3px 8px rgba(50, 50, 50, 0.75);
+
+  &.open {
+    display: block;
+  }
+
+  .modal-body {
+    margin-bottom: 30px;
+  }
+}

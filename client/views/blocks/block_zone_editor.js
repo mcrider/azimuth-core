@@ -149,7 +149,7 @@ Template.block_zone_editor.events = {
     Session.set('block-edit-id', id);
     Session.set('block-edit-type', type);
 
-    if(Session.get('block-edit-type') == 'id') {
+    if(type == 'block_id') {
       $("#deleteBlockModal .delete-all-blocks-confirm").show();
     } else {
       $("#deleteBlockModal .delete-all-blocks-confirm").hide();

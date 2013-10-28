@@ -107,12 +107,27 @@ $.noty.defaults = {
     buttons: false // an array of buttons
 };
 
-// Open a modal (should be implemented by view modules)
-utils.openModal = utils.openModal || function() {
-  console.log('openModal should be implemented in a view module');
+// Open a modal
+utils.openModal = function(selector) {
+  if(!$(selector).hasClass('azimuth-modal')) {
+    console.log('Modals need the .azimuth-modal class to work properly');
+  }
+
+  // Set an appropriate max-height for the modal and center it vertically
+  $(selector).css('max-height', $(window).height() * .9 );
+  $(selector).css('margin-top', '-' + ($(selector).height() / 2) - 50 + 'px');
+
+  // Set up click handlers on any elements with the close class to close the modal
+  $(selector).find('.close').click(function(e) {
+    e.preventDefault();
+    utils.closeModal(selector)
+  });
+
+  // Open the modal
+  $(selector).addClass('open');
 }
 
-// Close a modal (should be implemented by view modules)
-utils.closeModal = utils.closeModal || function() {
-  console.log('closeModal should be implemented in a view module');
+// Close a modal
+utils.closeModal = function(selector) {
+  $(selector).removeClass('open');
 }

@@ -27,14 +27,14 @@ Template.delete_block.events = {
     var type = Session.get('block-edit-type');
     var id = Session.get('block-edit-id');
 
-    if (type == 'id') {
+    if (type == 'block_id') {
       Azimuth.collections.PageBlocks.find({block_id: id}).forEach(function(pageBlock) {
         Azimuth.collections.PageBlocks.remove(pageBlock._id);
       });
       Azimuth.collections.Blocks.remove(id);
       noty({text: 'Block deleted.', type: 'success'});
     } else {
-			noty({text: 'There was an error trying to delete this block.', type: 'error'});
+		  noty({text: 'There was an error trying to delete this block.', type: 'error'});
     }
   }
 };
