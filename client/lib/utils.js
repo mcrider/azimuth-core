@@ -138,6 +138,11 @@ utils.openModal = function(selector) {
     utils.closeModal(selector)
   });
 
+  // Bind to escape key
+  $(document).on('keyup.azimuth-modal', function(e) {
+    if (e.keyCode == 27) { utils.closeModal(selector); }
+  });
+
   // Open the modal
   $(selector).addClass('open');
 }
@@ -145,4 +150,5 @@ utils.openModal = function(selector) {
 // Close a modal
 utils.closeModal = function(selector) {
   $(selector).removeClass('open');
+  $(document).unbind('keyup.azimuth-modal');
 }
