@@ -29,7 +29,7 @@ Template.block_zone_editor.rendered = function() {
 
     // Delete current blocks for this blockzone
     Azimuth.collections.PageBlocks.find({ page_id : pageId, zone: zone }).forEach(function(pageBlock) {
-      PageBlocks.remove(pageBlock._id);
+      Azimuth.collections.PageBlocks.remove(pageBlock._id);
     });
 
     // Reset page blocks with updated array
@@ -38,12 +38,7 @@ Template.block_zone_editor.rendered = function() {
     });
   };
 
-  $(this.firstNode).find("ul.block-zone").dragsort({
-    dragSelector: "li",
-    dragEnd: saveOrder,
-    dragSelectorExclude: ".ops",
-    placeHolderTemplate: "<li class='placeHolder'><div></div></li>"
-  });
+  $(this.firstNode).find("ul.block-zone").sortable().bind('sortupdate', saveOrder);
 }
 
 Template.block_zone_editor.added = function() {

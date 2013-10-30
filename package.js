@@ -20,7 +20,7 @@ Package.on_use(function (api) {
   api.add_files([
     'client/collections.js',
     'client/lib/events.js',
-    'client/lib/external/jquery.dragsort-0.5.1.min.js',
+    'client/lib/external/jquery.sortable.js',
     'client/lib/external/jquery.nestable.js',
     'client/lib/external/noty/jquery.noty.js',
     'client/lib/external/noty/layouts/inline.js',
@@ -33,8 +33,6 @@ Package.on_use(function (api) {
     'client/router.js',
     'client/css/external/nestable.css',
     'client/css/main.less',
-    'client/blocks/basic_content/basic_content.js',
-    'client/blocks/blog_post/blog_post.js',
     'client/blocks/four_column/four_column.js',
     'client/blocks/six_column/six_column.js',
     'client/blocks/three_column/three_column.js',
