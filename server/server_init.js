@@ -60,6 +60,9 @@ Meteor.startup(function () {
           profile: AccountsEntry.settings.defaultProfile || {}
         });
       }
+    },
+    usersExist: function() {
+      return Meteor.users.find().count() > 0;
     }
   });
 
@@ -154,6 +157,7 @@ Meteor.startup(function () {
         indexPage: "home",
         showLoginInHeader: true,
         addNewPagesToHeader: true,
+        openRegistration: false,
         theme: 'flatBlue'
       });
   }

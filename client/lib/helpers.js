@@ -118,6 +118,24 @@ if (typeof Handlebars !== 'undefined') {
     else return '';
   });
 
+  // Custom helper to meteor-roles package to test if user is an admin
+  Handlebars.registerHelper("ifAuthorOrAdmin", function (block) {
+    if(!Meteor.user()) return '';
+
+    var userId = Meteor.user()._id;
+    if (Roles.userIsInRole({_id: userId}, ['author', 'admin'])) return block(this);
+    else return '';
+  });
+
+  // Custom helper to meteor-roles package to test if user is an admin
+  Handlebars.registerHelper("ifOpenRegistration", function (options) {
+    if(utils.getSetting('openRegistration') || !Session.get('usersExist')) {
+      return options.fn(this);
+    } else {
+      return options.inverse(this);
+    }
+  });
+
   // Check if file extension is image
   Handlebars.registerHelper('ifImage', function(filename, options) {
     if((/\.(gif|jpg|jpeg|tiff|png)$/i).test(filename)) {

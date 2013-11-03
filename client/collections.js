@@ -24,3 +24,7 @@ navigationSubscription = Meteor.subscribe('navigation');
 assetsSubscription = Meteor.subscribe('assets');
 
 if(Roles.userIsInRole(Meteor.user(), ['admin'])) allUsersSubscription = Meteor.subscribe('users');
+
+Meteor.call('usersExist', function(err, data) {
+  Session.set('usersExist', data)
+});
