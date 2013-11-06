@@ -20,7 +20,7 @@ Template.new_page.events = {
     // Add to navigation
     var updatePageNav = function(location) {
       var currentPages = Azimuth.collections.Navigation.findOne({location: location}).pages;
-      currentPages.push({title: raw_title, slug: raw_slug});
+      currentPages.push({title: raw_title, url: '/'+raw_slug});
       Azimuth.collections.Navigation.update(Azimuth.collections.Navigation.findOne({location: location})._id, {$set: {pages: currentPages}});
     };
 

@@ -18,7 +18,7 @@ window.events = {
 
     // Delete from navs
     Azimuth.collections.Navigation.find().forEach(function(nav) {
-      if(nav._id) Azimuth.collections.Navigation.update({ _id: nav._id }, {$pull : {  "pages" : { slug: page.slug }}});
+      if(nav._id) Azimuth.collections.Navigation.update({ _id: nav._id }, {$pull : {  "pages" : { id: page._id }}});
     });
 
     Router.go('/');

@@ -175,7 +175,7 @@ Meteor.startup(function () {
   if (!Navigation.findOne({location: "header_active"})) {
   	var nav = [];
     Pages.find().forEach(function(page) {
-      nav.push({id: page._id, title: page.title, slug: page.slug});
+      nav.push({id: page._id, title: page.title, url: '/' + page.slug });
     });
     Navigation.insert({location: "header_active", pages: nav});
     Navigation.insert({location: "header_disabled", pages: []});
