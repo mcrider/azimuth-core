@@ -14,7 +14,6 @@ Template.header.rendered = function() {
   }
 
   if(utils.postHeaderRendered != 'undefined') utils.postHeaderRendered();
-
 }
 
 Template.header.helpers({

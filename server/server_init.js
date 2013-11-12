@@ -47,18 +47,24 @@ Meteor.startup(function () {
     },
     accountsCreateUser: function(username, email, password) {
       if (username) {
-        return Accounts.createUser({
+        var userId = Accounts.createUser({
           username: username,
           email: email,
           password: password,
           profile: AccountsEntry.settings.defaultProfile || {}
         });
       } else {
-        return Accounts.createUser({
+        var userId = Accounts.createUser({
           email: email,
           password: password,
           profile: AccountsEntry.settings.defaultProfile || {}
         });
+      }
+
+      // This is our first user.  Make them an admin!
+      if(Meteor.users.find().count() == 1 && userId && !Roles.userIsInRole(userId, ['admin'])) {
+        // Add first user to admin role
+        Roles.addUsersToRoles(userId, ['admin']);
       }
     },
     usersExist: function() {
@@ -129,10 +135,6 @@ Meteor.startup(function () {
 
   // Roles
   Meteor.publish('roles', function () {
-    if(Meteor.users.find().count() == 1 && this.userId && !Roles.userIsInRole(this.userId, ['admin'])) {
-      // Add first user to admin role
-      Roles.addUsersToRoles(Meteor.user()._id, ['admin']);
-    }
     return Meteor.roles.find();
   });
   Meteor.roles.allow({

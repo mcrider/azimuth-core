@@ -11,9 +11,9 @@
 
 .dd-item,
 .dd-empty,
-.dd-placeholder { display: block; position: relative; margin: 0; padding: 0; min-height: 20px; font-size: 13px; line-height: 20px; }
+.dd-placeholder { display: block; position: relative; margin: 0; padding: 0; min-height: 30px; font-size: 13px; line-height: 20px; }
 
-.dd-handle { float: left; display: inline-block; width: 80%; height: 30px; margin: 5px 0; padding: 5px 10px; color: #333; text-decoration: none; font-weight: bold; border: 1px solid #ccc;
+.dd-handle { display: inline-block; width: 80%; margin: 5px 0; padding: 5px 10px; color: #333; text-decoration: none; font-weight: bold; border: 1px solid #ccc;
     background: #fafafa;
     background: -webkit-linear-gradient(top, #fafafa 0%, #eee 100%);
     background:    -moz-linear-gradient(top, #fafafa 0%, #eee 100%);
@@ -26,7 +26,6 @@
 
 .edit-link-container {
     background-color: rgb(253,253,253);
-    float: left;
     display: inline-block;
     width: 20px;
     height: 28px;

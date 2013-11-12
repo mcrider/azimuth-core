@@ -1,5 +1,13 @@
+BaseController = RouteController.extend({
+  loadingTemplate: 'loading',
+  after: function() {
+    $('.hide-until-rendered').removeClass('hide-until-rendered');
+  }
+})
 
-PageController = RouteController.extend({
+
+// Controller for displaying pages that have been created in the CMS
+PageController = BaseController.extend({
   before: function() {
     var page_slug = this.params.page;
     var page = Azimuth.collections.Pages.findOne({slug: page_slug});
@@ -7,25 +15,51 @@ PageController = RouteController.extend({
       this.template = page.template;
     }
     this.render();
-
-    this.render({
-      header: {to: 'header'},
-      footer: {to: 'footer'}
-    })
   },
-  notFoundTemplate: '404',
-  data: function() {
-    return Azimuth.collections.Pages.findOne({slug: this.params.page});
-  },
-  template: 'sidebar_left'
+  waitOn: function() {
+    return [
+      Meteor.subscribe('settings'),
+      Meteor.subscribe('navigation'),
+      Meteor.subscribe('pages'),
+      Meteor.subscribe('blocks'),
+      Meteor.subscribe('pageBlocks'),
+      Meteor.subscribe('assets')
+    ]
+  }
 });
 
-PageEditController = RouteController.extend({
+
+HomePageController = BaseController.extend({
+  before: function() {
+    var page_slug = utils.getSetting('indexPage');
+    var page = Azimuth.collections.Pages.findOne({slug: page_slug});
+    if(!page) {
+      page = Azimuth.collections.Pages.findOne();
+      if (!page) return '404';
+      else page_slug = page.slug;
+    }
+    this.template = page.template;
+    this.render();
+  },
+  waitOn: function() {
+    return [
+      Meteor.subscribe('settings'),
+      Meteor.subscribe('navigation'),
+      Meteor.subscribe('pages'),
+      Meteor.subscribe('blocks'),
+      Meteor.subscribe('pageBlocks'),
+      Meteor.subscribe('assets')
+    ]
+  }
+});
+
+// Controller to handle editing of pages
+PageEditController = BaseController.extend({
   before: function() {
     var page_slug = this.params.page;
     var page = Azimuth.collections.Pages.findOne({slug: page_slug});
     if (!page) return false;
-    
+
     // Add common edit page events
     Template[page.template + '_edit'].events = {
       'submit #pageEditForm': events.savePage,
@@ -40,54 +74,41 @@ PageEditController = RouteController.extend({
       this.template = 'not_authorized'
       this.render();
     }
-
-    this.render({
-      header: {to: 'header'},
-      footer: {to: 'footer'}
-    })
   },
-  notFoundTemplate: '404',
-  data: function() {
-    return Azimuth.collections.Pages.findOne({slug: this.params.page});
-  },
-  template: 'sidebar_left'
+  waitOn: function() {
+    return [
+      Meteor.subscribe('settings'),
+      Meteor.subscribe('navigation'),
+      Meteor.subscribe('pages'),
+      Meteor.subscribe('blocks'),
+      Meteor.subscribe('pageBlocks'),
+      Meteor.subscribe('assets')
+    ]
+  }
 });
 
-HomePageController = RouteController.extend({
+AdminController = BaseController.extend({
   before: function() {
-    var page_slug = utils.getSetting('indexPage');
-    var page = Azimuth.collections.Pages.findOne({slug: page_slug});
-    if(!page) {
-      page = Azimuth.collections.Pages.findOne();
-      if (!page) return '404';
-      else page_slug = page.slug;
+    if(!Meteor.user() || !Roles.userIsInRole(Meteor.user(), ['admin', 'author'])) {
+      this.render('not_authorized');
+      this.stop();
+      return;
     }
-
-    this.template = page.template;
-
-    this.render();
-
-    this.render({
-      header: {to: 'header'},
-      footer: {to: 'footer'}
-    })
   },
-  notFoundTemplate: '404',
-  template: 'sidebar_left'
+  waitOn: function() {
+    return [
+      Meteor.subscribe('pages'),
+      Meteor.subscribe('settings'),
+      Meteor.subscribe('navigation')
+    ]
+  }
 });
 
-AdminController = RouteController.extend({
-  before: function() {
-    if(Roles.userIsInRole(Meteor.user(), ['admin', 'author'])) {
-      this.render();
-    } else {
-      this.template = 'not_authorized'
-      this.render();
-    }
-    this.render({
-      header: {to: 'header'},
-      footer: {to: 'footer'}
-    })
-  },
-  notFoundTemplate: '404'
+LoginController = BaseController.extend({
+  waitOn: function() {
+    return [
+      Meteor.subscribe('settings'),
+      Meteor.subscribe('navigation')
+    ]
+  }
 });

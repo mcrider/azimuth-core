@@ -1,6 +1,6 @@
 /* init.js
  *
- * Startup code for the front-end.  Defines the collections and subscriptions that Azimuth interacts with.
+ * Startup code for the front-end.  Defines the collections that Azimuth interacts with.
  *
  */
 
@@ -15,16 +15,9 @@ Azimuth.collections = {
   Assets: new CollectionFS('assets')
 }
 
-pagesSubscription = Meteor.subscribe('pages');
-blocksSubscription = Meteor.subscribe('blocks');
-pageBlocksSubscription = Meteor.subscribe('pageBlocks');
-rolesSubscription = Meteor.subscribe('roles');
-settingsSubscription = Meteor.subscribe('settings');
-navigationSubscription = Meteor.subscribe('navigation');
-assetsSubscription = Meteor.subscribe('assets');
-
-if(Roles.userIsInRole(Meteor.user(), ['admin'])) allUsersSubscription = Meteor.subscribe('users');
-
+// Set a session variable to tell the client if users exist.
+//  If it is true, we will hide the registration link (unless
+//  registration is open to the public).
 Meteor.call('usersExist', function(err, data) {
   Session.set('usersExist', data)
 });

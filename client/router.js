@@ -7,11 +7,8 @@
 // Global configuration
 Router.configure({
   layoutTemplate: 'layout',
-
+  loadingTemplate: 'loading',
   notFoundTemplate: '404',
-
-  // loadingTemplate: 'loading',
-
   yieldTemplates: {
     'header': { to: 'header' },
     'footer': { to: 'footer' }
@@ -23,6 +20,7 @@ Router.map(function() {
   // Account routes
   this.route("login", {
     path: "/login",
+    controller: LoginController,
     before: function() {
       Session.set('error', void 0);
       Session.set('buttonText', 'in');
@@ -30,6 +28,7 @@ Router.map(function() {
   });
   this.route("sign_up", {
     path: "/sign-up",
+    controller: LoginController,
     before: function() {
       Session.set('error', void 0);
       Session.set('buttonText', 'up');
@@ -37,6 +36,7 @@ Router.map(function() {
   });
   this.route("forgot_password", {
     path: "/forgot-password",
+    controller: LoginController,
     before: function() {
       Session.set('error', void 0);
     }
@@ -44,26 +44,35 @@ Router.map(function() {
 
   // Add routes for admin-level pages if user has correct permissions
   this.route('site_settings', {
-    controller: AdminController
+    controller: AdminController,
+    waitOn: function() {
+      return [Meteor.subscribe('pages'), Meteor.subscribe('settings')];
+    }
   });
   this.route('assets', {
-    controller: AdminController
+    controller: AdminController,
+    waitOn: function() {
+      return Meteor.subscribe('assets');
+    }
   });
   this.route('new_page', {
     controller: AdminController
   });
   this.route('navigation', {
-    controller: AdminController
+    controller: AdminController,
+    waitOn: function() {
+      return Meteor.subscribe('roles');
+    }
   });
   this.route('admin_users', {
     controller: AdminController,
-    path: '/users'
-  });
-
-  // Login
-  this.route('admin_users', {
-    controller: AdminController,
-    path: '/users'
+    path: '/users',
+    waitOn: function() {
+      return [
+        Meteor.subscribe('users'),
+        Meteor.subscribe('roles')
+      ]
+    }
   });
 
   // Route / to the admin-set root page or the first page
@@ -72,16 +81,16 @@ Router.map(function() {
     controller: HomePageController
   })
 
-  // Route pages
+  // Route edit views
   this.route('pageEdit', {
     path: '/:page/edit',
     controller: PageEditController
-  })
+  });
 
   // Route pages
   this.route('page', {
     path: '/:page',
     controller: PageController
-  })
+  });
 
 });
