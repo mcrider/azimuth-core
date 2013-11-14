@@ -18,8 +18,8 @@
     background: -webkit-linear-gradient(top, #fafafa 0%, #eee 100%);
     background:    -moz-linear-gradient(top, #fafafa 0%, #eee 100%);
     background:         linear-gradient(top, #fafafa 0%, #eee 100%);
-    -webkit-border-radius: 3px;
-            border-radius: 3px;
+    /*-webkit-border-radius: 3px;
+            border-radius: 3px;*/
     box-sizing: border-box; -moz-box-sizing: border-box;
 }
 .dd-handle:hover { color: #2ea8e5; background: #fff; }
@@ -28,8 +28,8 @@
     background-color: rgb(253,253,253);
     display: inline-block;
     width: 20px;
-    height: 28px;
-    margin: 5px 0;
+    height: 30px;
+    margin: 0;
     padding-left: 10px;
     border: 1px solid #ccc;
     border-left: 0;

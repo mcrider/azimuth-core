@@ -60,6 +60,26 @@ Template.navigation.events = {
     Azimuth.collections.Navigation.update({_id: location._id}, {$set: {pages: $('#'+linkLocation).nestable('serialize')}});
 
     utils.closeModal('#linkModal');
+  },
+  'click .delete-link': function(e) {
+    e.preventDefault();
+
+    Session.set('link-url', this.url);
+    Session.set('link-location', $(e.currentTarget).closest('.dd').attr('id'));
+
+    utils.openModal('#deleteLinkModal');
+  },
+  'click .delete-link-confirm': function(e) {
+    e.preventDefault();
+
+    var linkUrl = Session.get('link-url');
+    var linkLocation = Session.get('link-location');
+    $("#" + linkLocation).find("li[data-url='"+linkUrl+"']").remove();
+
+    var location = Azimuth.collections.Navigation.findOne({location: linkLocation});
+    Azimuth.collections.Navigation.update({_id: location._id}, {$set: {pages: $('#'+linkLocation).nestable('serialize')}});
+
+    noty({text: 'Link removed.', type: 'success'});
   }
 }
 
