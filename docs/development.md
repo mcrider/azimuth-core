@@ -75,6 +75,30 @@ Form helper calls take this form:
 
 CSS added anywhere to your meteor project will be included in the global CSS file.  Styles can be added in the form of CSS files or .less files (Meteor will automatically parse LESS files once you 'mrt add less' to your project).
 
+### Creating a Views Package
+
+If you'd like to integrate front-end code other than the existing views packages, you can create your own views package fairly easily.
+
+* Create your project the usual way
+* Create a packages directory: `mkdir packages && cd packages`
+* Clone an existing views package into packages/ (we'll use azimuth-views-foundation as example): `git clone git@github.com:/mcrider/azimuth-views-foundation.git`
+* Remove the git repo (`rm .git`) and create new repo if desired
+* Search and replace all instances of azimuth-views-foundation with azimuth-views-[whatever]
+* Edit html files as desired to use your new markup
+* Edit package.js/smart.json in views package (change summary, remove foundation-specific packages, etc.)
+* Edit your project’s smart.json to reference your local package (should look at the minimum like this):
+```
+{
+  "packages": {
+    azimuth-core": {},
+    "azimuth-views-test": {
+      "path": "packages/azimuth-views-test"
+    }
+  }
+}
+```
+* Start up your project: `mrt`
+
 ### SEO
 
 Until Meteor comes out with a better implementation, Azimuth uses the [Spiderable](http://docs.meteor.com/#spiderable) package to allow search engines to crawl your site.  Spiderable leverages [Phantom.js](http://phantomjs.org/) to create snapshots of your Azimuth pages which are then provided to the search engine bot upon request.  There may be a performance hit to this method of serving up pages to search engines (which could impact SEO) but this technique is common among JS-heavy web apps and is currently the only option to making your Meteor site crawlable.  As noted in the Meteor docs, if you use this package you must have phantomjs installed on your server and accessible via the $PATH variable (this is automatic if you are deploying your app to Meteor's servers).
