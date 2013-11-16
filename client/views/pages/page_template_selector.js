@@ -6,13 +6,7 @@ Template.page_template_selector.events = {
   'change .page-template-selector': function() {
     var pageData = utils.getFormValues("#pageEditForm");
     Azimuth.collections.Pages.update({_id: this._id}, {$set: pageData});
-
-    var page = Azimuth.collections.Pages.findOne(this._id);
-    var fragment = Meteor.render(function () {
-      template = page.template ? page.template : 'page_default';
-      return Template[ template + "_edit" ](); // this calls the template and returns the HTML.
-    });
-    Spark.finalize($("#page")[0]);
-    $("#page").html(fragment);
+    // Redirect to current page
+    Router.go(Router.current().path);
   }
 }
