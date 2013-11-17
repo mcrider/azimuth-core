@@ -26,6 +26,13 @@ Package.on_use(function (api) {
     'client/lib/external/noty/layouts/inline.js',
     'client/lib/external/noty/layouts/bottomRight.js',
     'client/lib/external/noty/themes/default.js',
+    'client/css/external/jquery.cleditor.css',
+    'client/lib/external/jquery.cleditor.js',
+    'client/lib/external/jquery.cleditor.image.js',
+    'client/lib/external/jquery.cleditor.file.js',
+    'client/lib/external/jquery.selectize.js',
+    'client/css/external/selectize.css',
+    'client/css/external/selectize.default.css',
     'client/lib/helpers.js',
     'client/lib/registry.js',
     'client/lib/utils.js',
@@ -61,6 +68,7 @@ Package.on_use(function (api) {
     'client/views/blocks/modals/tag_block.js',
     'client/views/footer.js',
     'client/views/form/wysiwyg.js',
+    'client/views/form/tag.js',
     'client/views/header.js',
     'client/views/pages/new_page.js',
     'client/views/pages/page_template_selector.js',
@@ -70,10 +78,6 @@ Package.on_use(function (api) {
     'img/file.gif',
     'img/image.gif',
     'img/file-large.png',
-    'client/css/external/jquery.cleditor.css',
-    'client/lib/external/jquery.cleditor.js',
-    'client/lib/external/jquery.cleditor.image.js',
-    'client/lib/external/jquery.cleditor.file.js',
     'img/loading.gif'
   ], 'client');
 });

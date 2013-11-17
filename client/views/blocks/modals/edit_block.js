@@ -8,6 +8,7 @@ Template.edit_block.events = {
     var block = Azimuth.collections.Blocks.findOne({_id: Session.get('block-edit-id')});
     if(block) {
       var blockData = utils.getFormValues(".edit-block-modal:visible form");
+      blockData.tag = blockData.tag.split(',');
       Azimuth.collections.Blocks.update({_id: block._id}, {$set: blockData});
       noty({text: 'Block Saved.', type: 'success'});
     } else {

@@ -1,3 +1,17 @@
+Template.tag_block.rendered = function() {
+  $("#tag").selectize({
+    maxItems: 1,
+    persist: false,
+    create: true,
+    options: utils.getDistinctBlockTags(),
+    searchField: 'tag',
+    valueField: 'tag',
+    labelField: 'tag'
+  });
+
+  // TODO: Load existing tags with autocomplete (find tags non-reactively)
+}
+
 Template.tag_block.events = {
   'click .add-block-by-tag': function(e) {
   	e.preventDefault();

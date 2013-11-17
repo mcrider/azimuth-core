@@ -152,3 +152,20 @@ utils.closeModal = function(selector) {
   $(selector).removeClass('open');
   $(document).unbind('keyup.azimuth-modal');
 }
+
+// Get all unique block tags
+// FIXME: If Meteor implements MongoDB's .distinct() method that would be much faster
+utils.getDistinctBlockTags = function() {
+  var blockTags = Azimuth.collections.Blocks.find({}, {fields: {tag: 1}, reactive: false});
+
+  var tags = []
+  blockTags.forEach(function(block) {
+    tags = tags.concat(block.tag)
+  });
+
+  // Remove duplicates and any cruft
+  var tagList = _.uniq(_.reject(tags, function(item) { return item == undefined }));
+
+  // Return as array of objects
+  return _.map(tagList, function(item) { return {tag: item}});
+}
