@@ -19,6 +19,7 @@ Package.on_use(function (api) {
 
   api.add_files([
     'client/collections.js',
+    'client/metadata_fields.js',
     'client/lib/events.js',
     'client/lib/external/jquery.sortable.js',
     'client/lib/external/jquery.nestable.js',
@@ -69,7 +70,9 @@ Package.on_use(function (api) {
     'client/views/footer.js',
     'client/views/form/wysiwyg.js',
     'client/views/form/tag.js',
+    'client/views/form/metadata.js',
     'client/views/header.js',
+    'client/views/layout.js',
     'client/views/pages/new_page.js',
     'client/views/pages/page_template_selector.js',
     'client/index.html',
