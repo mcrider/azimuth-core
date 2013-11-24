@@ -13,16 +13,6 @@ Template.site_settings.pages = function () {
   return Azimuth.collections.Pages.find();
 };
 
-Template.site_settings.themes = function () {
-  return Session.get('themeList')
-};
-
-Template.site_settings.isCurrentTheme = function(theme) {
-  if (theme == Azimuth.collections.Settings.findOne().theme) return true;
-  return false;
-}
-
-
 Template.site_settings.events = {
   'submit #siteSettingsForm': function(e) {
     e.preventDefault();
