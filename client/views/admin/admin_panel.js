@@ -1,0 +1,1 @@
+// admin panel views go here

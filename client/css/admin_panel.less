@@ -1,0 +1,51 @@
+.container {
+
+
+  .admin-panel {
+    background-color: #cde;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    visibility: hidden;
+    width: 300px;
+    height: 100%;
+    background: #48a770;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    z-index: 1;
+    -webkit-transform: translate3d(-50%, 0, 0);
+    transform: translate3d(-50%, 0, 0);
+
+    &.large {
+      // width: 40%;
+      height: 100%;
+    }
+  }
+
+  .contents-container {
+    position: relative;
+    left: 0;
+    z-index: 99;
+    height: 100%;
+    -webkit-transition: -webkit-transform 0.3s;
+  }
+
+  /* Effect 4: Slide along */
+  &.menu-open .contents-container {
+    -webkit-transform: translate3d(300px, 0, 0);
+    transform: translate3d(300px, 0, 0);
+  }
+
+  &.menu-open .admin-panel {
+    visibility: visible;
+    -webkit-transition: -webkit-transform 0.3s;
+    transition: transform 0.3s;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  &.admin-panel::after {
+    display: none;
+  }
+}

@@ -11,7 +11,8 @@ Router.configure({
   notFoundTemplate: '404',
   yieldTemplates: {
     'header': { to: 'header' },
-    'footer': { to: 'footer' }
+    'footer': { to: 'footer' },
+    'admin_panel': { to: 'admin_panel' }
   }
 });
 
