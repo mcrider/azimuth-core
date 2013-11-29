@@ -87,7 +87,7 @@ Meteor.startup(function () {
     Pages.insert({
       title: "Home",
       slug: "home",
-      contents: "<p>Welcome to Azimuth.</p><p>You can add pages from the <i class='icon-cogs'></i>  menu above.</p>",
+      contents: "<p>Welcome to Azimuth.</p><p>You can add pages from the <i class='fa fa-cogs'></i>  menu above.</p>",
       template: "page_default"
     });
     Pages.insert({

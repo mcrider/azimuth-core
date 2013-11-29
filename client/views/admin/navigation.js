@@ -52,7 +52,7 @@ Template.navigation.events = {
       $("#" + linkLocation).find("li[data-url='"+linkUrl+"']").find('.dd-handle').html(newTitle);
     } else {
       // Add new link
-      $("#" + linkLocation).find('.dd-list').prepend('<li class="dd-item" data-url="'+newUrl+'" data-title="'+newTitle+'"><div class="dd-handle">'+newTitle+'</div><div class="edit-link-container"><a href="#" class="edit-link"><i class="icon-edit"></i></a></div></li>');
+      $("#" + linkLocation).find('.dd-list').prepend('<li class="dd-item" data-url="'+newUrl+'" data-title="'+newTitle+'"><div class="dd-handle">'+newTitle+'</div><div class="edit-link-container"><a href="#" class="edit-link"><i class="fa fa-edit"></i></a></div></li>');
     }
 
     // Save to navigation
