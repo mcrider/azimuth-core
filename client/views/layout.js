@@ -2,7 +2,7 @@
 Template.layout.rendered = function(){
     // Render page metadata
     var page = utils.getCurrentPage();
-    if(page) {
+    if(page && page.metadata) {
       $('head').find('.azimuth-tag').remove();
       page.metadata.forEach(function(tag) {
         var metadata = _.findWhere(Azimuth.metadata_fields, {meta_key: tag.key});

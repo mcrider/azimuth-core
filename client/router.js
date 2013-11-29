@@ -46,7 +46,10 @@ Router.map(function() {
   this.route('site_settings', {
     controller: AdminController,
     waitOn: function() {
-      return [Meteor.subscribe('pages'), Meteor.subscribe('settings')];
+      return [
+        Meteor.subscribe('pages'),
+        Meteor.subscribe('settings')
+      ];
     }
   });
   this.route('assets', {
@@ -71,7 +74,7 @@ Router.map(function() {
       return [
         Meteor.subscribe('users'),
         Meteor.subscribe('roles')
-      ]
+      ];
     }
   });
 
