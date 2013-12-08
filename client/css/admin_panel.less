@@ -1,25 +1,63 @@
-.container {
+@action-links-width: 76px;
+@menu-small-width: 300px;
+@menu-medium-width: 400px;
+@menu-large-width: 500px;
 
+.azimuth-container {
+  .azimuth-admin-panel {
+    visibility: hidden;
 
-  .admin-panel {
-    background-color: #cde;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
-    z-index: 100;
-    visibility: hidden;
-    width: 300px;
+
     height: 100%;
-    background: #48a770;
+    overflow: auto;
+    z-index: 100;
+
     -webkit-transition: all 0.3s;
     transition: all 0.3s;
-    z-index: 1;
     -webkit-transform: translate3d(-50%, 0, 0);
     transform: translate3d(-50%, 0, 0);
 
-    &.large {
-      // width: 40%;
+    .action-links {
+      float: left;
+      margin-left: 0;
+      background-color: #2980B9;
+      width: @action-links-width;
       height: 100%;
+
+      li {
+        text-align: center;
+
+        .icon {
+          margin: 0 auto;
+          width: 36px;
+          height: 38px;
+          background-image: url('/packages/azimuth-core/img/navIcons.png');
+
+          &.page-settings { background-position: 2px 39px; }
+          &.all-pages { background-position: 0 74x; }
+          &.users { background-position: 0 119px; }
+          &.site-settings { background-position: 0 160px; }
+          &.assets { background-position: 0 201px; }
+          &.new-page { background-position: 0 242px; }
+          &.navigation { background-position: 0 280px; }
+        }
+
+        a {
+          font-size: 10px;
+          color: white;
+        }
+      }
+    }
+
+    .admin-view {
+      float: left;
+      visibility: hidden;
+      width: 100px;
+      height: 100%;
+      background-color: #ECF0F1;
     }
   }
 
@@ -31,21 +69,65 @@
     -webkit-transition: -webkit-transform 0.3s;
   }
 
-  /* Effect 4: Slide along */
-  &.menu-open .contents-container {
-    -webkit-transform: translate3d(300px, 0, 0);
-    transform: translate3d(300px, 0, 0);
-  }
+  &.menu-open {
 
-  &.menu-open .admin-panel {
-    visibility: visible;
-    -webkit-transition: -webkit-transform 0.3s;
-    transition: transform 0.3s;
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
+    .azimuth-admin-panel {
+      visibility: visible;
+      -webkit-transition: -webkit-transform 0.3s;
+      transition: transform 0.3s;
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
 
-  &.admin-panel::after {
-    display: none;
+    .admin-view {
+      -webkit-transition: -webkit-transform 0.3s;
+      transition: transform 0.3s;
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+
+    &.menu-small {
+      .contents-container {
+        -webkit-transform: translate3d((@action-links-width + @menu-small-width), 0, 0);
+        transform: translate3d((@action-links-width + @menu-small-width), 0, 0);
+      }
+      .admin-view {
+        visibility: visible;
+        width: @menu-small-width;
+      }
+    }
+    &.menu-medium {
+      .contents-container {
+        -webkit-transform: translate3d((@action-links-width + @menu-medium-width), 0, 0);
+        transform: translate3d((@action-links-width + @menu-medium-width), 0, 0);
+      }
+      .admin-view {
+        visibility: visible;
+        width: @menu-medium-width;
+      }
+    }
+    &.menu-large {
+      .contents-container {
+        -webkit-transform: translate3d((@action-links-width + @menu-large-width), 0, 0);
+        transform: translate3d((@action-links-width + @menu-large-width), 0, 0);
+      }
+      .admin-view {
+        visibility: visible;
+        width: @menu-large-width;
+      }
+    }
+
   }
+}
+
+.azimuth-admin-panel-toggle {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  -webkit-transition: -webkit-transform 0.3s;
+}
+.menu-open .azimuth-admin-panel-toggle {
+  -webkit-transform: translate3d(@action-links-width, 0, 0);
+  transform: translate3d(@action-links-width, 0, 0);
 }

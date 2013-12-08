@@ -1,5 +1,18 @@
 <template name="admin_panel">
-  <div class="admin-panel large">
-<p>foobar</p>
+  <a href="#" class="azimuth-admin-panel-toggle"><i class="fa fa-cog"></i></a>
+  <div class="azimuth-admin-panel large">
+    <ul class="action-links">
+      {{#each actions}}
+        <li>
+          <a href="#" class="action" title="{{description}}">
+            <div class="icon {{icon}}"></div>
+            <p>{{label}}</p>
+          </a>
+        </li>
+      {{/each}}
+    </ul>
+    <div class="admin-view">
+    <p>foo</p>
+    </div>
   </div>
 </template>
