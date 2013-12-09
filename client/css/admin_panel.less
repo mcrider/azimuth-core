@@ -3,9 +3,48 @@
 @menu-medium-width: 400px;
 @menu-large-width: 500px;
 
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 200;
+  src: local('Raleway ExtraLight'), local('Raleway-ExtraLight'), url(http://themes.googleusercontent.com/static/fonts/raleway/v6/8KhZd3VQBtXTAznvKjw-k73hpw3pgy2gAi-Ip7WPMi0.woff) format('woff');
+}
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Raleway Light'), local('Raleway-Light'), url(http://themes.googleusercontent.com/static/fonts/raleway/v6/-_Ctzj9b56b8RgXW8FArib3hpw3pgy2gAi-Ip7WPMi0.woff) format('woff');
+}
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Raleway'), url(http://themes.googleusercontent.com/static/fonts/raleway/v6/cIFypx4yrWPDz3zOxk7hIQLUuEpTyoUstqEm5AMlJo4.woff) format('woff');
+}
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Raleway Medium'), local('Raleway-Medium'), url(http://themes.googleusercontent.com/static/fonts/raleway/v6/CcKI4k9un7TZVWzRVT-T873hpw3pgy2gAi-Ip7WPMi0.woff) format('woff');
+}
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Raleway SemiBold'), local('Raleway-SemiBold'), url(http://themes.googleusercontent.com/static/fonts/raleway/v6/xkvoNo9fC8O2RDydKj12b73hpw3pgy2gAi-Ip7WPMi0.woff) format('woff');
+}
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Raleway Bold'), local('Raleway-Bold'), url(http://themes.googleusercontent.com/static/fonts/raleway/v6/JbtMzqLaYbbbCL9X6EvaI73hpw3pgy2gAi-Ip7WPMi0.woff) format('woff');
+}
+
 .azimuth-container {
   .azimuth-admin-panel {
-    visibility: hidden;
+    display: none;
+
+    font-family: 'Raleway', sans-serif;
 
     position: fixed;
     top: 0;
@@ -20,10 +59,16 @@
     -webkit-transform: translate3d(-50%, 0, 0);
     transform: translate3d(-50%, 0, 0);
 
+    -webkit-box-shadow: 2px 0px 2px rgba(50, 50, 50, 0.25);
+    -moz-box-shadow:    2px 0px 2px rgba(50, 50, 50, 0.25);
+    box-shadow:         2px 0px 2px rgba(50, 50, 50, 0.25);
+    // border-right: 2px solid rgb(229, 229, 236);
+
+
     .action-links {
+      background-color: #34495E;
       float: left;
       margin-left: 0;
-      background-color: #2980B9;
       width: @action-links-width;
       height: 100%;
 
@@ -52,16 +97,29 @@
       }
     }
 
-    .admin-view {
-      float: left;
-      visibility: hidden;
-      width: 100px;
-      height: 100%;
+    .admin-view-container {
       background-color: #ECF0F1;
+      float: left;
+      display: none;
+      height: 100%;
+
+      .admin-view {
+        height: 100%;
+        overflow: auto;
+
+        h3 {
+          // FIXME: This shouldn't be an H2, and clean up this mess
+          font-family: 'Raleway';
+          font-size: 24px;
+          background: #2ECC71;
+          text-transform: uppercase;
+        }
+      }
     }
   }
 
   .contents-container {
+    // margin-left: @action-links-width;
     position: relative;
     left: 0;
     z-index: 99;
@@ -72,18 +130,26 @@
   &.menu-open {
 
     .azimuth-admin-panel {
-      visibility: visible;
+      display: block;
       -webkit-transition: -webkit-transform 0.3s;
       transition: transform 0.3s;
       -webkit-transform: translate3d(0, 0, 0);
       transform: translate3d(0, 0, 0);
     }
 
-    .admin-view {
-      -webkit-transition: -webkit-transform 0.3s;
-      transition: transform 0.3s;
+    .admin-view-container {
+      display: none;
+      -webkit-transition: -webkit-transform 0.5s;
+      transition: transform 0.5s;
       -webkit-transform: translate3d(0, 0, 0);
       transform: translate3d(0, 0, 0);
+    }
+
+    .contents-container {
+      -webkit-transition: -webkit-transform 0.3s;
+      transition: transform 0.3s;
+      -webkit-transform: translate3d(@action-links-width, 0, 0);
+      transform: translate3d(@action-links-width, 0, 0);
     }
 
     &.menu-small {
@@ -91,8 +157,8 @@
         -webkit-transform: translate3d((@action-links-width + @menu-small-width), 0, 0);
         transform: translate3d((@action-links-width + @menu-small-width), 0, 0);
       }
-      .admin-view {
-        visibility: visible;
+      .admin-view-container {
+        display: block;
         width: @menu-small-width;
       }
     }
@@ -101,8 +167,8 @@
         -webkit-transform: translate3d((@action-links-width + @menu-medium-width), 0, 0);
         transform: translate3d((@action-links-width + @menu-medium-width), 0, 0);
       }
-      .admin-view {
-        visibility: visible;
+      .admin-view-container {
+        display: block;
         width: @menu-medium-width;
       }
     }
@@ -111,8 +177,8 @@
         -webkit-transform: translate3d((@action-links-width + @menu-large-width), 0, 0);
         transform: translate3d((@action-links-width + @menu-large-width), 0, 0);
       }
-      .admin-view {
-        visibility: visible;
+      .admin-view-container {
+        display: block;
         width: @menu-large-width;
       }
     }
@@ -120,14 +186,8 @@
   }
 }
 
-.azimuth-admin-panel-toggle {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  z-index: 100;
-  -webkit-transition: -webkit-transform 0.3s;
-}
-.menu-open .azimuth-admin-panel-toggle {
-  -webkit-transform: translate3d(@action-links-width, 0, 0);
-  transform: translate3d(@action-links-width, 0, 0);
+.azimuth-block {
+  & > *:hover {
+    outline: 1px solid gray;
+  }
 }

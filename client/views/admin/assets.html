@@ -1,0 +1,97 @@
+<template name="assets">
+  <div class="container">
+    <div class="row">
+      <div class="large-12 columns">
+        <div class="file-upload-container">
+          <h3>Select file(s) to upload:</h3>
+          <input name="files" type="file" class="fileUploader" multiple>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-12 columns">
+        <h3>Files:</h3>
+        <ul class='file-list'>
+          {{#each files}}
+            <li class="file-row">
+              <div class="row">
+                <div class="large-3 columns">
+                  <a href="{{cfsFileUrl 'default'}}">
+                    {{#ifImage filename}}
+                      <img src="{{cfsFileUrl 'default'}}">
+                    {{else}}
+                      <img src="/packages/azimuth-core/img/file-large.png">
+                    {{/ifImage}}
+                  </a>
+                </div>
+                <div class="large-4 columns">
+                  <a href="{{cfsFileUrl 'default'}}">{{filename}}</a>
+                  <br />
+                  <span class="file-date">{{humanReadableTime uploadDate}}</span>
+                  <span class="file-size">{{cfsFormattedSize}}</span>
+                </div>
+                <div class="large-3 columns">
+                  <a class="alert button delete-file">Delete</a>
+                </div>
+              </div>
+            </li>
+          {{else}}
+            <li class='no-files'>No files uploaded.</li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="image_list">
+  <ul class='file-list'>
+    {{#each files}}
+      <li class="file-row" data-link="{{cfsFileUrl 'default'}}">
+        <div class="row">
+          <div class="large-3 columns">
+            {{#ifImage filename}}
+              <img src="{{cfsFileUrl 'default'}}">
+            {{else}}
+              <img src="/packages/azimuth-core/img/file-large.png">
+            {{/ifImage}}
+          </div>
+          <div class="large-9 columns">
+            {{filename}}
+            <br />
+            <span class="file-date">{{humanReadableTime uploadDate}}</span>
+            <span class="file-size">{{cfsFormattedSize}}</span>
+          </div>
+        </div>
+      </li>
+    {{else}}
+      <li class='no-files'>No files uploaded.  Go to your asset library to add some!</li>
+    {{/each}}
+  </ul>
+</template>
+
+<template name="file_list">
+  <ul class='file-list'>
+    {{#each files}}
+      <li class="file-row" data-link="{{cfsFileUrl 'default'}}" data-name="{{filename}}">
+        <div class="row">
+          <div class="large-3 columns">
+            {{#ifImage filename}}
+              <img src="{{cfsFileUrl 'default'}}">
+            {{else}}
+              <img src="/packages/azimuth-core/img/file-large.png">
+            {{/ifImage}}
+          </div>
+          <div class="large-9 columns">
+            {{filename}}
+            <br />
+            <span class="file-date">{{humanReadableTime uploadDate}}</span>
+            <span class="file-size">{{cfsFormattedSize}}</span>
+          </div>
+        </div>
+      </li>
+    {{else}}
+      <li class='no-files'>No files uploaded.  Go to your asset library to add some!</li>
+    {{/each}}
+  </ul>
+</template>

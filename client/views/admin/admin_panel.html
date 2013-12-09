@@ -1,6 +1,5 @@
 <template name="admin_panel">
-  <a href="#" class="azimuth-admin-panel-toggle"><i class="fa fa-cog"></i></a>
-  <div class="azimuth-admin-panel large">
+  <div class="azimuth-admin-panel">
     <ul class="action-links">
       {{#each actions}}
         <li>
@@ -11,8 +10,6 @@
         </li>
       {{/each}}
     </ul>
-    <div class="admin-view">
-    <p>foo</p>
-    </div>
+    <div class="admin-view-container"><div class="admin-view"></div></div>
   </div>
 </template>
