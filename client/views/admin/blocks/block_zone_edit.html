@@ -1,0 +1,30 @@
+<template name="block_zone_editor">
+  <h3>Edit Block Zone</h3>
+
+
+  <a href="#">Limit: <span class="limit">{{#if limit}}{{limit}}{{else}}Off{{/if}}</span>&nbsp;<b class="caret"></b></a>
+  <ul class="dropdown page-count-container">
+    <li class="page-count" data-page-count="0"><a>Off</a></li>
+    {{#each pageCount}}
+      <li class="page-count"><a>{{this}}</a></li>
+    {{/each}}
+  </ul>
+
+  <!--
+    <a href="#">Sort Blocks<b class="caret"></b></a>
+    <ul class="dropdown">
+      <li class="sort-title-up"><a>By Title <i class="icon-angle-up"></i></a></li>
+      <li class="sort-title-down"><a>By Title <i class="icon-angle-down"></i></a></li>
+      <li class="sort-date-up"><a>By Date Created <i class="icon-angle-up"></i></a></li>
+      <li class="sort-date-down"><a>By Date Created <i class="icon-angle-down"></i></a></li>
+    </ul>
+  -->
+
+
+  {{>delete_block}}
+  {{>edit_block}}
+  {{>existing_block}}
+  {{>tag_block}}
+</template>
+
+

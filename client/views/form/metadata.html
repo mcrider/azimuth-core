@@ -1,0 +1,46 @@
+<template name="metadata">
+  <div class="metadata-widget">
+    <label class="control-label" for="contents">{{label}}</label>
+    {{#if value}}
+      <div class="row">
+        <div class="large-8 columns">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Tag</th>
+                <th>Value</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each value}}
+                <tr>
+                  <td class="meta-key-existing">{{key}}</td>
+                  <td class="meta-value-existing">{{value}}</td>
+                  <td>
+                    <a href="#" class="remove-meta-tag"><i class="icon-remove"></i></a>
+                  </td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    {{/if}}
+    <div class="row meta-row">
+      <div class="large-4 columns">
+        <select name="meta_key" class="meta-key">
+          {{#each getMetadataFields}}
+            <option value="{{meta_key}}">{{meta_name}}</option>
+          {{/each}}
+        </select>
+      </div>
+      <div class="large-4 columns">
+        <input type="text" class="meta-value">
+      </div>
+      <div class="large-1 columns end">
+        <a href="#" class="add-meta-tag"><i class="icon-plus"></i></a>
+      </div>
+    </div>
+  </div>
+</template>

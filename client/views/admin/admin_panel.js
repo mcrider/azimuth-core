@@ -9,29 +9,13 @@ Template.admin_panel.rendered = function() {
 }
 
 Template.admin_panel.events = {
-  'click .azimuth-admin-panel-toggle': function() {
-    $(".azimuth-container").toggleClass('menu-open')
-
-    // Set up blocks to edit
-  },
   'click .action': function() {
-    $azimuthContainer = $(".azimuth-container");
-
-    if($azimuthContainer.hasClass(this.template)) {
-      $azimuthContainer.removeClass('menu-small menu-medium menu-large ' + this.template);
-      return;
-    }
-
-    $azimuthContainer.addClass(this.template);
-
-    var size = this.size;
-    $azimuthContainer.removeClass('menu-small menu-medium menu-large').addClass(size)
-
     var template = this.template;
-    $('.admin-view').html(Template[template]());
+    var size = this.size;
+    adminPanel.loadTemplate(template, size);
   }
 }
 
 Template.admin_panel.actions  = function() {
-  return AdminPanel.actions;
+  return adminPanel.actions;
 }

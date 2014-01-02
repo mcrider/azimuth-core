@@ -1,18 +1,42 @@
 // Admin panel class and helpers
 
-window.AdminPanel = {
+window.adminPanel = {
+  loadTemplate: function(template, size) {
+    $azimuthContainer = $(".azimuth-container");
+
+    // Hide the panel if clicking on the same action
+    if($azimuthContainer.hasClass(template)) {
+      $azimuthContainer.removeClass('menu-small menu-medium menu-large ' + template);
+      return;
+    }
+
+    $azimuthContainer.addClass(template);
+    $azimuthContainer.removeClass('menu-small menu-medium menu-large').addClass(size);
+
+    var fragment = Meteor.render( function() {
+      return Template[ template ](); // this calls the template and returns the HTML.
+    });
+    $('.admin-view').html(fragment);
+  },
   show: function() {
-    // Don't use jquery
+    $(".azimuth-container").addClass('menu-open')
   },
   hide: function() {
-
+    $(".azimuth-container").removeClass('menu-small menu-medium menu-large')
   },
   toggle: function() {
-
+    $(".azimuth-container").toggleClass('menu-open')
   }
 }
 
-AdminPanel.actions = [
+adminPanel.blockEdit = {
+  newBlock: false,
+  zone: null,
+  template: null,
+  blockId: null
+}
+
+adminPanel.actions = [
   {
     label: 'Page Settings',
     icon: 'page-settings',

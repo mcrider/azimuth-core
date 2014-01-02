@@ -1,13 +1,15 @@
 // Register pages and blocks
 
 window.registry = {
-  pageTemplates: [],
+  pageTemplates: {},
   pageTemplate: function (pageTemplate) {
-    this.pageTemplates.push(pageTemplate);
+    var name = pageTemplate.name;
+    this.pageTemplates[name] = pageTemplate;
   },
 
-  blockTemplates: [],
+  blockTemplates: {},
   blockTemplate: function (blockTemplate) {
-    this.blockTemplates.push(blockTemplate);
+    var name = blockTemplate.name;
+    this.blockTemplates[name] = blockTemplate;
   }
 };
