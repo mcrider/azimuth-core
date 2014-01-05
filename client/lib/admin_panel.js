@@ -13,10 +13,7 @@ window.adminPanel = {
     $azimuthContainer.addClass(template);
     $azimuthContainer.removeClass('menu-small menu-medium menu-large').addClass(size);
 
-    var fragment = Meteor.render( function() {
-      return Template[ template ](); // this calls the template and returns the HTML.
-    });
-    $('.admin-view').html(fragment);
+    UI.insert(UI.render(Template[template]), document.getElementsByClassName("admin-view")[0]);
   },
   show: function() {
     $(".azimuth-container").addClass('menu-open')

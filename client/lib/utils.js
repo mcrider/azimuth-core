@@ -70,14 +70,14 @@ utils.displayHumanReadableDate = function(timestamp){
 // Get a template fragment
 utils.loadTemplate = function(template) {
   return Meteor.render(function () {
-    return Template[ template ](); // this calls the template and returns the HTML.
+    return Template[ template ]; // this calls the template and returns the HTML.
   });
 }
 
 // Get a setting value
 utils.getSetting = function(settingName) {
   var settings = Azimuth.collections.Settings.findOne();
-  if (!settings || !settingName) return '';
+  if (!settings || !settingName) return false;
   return Azimuth.collections.Settings.findOne()[settingName];
 }
 
@@ -85,7 +85,7 @@ utils.getSetting = function(settingName) {
 utils.getBlockFragment = function(block) {
   if (block && block.template) {
     Template[block.template].block = block;
-    var fragment = Template[block.template](); // this calls the template and returns the HTML.
+    var fragment = Template[block.template]; // this calls the template and returns the HTML.
   } else {
     console.log('Block not found (or has no template specified)' );
     return false;

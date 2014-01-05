@@ -4,12 +4,8 @@ Template.block_edit.templates = function() {
   });
 }
 
-Template.block_edit.ifNewBlock = function (options) {
-  if(adminPanel.blockEdit.newBlock) {
-    return options.fn(this);
-  } else {
-    return options.inverse(this);
-  }
+Template.block_edit.newBlock = function (options) {
+  return adminPanel.blockEdit.newBlock;
 };
 
 Template.block_edit.blockFields = function() {

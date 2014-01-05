@@ -66,7 +66,7 @@
 
 
     .action-links {
-      background-color: #34495E;
+      background-color: #2d353b;
       float: left;
       margin-left: 0;
       width: @action-links-width;
@@ -92,16 +92,21 @@
 
         a {
           font-size: 10px;
-          color: white;
+          color: #a8abae;
+        }
+
+        &.active {
+          border-left: 2px solid #7acbe2;
         }
       }
     }
 
     .admin-view-container {
-      background-color: #ECF0F1;
+      background-color: white;
       float: left;
       display: none;
       height: 100%;
+      padding: 15px;
 
       .admin-view {
         height: 100%;
@@ -111,8 +116,8 @@
           // FIXME: This shouldn't be an H2, and clean up this mess
           font-family: 'Raleway';
           font-size: 24px;
-          background: #2ECC71;
           text-transform: uppercase;
+          color: #999;
         }
       }
     }

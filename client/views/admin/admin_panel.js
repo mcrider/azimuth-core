@@ -9,7 +9,8 @@ Template.admin_panel.rendered = function() {
 }
 
 Template.admin_panel.events = {
-  'click .action': function() {
+  'click .action': function(e) {
+    $(e.currentTarget).parent('li').toggleClass('active');
     var template = this.template;
     var size = this.size;
     adminPanel.loadTemplate(template, size);

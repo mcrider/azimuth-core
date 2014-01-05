@@ -19,11 +19,11 @@
           {{#each users}}
             <tr>
               <td class="roles">
-                <a class="admin" title="Admin"><i class="icon-key{{#ifAdmin this._id}} enabled{{/ifAdmin}}"></i></a>
-                <a class="author" title="Author"><i class="icon-book{{#ifAuthor this._id}} enabled{{/ifAuthor}}"></i></a>
+                <a class="admin" title="Admin"><i class="icon-key{{#if isInRole 'admin'}} enabled{{/if}}"></i></a>
+                <a class="author" title="Author"><i class="icon-book{{#if isInRole 'admin'}} enabled{{/if}}"></i></a>
               </td>
               <!--<td>{{profile.name}}</td>-->
-              <td>{{emails.0.address}}</td>
+              <td>{{emails[0].address}}</td>
               <td>{{humanReadableTime createdAt}}</td>
               {{#if isInRole 'admin'}}<td>
                   <!--<a href="#"><i class="icon-pencil"></i></a>-->

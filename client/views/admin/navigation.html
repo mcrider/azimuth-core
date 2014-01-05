@@ -8,7 +8,7 @@
         <div class="header-dd dd" id="header_active">
           {{#if headerNav}}
             {{#with headerNav}}
-              {{#isolate}}{{>navigation_root}}{{/isolate}}
+              {{>navigation_root}}
             {{/with}}
           {{else}}
             <div class="dd-empty">Drag pages here to add them to header navigation.</div>
@@ -19,7 +19,7 @@
         <div class="header-dd dd" id="header_disabled">
           {{#if headerNavDisabled}}
             {{#with headerNavDisabled}}
-              {{#isolate}}{{>navigation_root}}{{/isolate}}
+              {{>navigation_root}}
             {{/with}}
           {{else}}
             <div class="dd-empty">Drag pages here to hide them from header navigation.</div>
@@ -35,7 +35,7 @@
         <div class="footer-dd dd" id="footer_active">
           {{#if footerNav}}
             {{#with footerNav}}
-              {{#isolate}}{{>navigation_root}}{{/isolate}}
+              {{>navigation_root}}
             {{/with}}
           {{else}}
             <div class="dd-empty">Drag pages here to add them to footer navigation.</div>
@@ -46,7 +46,7 @@
         <div class="footer-dd dd" id="footer_disabled">
           {{#if footerNavDisabled}}
             {{#with footerNavDisabled}}
-              {{#isolate}}{{>navigation_root}}{{/isolate}}
+              {{>navigation_root}}
             {{/with}}
           {{else}}
             <div class="dd-empty">Drag pages here to hide them from footer navigation.</div>

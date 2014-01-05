@@ -81,7 +81,7 @@ Template.block_zone_editor.events = {
 
     var fragment = Meteor.render(function () {
       Template[ block.template + "_edit" ].block = block;
-      return Template[ block.template + "_edit" ](block); // this calls the template and returns the HTML.
+      return Template[ block.template + "_edit" ].withData(block); // this calls the template and returns the HTML.
     });
     var $editBlockModal = $('#editBlockModal').first();
     $editBlockModal.find('.modal-body').html(fragment);
@@ -156,7 +156,7 @@ Template.block_zone_editor.events = {
     var block = Azimuth.collections.Blocks.findOne({_id: this.block_id});
     var fragment = Meteor.render(function () {
       Template[ block.template + "_edit" ].block = block;
-      return Template[ block.template + "_edit" ](block); // this calls the template and returns the HTML.
+      return Template[ block.template + "_edit" ].withData(block); // this calls the template and returns the HTML.
     });
 
     $('#editBlockModal').first().find('.modal-body').html(fragment);

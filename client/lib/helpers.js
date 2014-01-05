@@ -22,7 +22,7 @@ if (typeof Handlebars !== 'undefined') {
     var numSets = limit > 0 ? Math.ceil(Azimuth.collections.PageBlocks.find({page_id: page._id, zone: zone}).count() / limit) : false;
     Template["block_display"].numSets = numSets > 1 ? _.range(1, numSets + 1) : false;
     Template["block_display"].zone = zone;
-    return Template["block_display"]();
+    return Template["block_display"];
   });
 
   // Display a block/blocks from a pageBlock
@@ -42,7 +42,7 @@ if (typeof Handlebars !== 'undefined') {
       var block = Azimuth.collections.Blocks.findOne(pageBlock.block_id);
       if (block && block.template) {
         Template[block.template].block = block;
-        var fragment = Template[block.template](); // this calls the template and returns the HTML.
+        var fragment = Template[block.template]; // this calls the template and returns the HTML.
       } else {
         console.log('Block not found (or has no template specified)' );
       }
@@ -50,29 +50,17 @@ if (typeof Handlebars !== 'undefined') {
     return fragment;
   });
 
-  // Renders a single instance of a block
-  Handlebars.registerHelper('renderBlock', function (block) {
-    if (block && block.template) {
-      Template[block.template].block = block;
-      var fragment = Template[block.template](); // this calls the template and returns the HTML.
-    } else {
-      console.log('Block not found (or has no template specified)' );
-    }
-
-    return fragment;
-  });
-
   // Renders a form element using a template in views/form/
   Handlebars.registerHelper("formHelper", function (options) {
     if(options.hash.type == 'wysiwyg') options.hash.uniqueId = options.hash.fieldName + '_' + Math.random().toString(36).substring(7);
     // FIXME: Return error if type not valid template
-    return new Handlebars.SafeString(Template[options.hash.type](options.hash));
+    return Template[options.hash.type].withData(options.hash);
   });
 
   // Displays a region to manage blocks in the page edit template
   Handlebars.registerHelper("blockZoneEditor", function (options) {
     // FIXME: Return error if type not valid template
-    return new Handlebars.SafeString(Template['block_zone_editor'](options.hash));
+    return Template['block_zone_editor'].withData(options.hash);
   });
 
   // Get a setting value
@@ -82,18 +70,8 @@ if (typeof Handlebars !== 'undefined') {
 
   // Get a setting value
   Handlebars.registerHelper("getSetting", function (settingName) {
-    var settingValue = utils.getSetting(settingName);
-    if (settingValue) return utils.getSetting(settingName);
-  	else return '';
+    return utils.getSetting(settingName);
   });
-
-  // Get a boolean setting value (i.e. check a setting's truth value to determine to display block)
-  Handlebars.registerHelper("ifSetting", function (settingName, block) {
-  	var settings = Azimuth.collections.Settings.findOne();
-  	if (!settings || !settingName) return false;
-  	if (settings[settingName] != false) return block(this);
-  });
-
 
   // Return the current page object
   Handlebars.registerHelper("page", function () {
@@ -101,47 +79,53 @@ if (typeof Handlebars !== 'undefined') {
   });
 
   // Return true if a page slug is the current page's page slug
-  Handlebars.registerHelper("ifCurrentPage", function (slug, block) {
-    if (utils.getCurrentPage().template == slug) return block(this);
+  Handlebars.registerHelper("isCurrentPage", function (slug) {
+    if (utils.getCurrentPage().template == slug) return true;
     else return false;
   });
 
   // Custom helper to meteor-roles package to test if user is an admin
-  Handlebars.registerHelper("ifAdmin", function (userId, block) {
-    if (Roles.userIsInRole({_id: userId}, ['admin'])) return block(this);
-    else return '';
-  });
-
-  // Custom helper to meteor-roles package to test if user is an admin
-  Handlebars.registerHelper("ifAuthor", function (userId, block) {
-    if (Roles.userIsInRole({_id: userId}, ['author'])) return block(this);
-    else return '';
-  });
-
-  // Custom helper to meteor-roles package to test if user is an admin
-  Handlebars.registerHelper("ifAuthorOrAdmin", function (block) {
-    if(!Meteor.user()) return '';
+  Handlebars.registerHelper("isAdmin", function () {
+    if(!Meteor.user()) return false;
 
     var userId = Meteor.user()._id;
-    if (Roles.userIsInRole({_id: userId}, ['author', 'admin'])) return block(this);
-    else return '';
+    if (Roles.userIsInRole({_id: userId}, ['admin'])) return true;
+    else return false;
   });
 
   // Custom helper to meteor-roles package to test if user is an admin
-  Handlebars.registerHelper("ifOpenRegistration", function (options) {
+  Handlebars.registerHelper("isAuthor", function () {
+    if(!Meteor.user()) return false;
+
+    var userId = Meteor.user()._id;
+    if (Roles.userIsInRole({_id: userId}, ['author'])) return true;
+    else return false;
+  });
+
+  // Custom helper to meteor-roles package to test if user is an admin
+  Handlebars.registerHelper("isAuthorOrAdmin", function () {
+    if(!Meteor.user()) return false;
+
+    var userId = Meteor.user()._id;
+    if (Roles.userIsInRole({_id: userId}, ['author', 'admin'])) return true;
+    else return false;
+  });
+
+  // Custom helper to meteor-roles package to test if user is an admin
+  Handlebars.registerHelper("openRegistration", function (options) {
     if(utils.getSetting('openRegistration') || !Session.get('usersExist')) {
-      return options.fn(this);
+      return true;
     } else {
-      return options.inverse(this);
+      return false;
     }
   });
 
   // Check if file extension is image
   Handlebars.registerHelper('ifImage', function(filename, options) {
     if((/\.(gif|jpg|jpeg|tiff|png)$/i).test(filename)) {
-      return options.fn(this);
+      return true;
     } else {
-      return options.inverse(this);
+      return false;
     }
   });
 

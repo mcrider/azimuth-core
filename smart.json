@@ -9,8 +9,16 @@
     "underscore-string": {},
     "font-awesome": {},
     "roles": {},
-    "iron-router": {},
-    "collectionFS": {},
+    "iron-router": {
+      "git": "https://github.com/EventedMind/iron-router.git",
+      "branch": "shark"
+    },
+    "collectionFS": {
+      "path": "../../packages/collectionFS"
+    },
     "analyticsjs": {}
   }
 }
+
+
+

@@ -1,5 +1,5 @@
 <template name="block_edit">
-  {{#ifNewBlock}}
+  {{#if newBlock}}
     <h3>Add block</h3>
     <select class="block-template-selector">
       <option>Select A Block</option>
@@ -9,19 +9,17 @@
     </select>
   {{else}}
     <h3>Edit Block</h3>
-  {{/ifNewBlock}}
-  {{#isolate}}
-    {{#if blockFields}}
-      <form class="block-edit-form">
-        {{#each blockFields}}
-          {{formHelper value=this.value type=this.type label=this.label fieldName=this.name }}
-        {{/each}}
+  {{/if}}
+  {{#if blockFields}}
+    <form class="block-edit-form">
+      {{#each blockFields}}
+        {{> formHelper value=this.value type=this.type label=this.label fieldName=this.name }}
+      {{/each}}
 
-        <div class="azimuth-buttons">
-          <a class="cancel">Cancel</a>
-          <a class="submit">Save</a>
-        </div>
-      </form>
-    {{/if}}
-  {{/isolate}}
+      <div class="azimuth-buttons">
+        <a class="cancel">Cancel</a>
+        <a class="submit">Save</a>
+      </div>
+    </form>
+  {{/if}}
 </template>
