@@ -110,12 +110,40 @@ Template.block_display.events = {
   // Move block left
   'click .block-move-left': function(e) {
     e.preventDefault();
-    debugger;
 
+    // Ensure we can even move the block backwards
+    if(this.seq == 1) {
+      noty({text: 'Could not move block.', type: 'error'});
+      return false;
+    }
+
+    // Get previous pageBlock
+    var targetPageBlock = Azimuth.collections.PageBlocks.findOne({page_id: this.page_id, zone: this.zone, seq: this.seq-1});
+
+    // Decrement current pageBlock seq
+    Azimuth.collections.PageBlocks.update({_id: this._id}, {$set: {seq: this.seq-1}});
+
+    // Increment target pageBlock seq
+    Azimuth.collections.PageBlocks.update({_id: targetPageBlock._id}, {$set: {seq: this.seq}});
   },
   // Move block right
   'click .block-move-right': function(e) {
     e.preventDefault();
 
+    // Ensure we can even move the block forwards
+    var lastPageBlock = Azimuth.collections.PageBlocks.findOne({},{sort:{seq:-1}});
+    if(!lastPageBlock || lastPageBlock.seq <= this.seq) {
+      noty({text: 'Could not move block.', type: 'error'});
+      return false;
+    }
+
+    // Get next pageBlock
+    var targetPageBlock = Azimuth.collections.PageBlocks.findOne({page_id: this.page_id, zone: this.zone, seq: this.seq+1});
+
+    // Increment current pageBlock seq
+    Azimuth.collections.PageBlocks.update({_id: this._id}, {$set: {seq: this.seq+1}});
+
+    // Decrement target pageBlock seq
+    Azimuth.collections.PageBlocks.update({_id: targetPageBlock._id}, {$set: {seq: this.seq}});
   }
 }

@@ -39,10 +39,13 @@ Template.block_edit.events = {
       var block_id = Azimuth.collections.Blocks.insert(blockData);
       var block = Azimuth.collections.Blocks.findOne({_id: block_id});
 
-      // Insert into the correction position of the block zone
+      // Increment the sequence of all other blocks by one
       var page = utils.getCurrentPage();
-      Azimuth.collections.PageBlocks.insert({page_id: page._id, block_id: block_id, zone: adminPanel.blockEdit.zone, added: Date.now()});
+      Azimuth.collections.PageBlocks.find({ page_id : page._id, zone: "body" }).forEach(function(pageBlock) {
+        Azimuth.collections.PageBlocks.update(pageBlock._id, {$set: {seq: this.seq+1}});
+      });
 
+      Azimuth.collections.PageBlocks.insert({page_id: page._id, block_id: block_id, seq: 1, zone: adminPanel.blockEdit.zone, added: Date.now()});
     }
     // Save changes to an existing block
     else {
@@ -54,18 +57,6 @@ Template.block_edit.events = {
         noty({text: 'Block Saved.', type: 'success'});
       } else {
         noty({text: 'Error: Could not save block.', type: 'error'});
-      }
-    }
-
-    // Add block to page
-    if(Session.get('new-block-id')) {
-      Session.set('new-block-id', false);
-      var page = utils.getCurrentPage();
-
-      if (block && !page.notFound) {
-        var template = block.template;
-        var label = Template[template].label || 'Single Block';
-        Azimuth.collections.PageBlocks.insert({page_id: page._id, block_id: block._id, label: label, zone: Session.get('block-zone'), added: Date.now()});
       }
     }
 

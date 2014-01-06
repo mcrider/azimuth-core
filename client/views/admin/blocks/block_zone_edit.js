@@ -77,7 +77,6 @@ Template.block_zone_editor.events = {
 
     var block_id = Azimuth.collections.Blocks.insert(blockData);
     var block = Azimuth.collections.Blocks.findOne({_id: block_id});
-    Session.set('new-block-id', block_id);
 
     var fragment = Meteor.render(function () {
       Template[ block.template + "_edit" ].block = block;

@@ -14,9 +14,9 @@ if (typeof Handlebars !== 'undefined') {
     var skip = Session.get("zone_"+zone+"_skip") ? Session.get("zone_"+zone+"_skip") * limit : 0; // The current 'page' of blocks
 
     if (limit > 0) {
-      Template["block_display"].pageBlocks = Azimuth.collections.PageBlocks.find({page_id: page._id, zone: zone}, {skip: skip, limit: limit});
+      Template["block_display"].pageBlocks = Azimuth.collections.PageBlocks.find({page_id: page._id, zone: zone}, {skip: skip, limit: limit, sort: {seq: 1}});
     } else {
-      Template["block_display"].pageBlocks = Azimuth.collections.PageBlocks.find({page_id: page._id, zone: zone});
+      Template["block_display"].pageBlocks = Azimuth.collections.PageBlocks.find({page_id: page._id, zone: zone}, {sort: {seq: 1}});
     }
 
     var numSets = limit > 0 ? Math.ceil(Azimuth.collections.PageBlocks.find({page_id: page._id, zone: zone}).count() / limit) : false;
