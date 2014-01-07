@@ -36,51 +36,44 @@ adminPanel.blockEdit = {
 adminPanel.actions = [
   {
     label: 'Page Settings',
-    icon: 'page-settings',
+    icon: 'icon-document-edit',
     description: 'Edit page meta tags',
     template: 'page_settings',
     size: 'menu-medium'
   },
   {
-    label: 'All Pages',
-    icon: 'all-pages',
+    label: 'Navigation',
+    icon: 'icon-menu',
     description: 'Edit page meta tags',
-    template: 'all_pages',
-    size: 'menu-small'
-  },
-  {
-    label: 'Users',
-    icon: 'users',
-    description: 'Edit page meta tags',
-    template: 'admin_users',
-    size: 'menu-large'
-  },
-  {
-    label: 'Site Settings',
-    icon: 'site-settings',
-    description: 'Edit page meta tags',
-    template: 'site_settings',
+    template: 'metadata',
     size: 'menu-medium'
   },
   {
+    label: 'New Page',
+    icon: 'icon-plus',
+    description: 'Edit page meta tags',
+    template: 'metadata',
+    size: 'menu-small'
+  },
+  {
     label: 'Assets',
-    icon: 'assets',
+    icon: 'icon-camera',
     description: 'Edit page meta tags',
     template: 'assets',
     size: 'menu-medium'
   },
   {
-    label: 'New Page',
-    icon: 'new-page',
+    label: 'Site Settings',
+    icon: 'icon-gear',
     description: 'Edit page meta tags',
-    template: 'metadata',
-    size: 'menu-small'
+    template: 'site_settings',
+    size: 'menu-medium'
   },
   {
-    label: 'Navigation',
-    icon: 'navigation',
+    label: 'Users',
+    icon: 'icon-user-group',
     description: 'Edit page meta tags',
-    template: 'metadata',
-    size: 'menu-medium'
+    template: 'admin_users',
+    size: 'menu-large'
   }
 ]

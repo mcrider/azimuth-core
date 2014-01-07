@@ -43,6 +43,11 @@ Package.on_use(function (api) {
     'client/css/vendor/nestable.css',
     'client/css/main.less',
     'client/css/admin_panel.less',
+    'client/css/dripicons.css',
+    'client/css/fonts/dripicons.eot',
+    'client/css/fonts/dripicons.svg',
+    'client/css/fonts/dripicons.ttf',
+    'client/css/fonts/dripicons.woff',
     'client/blocks/four_column/four_column.js',
     'client/blocks/six_column/six_column.js',
     'client/blocks/three_column/three_column.js',
@@ -100,7 +105,6 @@ Package.on_use(function (api) {
     'img/image.gif',
     'img/file-large.png',
     'img/loading.gif',
-    'img/navIcons.png'
   ], 'client');
 });
 
