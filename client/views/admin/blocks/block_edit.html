@@ -1,12 +1,40 @@
 <template name="block_edit">
   {{#if newBlock}}
     <h3>Add block</h3>
-    <select class="block-template-selector">
-      <option>Select A Block</option>
-      {{#each templates}}
-        <option value="{{name}}">{{label}}</option>
-      {{/each}}
-    </select>
+
+    <div class="select-container">
+      <h6>New block</h6>
+      <p>Create a new block.</p>
+      <select class="block-template-selector" placeholder="Select a block">
+        <option>Select A Block</option>
+        {{#each templates}}
+          <option value="{{name}}">{{label}}</option>
+        {{/each}}
+      </select>
+    </div>
+
+    <div class="select-container">
+      <h6>By Tag</h6>
+      <p>Add a set of blocks with a particular tag.</p>
+      <select class="block-tag-selector" placeholder="Select a block">
+        <option>Select A Block</option>
+        {{#each templates}}
+          <option value="{{name}}">{{label}}</option>
+        {{/each}}
+      </select>
+    </div>
+
+    <div class="select-container">
+      <h6>By Type</h6>
+      <p>Add all existing blocks of a particular type.</p>
+      <select class="block-type-selector" placeholder="Select a block">
+        <option>Select A Block</option>
+        {{#each templates}}
+          <option value="{{name}}">{{label}}</option>
+        {{/each}}
+      </select>
+    </div>
+
   {{else}}
     <h3>Edit Block</h3>
   {{/if}}

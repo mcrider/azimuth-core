@@ -10,7 +10,10 @@ Template.admin_panel.rendered = function() {
 
 Template.admin_panel.events = {
   'click .action': function(e) {
-    $(e.currentTarget).parent('li').toggleClass('active');
+    $('.action-links li').removeClass('active');
+    if($('.azimuth-container').hasClass(this.template)) {
+      $(e.currentTarget).parent('li').removeClass('active');
+    } else $(e.currentTarget).parent('li').addClass('active');
     var template = this.template;
     var size = this.size;
     adminPanel.loadTemplate(template, size);

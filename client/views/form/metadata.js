@@ -1,3 +1,10 @@
+Template.metadata.rendered = function() {
+  $('select').selectize({
+    create: true,
+    sortField: 'text'
+  });
+}
+
 Template.metadata.events = {
   'click .add-meta-tag': function (e) {
     e.preventDefault();

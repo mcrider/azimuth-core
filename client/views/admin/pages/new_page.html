@@ -1,29 +1,15 @@
 <template name="new_page">
-  <div class="container site-settings">
-    <div class="row">
-      <div class="large-10 columns">
-        <h2>New Page</h2>
-        <form class="form-horizontal" id="newPageForm">
-          <div class="control-group">
-            <label class="control-label" for="title">Title</label>
-            <div class="controls">
-              <input type="text" class="new-page-title" name="title" placeholder="Page Title">
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="title">Slug</label>
-            <div class="controls">
-              <input type="text" class="new-page-slug" name="slug" placeholder="Page Slug">
-            </div>
-          </div>
+  <h3>New Page</h3>
+  <form class="form-horizontal" id="newPageForm">
+    <label class="control-label" for="title">Title</label>
+    <input type="text" class="new-page-title" name="title" placeholder="Page Title">
 
-           <div class="control-group">
-            <div class="controls">
-              <input type="submit" class="submit-new-page button" value="Save" />
-            </div>
-          </div>
-        </form>
-      </div>
+    <label class="control-label" for="title">Slug</label>
+    <input type="text" class="new-page-slug" name="slug" placeholder="Page Slug">
+
+    <div class="azimuth-buttons">
+      <a class="cancel">Cancel</a>
+      <a class="submit">Save</a>
     </div>
-  </div>
+  </form>
 </template>

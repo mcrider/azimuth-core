@@ -2,7 +2,7 @@
 
 window.adminPanel = {
   loadTemplate: function(template, size) {
-    $azimuthContainer = $(".azimuth-container");
+    $azimuthContainer = $('.azimuth-container');
 
     // Hide the panel if clicking on the same action
     if($azimuthContainer.hasClass(template)) {
@@ -12,17 +12,33 @@ window.adminPanel = {
 
     $azimuthContainer.addClass(template);
     $azimuthContainer.removeClass('menu-small menu-medium menu-large').addClass(size);
+    $('.contents-container').on('click', function(e) {
+      e.stopPropagation();
+      adminPanel.hide();
+    });
 
+    $('.admin-view').html('');
     UI.insert(UI.render(Template[template]), document.getElementsByClassName("admin-view")[0]);
   },
   show: function() {
-    $(".azimuth-container").addClass('menu-open')
+    $('.azimuth-container').addClass('menu-open');
+    $('.contents-container').on('click', function(e) {
+      e.stopPropagation();
+      adminPanel.hide();
+    });
   },
   hide: function() {
-    $(".azimuth-container").removeClass('menu-small menu-medium menu-large')
+    $('.contents-container').unbind('click');
+    $('.action-links li').removeClass('active');
+    $('.azimuth-container').removeClass('menu-small menu-medium menu-large');
+
   },
   toggle: function() {
-    $(".azimuth-container").toggleClass('menu-open')
+    $('.azimuth-container').toggleClass('menu-open')
+  },
+  isOpen: function() {
+    var $azimuthContainer = $('.azimuth-container');
+    return $azimuthContainer.hasClass('menu-small') || $azimuthContainer.hasClass('menu-medium') || $azimuthContainer.hasClass('menu-large');
   }
 }
 
@@ -45,14 +61,14 @@ adminPanel.actions = [
     label: 'Navigation',
     icon: 'icon-menu',
     description: 'Edit page meta tags',
-    template: 'metadata',
+    template: 'navigation',
     size: 'menu-medium'
   },
   {
     label: 'New Page',
     icon: 'icon-plus',
     description: 'Edit page meta tags',
-    template: 'metadata',
+    template: 'new_page',
     size: 'menu-small'
   },
   {

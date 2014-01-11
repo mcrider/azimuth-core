@@ -3,6 +3,46 @@
 @menu-medium-width: 400px;
 @menu-large-width: 500px;
 
+
+// Other possible fonts
+@font-face {
+  font-family: 'Exo 2';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Exo 2'), local('Exo2-Regular'), url(http://themes.googleusercontent.com/static/fonts/exo2/v1/KzoFUeaQw_faskDsymvVJqCWcynf_cDxXwCLxiixG1c.woff) format('woff');
+}
+@font-face {
+  font-family: 'Metrophobic';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Metrophobic'), url(http://themes.googleusercontent.com/static/fonts/metrophobic/v3/0IZPA9DbzKXnGZABsAivT7rIa-7acMAeDBVuclsi6Gc.woff) format('woff');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/cJZKeOuBrn4kERxqtaUH3bO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
+}
+
+
+// This one is nice, try in some headings?
+
+@font-face {
+  font-family: 'Shanti';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Shanti'), url(http://themes.googleusercontent.com/static/fonts/shanti/v4/eGeZy9lK-sD_x4kdQnR1SOvvDin1pK8aKteLpeZ5c0A.woff) format('woff');
+}
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Source Sans Pro'), local('SourceSansPro-Regular'), url(http://themes.googleusercontent.com/static/fonts/sourcesanspro/v6/ODelI1aHBYDBqgeIAH2zlNHq-FFgoDNV3GTKpHwuvtI.woff) format('woff');
+}
+
+
+
+
 @font-face {
   font-family: 'Raleway';
   font-style: normal;
@@ -40,11 +80,25 @@
   src: local('Raleway Bold'), local('Raleway-Bold'), url(http://themes.googleusercontent.com/static/fonts/raleway/v6/JbtMzqLaYbbbCL9X6EvaI73hpw3pgy2gAi-Ip7WPMi0.woff) format('woff');
 }
 
+
+
+
 .azimuth-container {
   .azimuth-admin-panel {
-    display: none;
+    h1,h2,h3,h4,h5,h6,p {
+      font-family: 'Raleway', sans-serif;
+      color: #222;
+      font-size: 12px;
+    }
+    h1 { font-size: 24px; }
+    h2 { font-size: 22px; }
+    h3 { font-size: 20px; }
+    h4 { font-size: 18px; }
+    h5 { font-size: 16px; }
+    h6 { font-size: 14px; }
+    p { margin-bottom: 5px; }
 
-    font-family: 'Raleway', sans-serif;
+    display: none;
 
     position: fixed;
     top: 0;
@@ -69,6 +123,7 @@
       background-color: #2d353b;
       float: left;
       margin-left: 0;
+      padding-top: 12px;
       width: @action-links-width;
       height: 100%;
 
@@ -85,8 +140,19 @@
           color: #a8abae;
         }
 
-        &.active {
+        p {
+          font-size: 10px;
+          font-family: "Raleway-Bold";
+          color: #a8abae;
+        }
+
+        &:hover, &.active {
           border-left: 2px solid #7acbe2;
+
+          a {
+            display: block;
+            width: 72px;
+          }
         }
       }
     }
@@ -101,14 +167,22 @@
       .admin-view {
         height: 100%;
         overflow: auto;
+      }
 
-        h3 {
-          // FIXME: This shouldn't be an H2, and clean up this mess
-          font-family: 'Raleway';
-          font-size: 24px;
-          text-transform: uppercase;
-          color: #999;
+      .select-container {
+        border-bottom: 1px solid #eee;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+
+        &:last-child {
+          border-bottom: 0px;
         }
+      }
+      .selectize-control {
+        margin-bottom: 0;
+      }
+      .selectize-control.single .selectize-input {
+        background: none;
       }
     }
   }
@@ -233,7 +307,14 @@
       color: #a8abae;
       display: inline;
       margin: 5px;
-      font-size: 14px;
+    }
+    a {
+      color: #7acbe2;
     }
   }
+}
+
+.selectize-input {
+  padding: 0 0 0 8px;
+  background: none;
 }

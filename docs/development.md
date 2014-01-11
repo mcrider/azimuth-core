@@ -62,7 +62,7 @@ Azimuth uses handlebars helpers to make creating form elements easier. Though yo
 
 Form helper calls take this form:
 ```
-{{formHelper value=[contents] type="[type]" label="[label]" fieldName="[contents]" }}
+{{> formHelper value=[contents] type="[type]" label="[label]" fieldName="[contents]" }}
 ```
 
 *   `value`Variable used to store the field's contents.  This variable is the same as the one used whtpen display the field in the page/block.

@@ -1,30 +1,28 @@
-<template name="block_zone_editor">
-  <h3>Edit Block Zone</h3>
+<template name="block_zone_edit">
+  <h3>Block Zone Settings</h3>
 
+  <div class="select-container">
+    <h6>Limit</h6>
+    <p>Limit the number of blocks that display at once.</p>
+    <select class="block-count" placeholder="Off">
+      <option {{#if limitEquals "0"}}selected="selected"{{/if}} value="0">Off</option>
+      {{#each blockCount}}
+        <option {{#if limitEquals blockCount}}selected="selected"{{/if}} value="{{this}}">{{this}}</option>
+      {{/each}}
+    </select>
+  </div>
 
-  <a href="#">Limit: <span class="limit">{{#if limit}}{{limit}}{{else}}Off{{/if}}</span>&nbsp;<b class="caret"></b></a>
-  <ul class="dropdown page-count-container">
-    <li class="page-count" data-page-count="0"><a>Off</a></li>
-    {{#each pageCount}}
-      <li class="page-count"><a>{{this}}</a></li>
-    {{/each}}
-  </ul>
+  <div class="select-container">
+    <h6>Sort</h6>
+    <p>Sort blocks in this block zone.</p>
+    <select class="dropdown">
+      <option value="sort-title-up">By Title</option>
+      <option value="sort-title-down">By Title</option>
+      <option value="sort-date-up">By Date Created</option>
+      <option value="sort-date-down">By Date Created</option>
+    </select>
+  </div>
 
-  <!--
-    <a href="#">Sort Blocks<b class="caret"></b></a>
-    <ul class="dropdown">
-      <li class="sort-title-up"><a>By Title <i class="icon-angle-up"></i></a></li>
-      <li class="sort-title-down"><a>By Title <i class="icon-angle-down"></i></a></li>
-      <li class="sort-date-up"><a>By Date Created <i class="icon-angle-up"></i></a></li>
-      <li class="sort-date-down"><a>By Date Created <i class="icon-angle-down"></i></a></li>
-    </ul>
-  -->
-
-
-  {{>delete_block}}
-  {{>edit_block}}
-  {{>existing_block}}
-  {{>tag_block}}
 </template>
 
 

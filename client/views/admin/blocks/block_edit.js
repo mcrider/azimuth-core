@@ -1,3 +1,10 @@
+Template.block_edit.rendered = function() {
+  $('select').selectize({
+    create: true,
+    sortField: 'text'
+  });
+}
+
 Template.block_edit.templates = function() {
   return $.map(registry.blockTemplates, function(value, index) {
     return [value];
