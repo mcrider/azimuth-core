@@ -7,7 +7,6 @@
   "git": "https://github.com/mcrider/azimuth-core.git",
   "packages": {
     "underscore-string": {},
-    "font-awesome": {},
     "roles": {},
     "iron-router": {
       "git": "https://github.com/EventedMind/iron-router.git",

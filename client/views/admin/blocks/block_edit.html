@@ -2,7 +2,7 @@
   {{#if newBlock}}
     <h3>Add block</h3>
 
-    <div class="select-container">
+    <div class="azimuth-form-section">
       <h6>New block</h6>
       <p>Create a new block.</p>
       <select class="block-template-selector" placeholder="Select a block">
@@ -13,7 +13,7 @@
       </select>
     </div>
 
-    <div class="select-container">
+    <div class="azimuth-form-section">
       <h6>By Tag</h6>
       <p>Add a set of blocks with a particular tag.</p>
       <select class="block-tag-selector" placeholder="Select a block">
@@ -24,7 +24,7 @@
       </select>
     </div>
 
-    <div class="select-container">
+    <div class="azimuth-form-section">
       <h6>By Type</h6>
       <p>Add all existing blocks of a particular type.</p>
       <select class="block-type-selector" placeholder="Select a block">
@@ -44,10 +44,10 @@
         {{> formHelper value=this.value type=this.type label=this.label fieldName=this.name }}
       {{/each}}
 
-      <div class="azimuth-buttons">
-        <a class="cancel">Cancel</a>
-        <a class="submit">Save</a>
-      </div>
+      <div class="azimuth-buttons clear">
+      <a class="azimuth-button text left cancel">Cancel</a>
+      <a class="azimuth-button right submit"><i class="icon icon-checkmark"></i>Save</a>
+    </div>
     </form>
   {{/if}}
 </template>

@@ -1,16 +1,14 @@
 // Site navigation
 var updateNav = function(location) {
   return function() {
-    var active = Azimuth.collections.Navigation.findOne({location: location + '_active'});
-    var disabled = Azimuth.collections.Navigation.findOne({location: location + '_disabled'});
-    Azimuth.collections.Navigation.update({_id: active._id}, {$set: {pages: $('#'+location + '_active').nestable('serialize')}});
-    Azimuth.collections.Navigation.update({_id: disabled._id}, {$set: {pages: $('#'+location + '_disabled').nestable('serialize')}});
+    var nav = Azimuth.collections.Navigation.findOne({location: location});
+    Azimuth.collections.Navigation.update({_id: nav._id}, {$set: {pages: $('#'+location).nestable('serialize')}});
   }
 }
 
 Template.navigation.rendered = function() {
-  $("#header_active, #header_disabled").nestable({maxDepth: 4, group: 1}).on('change', updateNav('header'));
-  $("#footer_active, #footer_disabled").nestable({maxDepth: 1, group: 2}).on('change', updateNav('footer'));
+  $("#header").nestable({maxDepth: 4, group: 1}).on('change', updateNav('header'));
+  $("#footer").nestable({maxDepth: 1, group: 2}).on('change', updateNav('footer'));
 }
 
 Template.navigation.events = {
@@ -84,25 +82,13 @@ Template.navigation.events = {
 }
 
 Template.navigation.headerNav = function() {
-  var nav = Azimuth.collections.Navigation.findOne({location: "header_active"});
-  if (nav) return nav.pages;
-  return false;
-}
-
-Template.navigation.headerNavDisabled = function() {
-  var nav = Azimuth.collections.Navigation.findOne({location: "header_disabled"});
+  var nav = Azimuth.collections.Navigation.findOne({location: "header"});
   if (nav) return nav.pages;
   return false;
 }
 
 Template.navigation.footerNav = function() {
-  var nav = Azimuth.collections.Navigation.findOne({location: "footer_active"});
-  if (nav) return nav.pages;
-  return false;
-}
-
-Template.navigation.footerNavDisabled = function() {
-  var nav = Azimuth.collections.Navigation.findOne({location: "footer_disabled"});
+  var nav = Azimuth.collections.Navigation.findOne({location: "footer"});
   if (nav) return nav.pages;
   return false;
 }

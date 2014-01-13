@@ -174,15 +174,13 @@ Meteor.startup(function () {
     update: authorize.admins,
     remove: authorize.admins
   });
-  if (!Navigation.findOne({location: "header_active"})) {
+  if (!Navigation.findOne({location: "header"})) {
   	var nav = [];
     Pages.find().forEach(function(page) {
-      nav.push({id: page._id, title: page.title, url: '/' + page.slug });
+      nav.push({id: page._id, title: page.title, url: '/' + page.slug, visible: true });
     });
-    Navigation.insert({location: "header_active", pages: nav});
-    Navigation.insert({location: "header_disabled", pages: []});
-    Navigation.insert({location: "footer_active", pages: nav});
-    Navigation.insert({location: "footer_disabled", pages: []});
+    Navigation.insert({location: "header", pages: nav});
+    Navigation.insert({location: "footer", pages: nav});
   }
 
   // Asset Library (uses CollectionFS package)

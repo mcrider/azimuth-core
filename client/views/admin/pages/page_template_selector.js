@@ -1,5 +1,7 @@
 Template.page_template_selector.templates = function() {
-  return registry.pageTemplates;
+  return $.map(registry.pageTemplates, function(value, index) {
+    return [value];
+  });
 }
 
 Template.page_template_selector.events = {

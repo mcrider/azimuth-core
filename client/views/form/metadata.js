@@ -1,6 +1,5 @@
 Template.metadata.rendered = function() {
   $('select').selectize({
-    create: true,
     sortField: 'text'
   });
 }
@@ -29,6 +28,11 @@ Template.metadata.events = {
   }
 };
 
-Template.metadata.getMetadataFields = function() {
+Template.metadata.current_fields = function() {
+  var page = utils.getCurrentPage();
+  return Azimuth.collections.Pages.findOne(page._id).metadata;
+}
+
+Template.metadata.metadata_field_list = function() {
   return Azimuth.metadata_fields;
 }

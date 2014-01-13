@@ -1,58 +1,27 @@
 <template name="navigation">
-  <div class="container navigation">
-    <div class="row">
-      <div class="large-12 columns">
-        <h2>Header Navigation<a class="button small add-link"><i class="icon-plus"></i>&nbsp;Add link</a></h2>
-      </div>
-      <div class="large-6 columns">
-        <div class="header-dd dd" id="header_active">
-          {{#if headerNav}}
-            {{#with headerNav}}
-              {{>navigation_root}}
-            {{/with}}
-          {{else}}
-            <div class="dd-empty">Drag pages here to add them to header navigation.</div>
-          {{/if}}
-        </div>
-      </div>
-      <div class="large-6 columns">
-        <div class="header-dd dd" id="header_disabled">
-          {{#if headerNavDisabled}}
-            {{#with headerNavDisabled}}
-              {{>navigation_root}}
-            {{/with}}
-          {{else}}
-            <div class="dd-empty">Drag pages here to hide them from header navigation.</div>
-          {{/if}}
-        </div>
-      </div>
+  <div class="navigation">
+    <h2>Header Navigation</h2>
+    <a class="add-link"><i class="icon icon-plus"></i>&nbsp;Add link</a>
+    <div class="header-dd dd" id="header">
+      {{#if headerNav}}
+        {{#with headerNav}}
+          {{>navigation_root}}
+        {{/with}}
+      {{else}}
+        <div class="dd-empty">Drag pages here to add them to header navigation.</div>
+      {{/if}}
     </div>
-    <div class="row">
-      <div class="large-12 columns">
-        <h2>Footer Navigation<a class="button small add-link"><i class="icon-plus"></i>&nbsp;Add link</a></h2>
-      </div>
-      <div class="large-6 columns">
-        <div class="footer-dd dd" id="footer_active">
-          {{#if footerNav}}
-            {{#with footerNav}}
-              {{>navigation_root}}
-            {{/with}}
-          {{else}}
-            <div class="dd-empty">Drag pages here to add them to footer navigation.</div>
-          {{/if}}
-        </div>
-      </div>
-      <div class="large-6 columns">
-        <div class="footer-dd dd" id="footer_disabled">
-          {{#if footerNavDisabled}}
-            {{#with footerNavDisabled}}
-              {{>navigation_root}}
-            {{/with}}
-          {{else}}
-            <div class="dd-empty">Drag pages here to hide them from footer navigation.</div>
-          {{/if}}
-        </div>
-      </div>
+
+    <h2>Footer Navigation</h2>
+    <a class="add-link"><i class="icon icon-plus"></i>&nbsp;Add link</a>
+    <div class="footer-dd dd" id="footer">
+      {{#if footerNav}}
+        {{#with footerNav}}
+          {{>navigation_root}}
+        {{/with}}
+      {{else}}
+        <div class="dd-empty">Drag pages here to add them to footer navigation.</div>
+      {{/if}}
     </div>
   </div>
 
@@ -97,12 +66,12 @@
     {{#each this}}
       {{#if children}}
         <li class="dd-item" data-url="{{url}}" data-title="{{title}}" data-id="{{id}}">
-          <div class="dd-handle">{{title}}</div><div class="edit-link-container"><a href="#" class="edit-link"><i class='icon-edit'></i></a></div><div class="edit-link-container"><a href="#" class="delete-link"><i class='icon-remove'></i></a></div>
+          <div class="dd-handle">{{title}}</div><div class="edit-link-container"><a href="#" class="edit-link"><i class='icon icon-document-edit'></i></a></div><div class="edit-link-container"><a href="#" class="delete-link"><i class='icon icon-cross'></i></a></div>
             {{>navigation_child}}
         </li>
       {{else}}
         <li class="dd-item" data-url="{{url}}" data-title="{{title}}" data-id="{{id}}">
-          <div class="dd-handle">{{title}}</div><div class="edit-link-container"><a href="#" class="edit-link"><i class='icon-edit'></i></a></div><div class="edit-link-container"><a href="#" class="delete-link"><i class='icon-remove'></i></a></div>
+          <div class="dd-handle">{{title}}</div><div class="edit-link-container"><a href="#" class="edit-link"><i class='icon icon-document-edit'></i></a></div><div class="edit-link-container"><a href="#" class="delete-link"><i class='icon icon-cross'></i></a></div>
         </li>
       {{/if}}
     {{/each}}
@@ -114,12 +83,12 @@
     {{#each children}}
       {{#if children}}
         <li class="dd-item" data-url="{{url}}" data-title="{{title}}" data-id="{{id}}">
-          <div class="dd-handle">{{title}}</div><div class="edit-link-container"><a href="#" class="edit-link"><i class='icon-edit'></i></a></div><div class="edit-link-container"><a href="#" class="delete-link"><i class='icon-remove'></i></a></div>
+          <div class="dd-handle">{{title}}</div><div class="edit-link-container"><a href="#" class="edit-link"><i class='icon icon-document-edit'></i></a></div><div class="edit-link-container"><a href="#" class="delete-link"><i class='icon icon-cross'></i></a></div>
             {{>navigation_child}}
         </li>
       {{else}}
         <li class="dd-item" data-url="{{url}}" data-title="{{title}}" data-id="{{id}}">
-          <div class="dd-handle">{{title}}</div><div class="edit-link-container"><a href="#" class="edit-link"><i class='icon-edit'></i></a></div><div class="edit-link-container"><a href="#" class="delete-link"><i class='icon-remove'></i></a></div>
+          <div class="dd-handle">{{title}}</div><div class="edit-link-container"><a href="#" class="edit-link"><i class='icon icon-document-edit'></i></a></div><div class="edit-link-container"><a href="#" class="delete-link"><i class='icon icon-cross'></i></a></div>
         </li>
       {{/if}}
     {{/each}}

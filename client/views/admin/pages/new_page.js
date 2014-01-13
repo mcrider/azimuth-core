@@ -1,5 +1,5 @@
 Template.new_page.events = {
-  'click .submit-new-page': function (e) {
+  'click .submit': function (e) {
     e.preventDefault();
     var raw_title = $('.new-page-title').val();
     var raw_slug = $('.new-page-slug').val();
@@ -10,32 +10,26 @@ Template.new_page.events = {
       return false;
     }
 
-    Azimuth.collections.Pages.insert({
-      title: raw_title,
+    var pageId = Azimuth.collections.Pages.insert({
       slug: raw_slug,
-      contents: "<p>This page is empty.</p>",
       template: "page_default"
     });
 
+    // Add to title metadata attribute
+    Azimuth.collections.Pages.update({_id: pageId}, {$push : {  "metadata" : { key: 'title', value: raw_title }}});
+
     // Add to navigation
-    var updatePageNav = function(location) {
+    var updatePageNav = function(location, visible) {
       var currentPages = Azimuth.collections.Navigation.findOne({location: location}).pages;
-      currentPages.push({title: raw_title, url: '/'+raw_slug});
+      currentPages.push({title: raw_title, url: '/'+raw_slug, visible: visible});
       Azimuth.collections.Navigation.update(Azimuth.collections.Navigation.findOne({location: location})._id, {$set: {pages: currentPages}});
     };
 
-    if (utils.getSetting('addNewPagesToHeader')) {
-      updatePageNav('header_active');
-    } else {
-      updatePageNav('header_disabled');
-    }
-    if (utils.getSetting('addNewPagesToFooter')) {
-      updatePageNav('footer_active');
-    } else {
-      updatePageNav('footer_disabled');
-    }
+    updatePageNav('header', utils.getSetting('addNewPagesToHeader'));
+    updatePageNav('footer', utils.getSetting('addNewPagesToFooter'));
 
-    Router.go('/' + raw_slug + '/edit');
+    Router.go('/' + raw_slug);
+    adminPanel.hide();
   },
   'keyup .new-page-title': function () {
     var raw_title = $('.new-page-title').val();

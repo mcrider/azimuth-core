@@ -1,6 +1,5 @@
 Template.block_edit.rendered = function() {
   $('select').selectize({
-    create: true,
     sortField: 'text'
   });
 }
@@ -46,13 +45,27 @@ Template.block_edit.events = {
       var block_id = Azimuth.collections.Blocks.insert(blockData);
       var block = Azimuth.collections.Blocks.findOne({_id: block_id});
 
-      // Increment the sequence of all other blocks by one
       var page = utils.getCurrentPage();
-      Azimuth.collections.PageBlocks.find({ page_id : page._id, zone: "body" }).forEach(function(pageBlock) {
-        Azimuth.collections.PageBlocks.update(pageBlock._id, {$set: {seq: this.seq+1}});
-      });
+      var zone = adminPanel.blockEdit.zone;
 
-      Azimuth.collections.PageBlocks.insert({page_id: page._id, block_id: block_id, seq: 1, zone: adminPanel.blockEdit.zone, added: Date.now()});
+      if(adminPanel.blockEdit.insertAfter) {
+        // Insert after a specific block
+        var skip = adminPanel.blockEdit.insertAfter;
+        Azimuth.collections.PageBlocks.find({page_id: page._id, zone: zone}, {skip: skip, sort: {seq: 1}}).forEach(function(pageBlock) {
+          Azimuth.collections.PageBlocks.update(pageBlock._id, {$set: {seq: pageBlock.seq+1}});
+        });
+
+        Azimuth.collections.PageBlocks.insert({page_id: page._id, block_id: block_id, seq: skip + 1, zone: adminPanel.blockEdit.zone, added: Date.now()});
+      } else {
+        // Insert into the beginning of the block zone
+
+        // Increment the sequence of all other blocks by one so this gets added to the beginning
+        Azimuth.collections.PageBlocks.find({ page_id : page._id, zone: zone }).forEach(function(pageBlock) {
+          Azimuth.collections.PageBlocks.update(pageBlock._id, {$set: {seq: pageBlock.seq+1}});
+        });
+
+        Azimuth.collections.PageBlocks.insert({page_id: page._id, block_id: block_id, seq: 1, zone: adminPanel.blockEdit.zone, added: Date.now()});
+      }
     }
     // Save changes to an existing block
     else {

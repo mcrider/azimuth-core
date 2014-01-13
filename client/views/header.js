@@ -27,7 +27,7 @@ Template.header.helpers({
 });
 
 Template.header.headerNav = function () {
-  var nav = Azimuth.collections.Navigation.findOne({location: "header_active"});
+  var nav = Azimuth.collections.Navigation.findOne({location: "header"});
   if (nav) return nav.pages;
   return false;
 };

@@ -1,18 +1,23 @@
 // Handles the block templates for the admin
 
 Template.block_display.rendered = function() {
-  $('.azimuth-block').hover(function() {
-    if(!$(this).find('.azimuth-block-edit-panel').length) {
-      $blockElement = $(this).children(":first");
-      $blockElement.append($('.azimuth-block-edit-panel')[0].outerHTML);
+  // Display block-specific admin buttons when hovered over
+  // FIXME: Need to make this available to touch events
+  $('.contents-container').on({
+    mouseenter: function() {
+      if(!$(this).find('.azimuth-block-edit-panel').length) {
+        $blockElement = $(this).children(":first");
+        $blockElement.append($('.azimuth-block-edit-panel')[0].outerHTML);
 
-      var $editPanel = $(this).find('.azimuth-block-edit-panel')
-      $editPanel.show();
-      $editPanel.css('left', (($blockElement.width() / 2) - ($editPanel.width() / 2)) + 'px');
+        var $editPanel = $(this).find('.azimuth-block-edit-panel')
+        $editPanel.show();
+        $editPanel.css('left', (($blockElement.width() / 2) - ($editPanel.width() / 2)) + 'px');
+      }
+    },
+    mouseleave: function() {
+      $(this).find('.azimuth-block-edit-panel').remove();
     }
-  }, function() {
-    $(this).find('.azimuth-block-edit-panel').remove();
-  })
+  }, '.azimuth-block');
 }
 
 Template.block_display.currentBlockPage = function(zone) {
@@ -27,20 +32,20 @@ Template.block_display.events = {
   // --- Actions for block zone panel --
   // Add a new block to the beginning of block zone
   'click .block-zone-add': function(e) {
-    e.preventDefault();
-    zone = $(e.currentTarget).data('zone');
+    e.stopPropagation();
+    zone = $(e.currentTarget).closest('.azimuth-block-zone').data('zone');
 
     if(!zone) return false;
 
     adminPanel.blockEdit.newBlock = true;
     Session.set('block_fields', false);
     adminPanel.blockEdit.zone = zone;
+    adminPanel.blockEdit.insertAfter = false;
     adminPanel.loadTemplate('block_edit', 'menu-medium');
-
-    // FIXME: Should add to beginning of block zone.  specific block add buttons add after
   },
   // Edit block settings such as pagination
   'click .block-zone-edit': function(e) {
+    e.stopPropagation();
     adminPanel.blockEdit.zone = zone;
     adminPanel.loadTemplate('block_zone_edit', 'menu-medium');
   },
@@ -48,7 +53,7 @@ Template.block_display.events = {
   // --- Actions for block panels ---
   // Edit the selected block or block tag/type
   'click .block-edit': function(e) {
-    e.preventDefault();
+    e.stopPropagation();
 
     adminPanel.blockEdit.newBlock = false;
 
@@ -86,7 +91,7 @@ Template.block_display.events = {
   // Delete the selected block or block tag/type
   'click .block-delete': function(e) {
     // FIXME: This needs a confirmation dialogish-type-thing
-
+    e.stopPropagation();
     e.preventDefault();
 
     var pageBlockId = $(e.currentTarget).closest('.azimuth-block').data('page-block-id');
@@ -105,11 +110,22 @@ Template.block_display.events = {
   // Add a new block after the current block
   'click .block-add': function(e) {
     e.preventDefault();
+    e.stopPropagation();
+
+    var zone = $(e.currentTarget).closest('.azimuth-block-zone').data('zone');
+
+    if(!zone) return false;
+
+    adminPanel.blockEdit.newBlock = true;
+    Session.set('block_fields', false);
+    adminPanel.blockEdit.zone = zone;
+    adminPanel.blockEdit.insertAfter = this.seq;
+    adminPanel.loadTemplate('block_edit', 'menu-medium');
 
   },
   // Move block left
   'click .block-move-left': function(e) {
-    e.preventDefault();
+    e.stopPropagation();
 
     // Ensure we can even move the block backwards
     if(this.seq == 1) {
@@ -128,7 +144,7 @@ Template.block_display.events = {
   },
   // Move block right
   'click .block-move-right': function(e) {
-    e.preventDefault();
+    e.stopPropagation();
 
     // Ensure we can even move the block forwards
     var lastPageBlock = Azimuth.collections.PageBlocks.findOne({},{sort:{seq:-1}});

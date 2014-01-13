@@ -8,7 +8,7 @@ Package.on_use(function (api) {
     'less', 'spiderable', 'standard-app-packages'], 'client');
 
   // Use the meteorite smart packages specified in smart.json
-  api.use(['font-awesome','roles','iron-router','analyticsjs', 'collectionFS'], 'client');
+  api.use(['roles','iron-router','analyticsjs', 'collectionFS'], 'client');
 
   // And ensure we have the packages we need server-side available to the server
   api.use(['accounts-base', 'accounts-password', 'spiderable', 'roles', 'collectionFS', 'cfs-public-folder'], 'server');
@@ -52,6 +52,7 @@ Package.on_use(function (api) {
     'client/blocks/three_column/three_column.js',
     'client/blocks/twelve_column/twelve_column.js',
     'client/blocks/two_column/two_column.js',
+    'client/blocks/row_separator/row_separator.js',
     'client/pages/home_page/home_page.js',
     'client/pages/page_default/page_default.js',
     'client/pages/sidebar_left/sidebar_left.js',
@@ -71,8 +72,6 @@ Package.on_use(function (api) {
     'client/views/admin/site_settings.js',
     'client/views/admin/pages/page_settings.html',
     'client/views/admin/pages/page_settings.js',
-    'client/views/admin/pages/all_pages.html',
-    'client/views/admin/pages/all_pages.js',
     'client/views/admin/pages/new_page.html',
     'client/views/admin/pages/new_page.js',
     'client/views/admin/pages/page_template_selector.html',

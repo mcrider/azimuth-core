@@ -30,8 +30,7 @@ window.adminPanel = {
   hide: function() {
     $('.contents-container').unbind('click');
     $('.action-links li').removeClass('active');
-    $('.azimuth-container').removeClass('menu-small menu-medium menu-large');
-
+    $('.azimuth-container').attr('class', "azimuth-container menu-open");
   },
   toggle: function() {
     $('.azimuth-container').toggleClass('menu-open')
@@ -46,7 +45,8 @@ adminPanel.blockEdit = {
   newBlock: false,
   zone: null,
   template: null,
-  blockId: null
+  blockId: null,
+  insertBefore: 1
 }
 
 adminPanel.actions = [
