@@ -16,16 +16,10 @@ Meteor.startup(function () {
   // Helper functions for authorization
   authorize = {
     authorsAndAdmins: function() {
-      if (Meteor.user() && Roles.userIsInRole(Meteor.user(), ['author','admin'])) {
-        return true;
-      }
-      return false;
+      return Meteor.user() && Roles.userIsInRole(Meteor.user(), ['author','admin']);
     },
     admins: function() {
-      if (Meteor.user() && Roles.userIsInRole(Meteor.user(), ['admin'])) {
-        return true;
-      }
-      return false;
+      return Meteor.user() && Roles.userIsInRole(Meteor.user(), ['admin']);
     }
   }
 
@@ -82,19 +76,17 @@ Meteor.startup(function () {
     update: authorize.authorsAndAdmins,
     remove: authorize.authorsAndAdmins
   });
-  if (Pages.find().count() === 0) {
-    // Insert default data
-    Pages.insert({
-      title: "Home",
+  if (!Pages.find().count()) {
+    // First run -- Bootstrap the app with some base data
+
+    // Insert a default page
+    var pageId = Pages.insert({
       slug: "home",
-      contents: "<p>Welcome to Azimuth.</p><p>You can add pages from the <i class='icon-cogs'></i>  menu above.</p>",
-      template: "page_default"
-    });
-    Pages.insert({
-      title: "About",
-      slug: "about",
-      contents: "<p>Replace this with some text about your site.</p>",
-      template: "page_default"
+      template: "page_default",
+      metadata: [{
+        key: "title",
+        value: "Home"
+      }]
     });
   }
 
@@ -108,6 +100,15 @@ Meteor.startup(function () {
     update: authorize.authorsAndAdmins,
     remove: authorize.authorsAndAdmins
   });
+  if (!Blocks.find().count()) {
+    // Insert a default block
+    Blocks.insert({
+      template: 'twelve_column',
+      contents: '<div class="centered"><h3>Welcome to Azimuth!</h3>' +
+        '<p>Please <a href="/login">login</a> to start crafting your site.</p></div>',
+      created: Date.now(),
+    });
+  }
 
   // PageBlocks -- Links block instances and the pages that contain them
   Meteor.publish('pageBlocks', function () {
@@ -119,6 +120,18 @@ Meteor.startup(function () {
     update: authorize.authorsAndAdmins,
     remove: authorize.authorsAndAdmins
   });
+  if (!PageBlocks.find().count()) {
+    // Insert a default block
+    var pageId = Pages.findOne()._id;
+    var blockId = Blocks.findOne()._id;
+    PageBlocks.insert({
+      page_id: pageId,
+      block_id: blockId,
+      seq: 1,
+      zone: "body",
+      added: Date.now()
+    });
+  }
 
   // Users
   Meteor.publish('users', function () {
@@ -155,13 +168,13 @@ Meteor.startup(function () {
   });
   if (Settings.find().count() === 0) {
     Settings.insert({
-        siteName: "Azimuth CMS",
-        indexPage: "home",
-        showLoginInHeader: true,
-        addNewPagesToHeader: true,
-        openRegistration: false,
-        theme: 'flatBlue'
-      });
+      siteName: "Azimuth CMS",
+      indexPage: "home",
+      showLoginInHeader: true,
+      addNewPagesToHeader: true,
+      openRegistration: false,
+      theme: 'flatBlue'
+    });
   }
 
   // Header and footer navigation
