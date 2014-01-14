@@ -3,21 +3,23 @@
 Template.block_display.rendered = function() {
   // Display block-specific admin buttons when hovered over
   // FIXME: Need to make this available to touch events
-  $('.contents-container').on({
-    mouseenter: function() {
-      if(!$(this).find('.azimuth-block-edit-panel').length) {
-        $blockElement = $(this).children(":first");
-        $blockElement.append($('.azimuth-block-edit-panel')[0].outerHTML);
+  if (Roles.userIsInRole({_id: userId}, ['author', 'admin'])) {
+    $('.contents-container').on({
+      mouseenter: function() {
+        if(!$(this).find('.azimuth-block-edit-panel').length) {
+          $blockElement = $(this).children(":first");
+          $blockElement.append($('.azimuth-block-edit-panel')[0].outerHTML);
 
-        var $editPanel = $(this).find('.azimuth-block-edit-panel')
-        $editPanel.show();
-        $editPanel.css('left', (($blockElement.width() / 2) - ($editPanel.width() / 2)) + 'px');
+          var $editPanel = $(this).find('.azimuth-block-edit-panel')
+          $editPanel.show();
+          $editPanel.css('left', (($blockElement.width() / 2) - ($editPanel.width() / 2)) + 'px');
+        }
+      },
+      mouseleave: function() {
+        $(this).find('.azimuth-block-edit-panel').remove();
       }
-    },
-    mouseleave: function() {
-      $(this).find('.azimuth-block-edit-panel').remove();
-    }
-  }, '.azimuth-block');
+    }, '.azimuth-block');
+  }
 }
 
 Template.block_display.currentBlockPage = function(zone) {

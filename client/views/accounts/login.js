@@ -25,6 +25,7 @@ Template.login.events({
   },
   'click #logout': function(e) {
     Meteor.logout();
+    $('.azimuth-container').removeClass('menu-open');
     Router.go('/');
   }
 });
