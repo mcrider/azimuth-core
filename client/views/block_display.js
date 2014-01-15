@@ -3,7 +3,7 @@
 Template.block_display.rendered = function() {
   // Display block-specific admin buttons when hovered over
   // FIXME: Need to make this available to touch events
-  if (Roles.userIsInRole({_id: userId}, ['author', 'admin'])) {
+  if (Roles.userIsInRole({_id: Meteor.user()._id}, ['author', 'admin'])) {
     $('.contents-container').on({
       mouseenter: function() {
         if(!$(this).find('.azimuth-block-edit-panel').length) {
@@ -12,7 +12,6 @@ Template.block_display.rendered = function() {
 
           var $editPanel = $(this).find('.azimuth-block-edit-panel')
           $editPanel.show();
-          $editPanel.css('left', (($blockElement.width() / 2) - ($editPanel.width() / 2)) + 'px');
         }
       },
       mouseleave: function() {
