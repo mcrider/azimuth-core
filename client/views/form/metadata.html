@@ -21,25 +21,26 @@
               </td>
             </tr>
           {{/each}}
+          <tr>
+            <td colspan='3'>Add a metadata field</td>
+          </tr>
+          <tr>
+            <td>
+              <select name="meta_key" class="meta-key">
+                {{#each metadata_field_list}}
+                  <option value="{{meta_key}}">{{meta_name}}</option>
+                {{/each}}
+              </select>
+            </td>
+            <td><input type="text" class="meta-value"></td>
+            <td>
+              <a href="#" class="add-meta-tag"><i class="icon icon-plus"></i></a>
+            </td>
+          </tr>
         </tbody>
       </table>
 
     {{/if}}
-    <div class="add-field">
-      <div>
-        <label>Add a field</label>
-        <select name="meta_key" class="meta-key">
-          {{#each metadata_field_list}}
-            <option value="{{meta_key}}">{{meta_name}}</option>
-          {{/each}}
-        </select>
-      </div>
-      <div>
-        <input type="text" class="meta-value">
-      </div>
-      <div>
-        <a href="#" class="add-meta-tag"><i class="icon icon-plus"></i></a>
-      </div>
-    </div>
+
   </div>
 </template>
