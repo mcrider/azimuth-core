@@ -10,8 +10,3 @@ Template.tag.rendered = function() {
     labelField: 'tag'
   });
 }
-
-Template.tag.implodeTags = function() {
-  if(this.value) return this.value.join()
-  else return '';
-}

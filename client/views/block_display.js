@@ -29,6 +29,13 @@ Template.block_display.zoneLabel = function(zone) {
   return zone.charAt(0).toUpperCase() + zone.slice(1);
 }
 
+Template.block_display.classifyTags = function() {
+  var block = Azimuth.collections.Blocks.findOne(this.block_id);
+  if(block && block.tag) {
+    return _.map(block.tag, function(tag) { return 'azimuth-tag-' + tag; }).join(' ');
+  } else return '';
+}
+
 Template.block_display.events = {
   // --- Actions for block zone panel --
   // Add a new block to the beginning of block zone
@@ -39,7 +46,7 @@ Template.block_display.events = {
     if(!zone) return false;
 
     adminPanel.blockEdit.newBlock = true;
-    Session.set('block_fields', false);
+    Session.set('blockFields', false);
     adminPanel.blockEdit.zone = zone;
     adminPanel.blockEdit.insertAfter = false;
     adminPanel.loadTemplate('block_edit', 'menu-medium');
@@ -79,7 +86,7 @@ Template.block_display.events = {
           registryField.value = block[fieldName];
         })
 
-        Session.set('block_fields', registryFields);
+        Session.set('blockFields', registryFields);
         adminPanel.loadTemplate('block_edit', 'menu-medium');
       } else {
         console.log('Block not found (or has no template specified)' );
@@ -118,7 +125,7 @@ Template.block_display.events = {
     if(!zone) return false;
 
     adminPanel.blockEdit.newBlock = true;
-    Session.set('block_fields', false);
+    Session.set('blockFields', false);
     adminPanel.blockEdit.zone = zone;
     adminPanel.blockEdit.insertAfter = this.seq;
     adminPanel.loadTemplate('block_edit', 'menu-medium');

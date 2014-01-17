@@ -104,8 +104,10 @@ Meteor.startup(function () {
     // Insert a default block
     Blocks.insert({
       template: 'twelve_column',
-      contents: '<div class="centered"><h3>Welcome to Azimuth!</h3>' +
-        '<p>Please <a href="/login">login</a> to start crafting your site.</p></div>',
+      tag: ['intro-block'],
+      contents: '<div class="centered">' +
+        '<img src="/packages/azimuth-core/img/azimuth-logo.png">' +
+        '<p>Welcome! For help getting started, check out <a href="http://azimuthc.ms/documentation">the docs</a>.</p></div>',
       created: Date.now(),
     });
   }

@@ -9,44 +9,6 @@
 @button-color: #4479BA;
 
 
-// Other possible fonts
-@font-face {
-  font-family: 'Exo 2';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Exo 2'), local('Exo2-Regular'), url(http://themes.googleusercontent.com/static/fonts/exo2/v1/KzoFUeaQw_faskDsymvVJqCWcynf_cDxXwCLxiixG1c.woff) format('woff');
-}
-@font-face {
-  font-family: 'Metrophobic';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Metrophobic'), url(http://themes.googleusercontent.com/static/fonts/metrophobic/v3/0IZPA9DbzKXnGZABsAivT7rIa-7acMAeDBVuclsi6Gc.woff) format('woff');
-}
-@font-face {
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Open Sans'), local('OpenSans'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/cJZKeOuBrn4kERxqtaUH3bO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
-}
-
-
-// This one is nice, try in some headings?
-
-@font-face {
-  font-family: 'Shanti';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Shanti'), url(http://themes.googleusercontent.com/static/fonts/shanti/v4/eGeZy9lK-sD_x4kdQnR1SOvvDin1pK8aKteLpeZ5c0A.woff) format('woff');
-}
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Source Sans Pro'), local('SourceSansPro-Regular'), url(http://themes.googleusercontent.com/static/fonts/sourcesanspro/v6/ODelI1aHBYDBqgeIAH2zlNHq-FFgoDNV3GTKpHwuvtI.woff) format('woff');
-}
-
-
-
 
 @font-face {
   font-family: 'Raleway';
@@ -119,6 +81,9 @@
   h5 { font-size: 16px; }
   h6 { font-size: 14px; }
   p { margin-bottom: 5px; }
+  label {
+    padding: 15px 0 7px 0;
+  }
 }
 
 
@@ -147,7 +112,7 @@
     .action-links {
       background-color: @admin-background-color;
       float: left;
-      margin-left: 0;
+      margin: 0;
       padding-top: 12px;
       width: @action-links-width;
       height: 100%;
@@ -307,7 +272,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    margin: -10px 0 0 -78px;
+    margin: -10px 0 0 -48px;
     li {
       display: inline;
     }
@@ -369,4 +334,22 @@
     background: none;
     box-shadow: none;
   }
+}
+
+// Themeing for selectize widget
+.selectize-control.single, .selectize-control.multi {
+  font-family: 'Raleway', sans-serif;
+  margin-bottom: 0;
+
+  .selectize-input {
+    background: none;
+    input {
+      height: 16px;
+    }
+  }
+}
+.selectize-control.multi .selectize-input [data-value] {
+  background: @button-color;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }

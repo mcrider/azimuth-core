@@ -46,7 +46,24 @@ adminPanel.blockEdit = {
   zone: null,
   template: null,
   blockId: null,
-  insertBefore: 1
+  insertBefore: 1,
+
+  // Insert a pageblock into beginning of block zone, incrementing all other block's seq by one
+  insertInFront: function(pageBlockData) {
+    Azimuth.collections.PageBlocks.find({ page_id : pageBlockData.page_id, zone: pageBlockData.zone }).forEach(function(pageBlock) {
+      Azimuth.collections.PageBlocks.update(pageBlock._id, {$set: {seq: pageBlock.seq+1}});
+    });
+
+    Azimuth.collections.PageBlocks.insert(pageBlockData);
+  },
+  // Insert a pageblock after a specific block, incrementing all following block's seq by one
+  insertAfter: function(pageBlockData, skip) {
+    Azimuth.collections.PageBlocks.find({page_id: pageBlockData.page_id, zone: pageBlockData.zone}, {skip: skip, sort: {seq: 1}}).forEach(function(pageBlock) {
+      Azimuth.collections.PageBlocks.update(pageBlock._id, {$set: {seq: pageBlock.seq+1}});
+    });
+
+    Azimuth.collections.PageBlocks.insert(pageBlockData);
+  }
 }
 
 adminPanel.actions = [

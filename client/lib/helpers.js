@@ -25,29 +25,31 @@ if (typeof Handlebars !== 'undefined') {
     return Template["block_display"];
   });
 
+  Handlebars.registerHelper('renderBlock', function(block) {
+    if (block && block.template) {
+      Template[block.template].block = block;
+      return Template[block.template]; // this calls the template and returns the HTML.
+    } else {
+      console.log('Block not found (or has no template specified)' );
+    }
+  });
+
   // Display a block/blocks from a pageBlock
   Handlebars.registerHelper('renderPageBlock', function (pageBlock) {
-    var fragment = '';
     if (pageBlock.block_tag) {
       // Fetch blocks with a given tag and add to fragments
-      Azimuth.collections.Blocks.find({tag: pageBlock.block_tag}).forEach(function(block) {
-        fragment = fragment.concat(utils.getBlockFragment(block));
-      });
+      var blocks = Azimuth.collections.Blocks.find({tag: pageBlock.block_tag});
+      Template['block_set'].blocks = blocks;
+      return Template['block_set'];
     } else if (pageBlock.block_type) {
       // Fetch each block with the given template (== type) and add to fragments
-      Azimuth.collections.Blocks.find({template: pageBlock.block_type}).forEach(function(block) {
-        fragment = fragment.concat(utils.getBlockFragment(block));
-      });
+      var blocks = Azimuth.collections.Blocks.find({template: pageBlock.block_type});
+      Template['block_set'].blocks = blocks;
+      return Template['block_set'];
     } else {
       var block = Azimuth.collections.Blocks.findOne(pageBlock.block_id);
-      if (block && block.template) {
-        Template[block.template].block = block;
-        var fragment = Template[block.template]; // this calls the template and returns the HTML.
-      } else {
-        console.log('Block not found (or has no template specified)' );
-      }
+      return Handlebars._globalHelpers.renderBlock(block);
     }
-    return fragment;
   });
 
   // Renders a form element using a template in views/form/
@@ -80,8 +82,7 @@ if (typeof Handlebars !== 'undefined') {
 
   // Return true if a page slug is the current page's page slug
   Handlebars.registerHelper("isCurrentPage", function (slug) {
-    if (utils.getCurrentPage().template == slug) return true;
-    else return false;
+    return utils.getCurrentPage().template == slug;
   });
 
   // Custom helper to meteor-roles package to test if user is an admin
@@ -89,8 +90,7 @@ if (typeof Handlebars !== 'undefined') {
     if(!Meteor.user()) return false;
 
     var userId = Meteor.user()._id;
-    if (Roles.userIsInRole({_id: userId}, ['admin'])) return true;
-    else return false;
+    return Roles.userIsInRole({_id: userId}, ['admin']);
   });
 
   // Custom helper to meteor-roles package to test if user is an admin
@@ -98,8 +98,7 @@ if (typeof Handlebars !== 'undefined') {
     if(!Meteor.user()) return false;
 
     var userId = Meteor.user()._id;
-    if (Roles.userIsInRole({_id: userId}, ['author'])) return true;
-    else return false;
+    return Roles.userIsInRole({_id: userId}, ['author']);
   });
 
   // Custom helper to meteor-roles package to test if user is an admin
@@ -107,28 +106,20 @@ if (typeof Handlebars !== 'undefined') {
     if(!Meteor.user()) return false;
 
     var userId = Meteor.user()._id;
-    if (Roles.userIsInRole({_id: userId}, ['author', 'admin'])) return true;
-    else return false;
+    return Roles.userIsInRole({_id: userId}, ['author', 'admin']);
   });
 
   // Custom helper to meteor-roles package to test if user is an admin
   Handlebars.registerHelper("openRegistration", function (options) {
-    if(utils.getSetting('openRegistration') || !Session.get('usersExist')) {
-      return true;
-    } else {
-      return false;
-    }
+    return utils.getSetting('openRegistration') || !Session.get('usersExist');
   });
 
   // Check if file extension is image
   Handlebars.registerHelper('ifImage', function(filename, options) {
-    if((/\.(gif|jpg|jpeg|tiff|png)$/i).test(filename)) {
-      return true;
-    } else {
-      return false;
-    }
+    return (/\.(gif|jpg|jpeg|tiff|png)$/i).test(filename);
   });
 
+  // Get an appropriate handle for the user or false if not signed in
   Handlebars.registerHelper("signedInAs", function() {
     if (Meteor.user() && Meteor.user().username) {
       return Meteor.user().username;
