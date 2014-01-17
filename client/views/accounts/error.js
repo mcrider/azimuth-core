@@ -1,6 +1,5 @@
-
 Template.error.helpers({
-  error: function() {
+  error: function () {
     return Session.get('error');
   }
 });

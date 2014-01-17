@@ -1,5 +1,5 @@
-Template.tag.rendered = function() {
-  $("#tag").selectize({
+Template.tag.rendered = function () {
+  $('#tag').selectize({
     delimiter: ',',
     persist: false,
     maxItems: null,
@@ -9,4 +9,4 @@ Template.tag.rendered = function() {
     valueField: 'tag',
     labelField: 'tag'
   });
-}
+};

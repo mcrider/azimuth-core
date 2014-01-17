@@ -1,71 +1,69 @@
 // Admin panel class and helpers
-
 window.adminPanel = {
-  loadTemplate: function(template, size) {
+  loadTemplate: function (template, size) {
     $azimuthContainer = $('.azimuth-container');
-
     // Hide the panel if clicking on the same action
-    if($azimuthContainer.hasClass(template)) {
+    if ($azimuthContainer.hasClass(template)) {
       $azimuthContainer.removeClass('menu-small menu-medium menu-large ' + template);
       return;
     }
-
     $azimuthContainer.addClass(template);
     $azimuthContainer.removeClass('menu-small menu-medium menu-large').addClass(size);
-    $('.contents-container').on('click', function(e) {
+    $('.contents-container').on('click', function (e) {
       e.stopPropagation();
       adminPanel.hide();
     });
-
     $('.admin-view').html('');
-    UI.insert(UI.render(Template[template]), document.getElementsByClassName("admin-view")[0]);
+    UI.insert(UI.render(Template[template]), document.getElementsByClassName('admin-view')[0]);
   },
-  show: function() {
+  show: function () {
     $('.azimuth-container').addClass('menu-open');
-    $('.contents-container').on('click', function(e) {
+    $('.contents-container').on('click', function (e) {
       e.stopPropagation();
       adminPanel.hide();
     });
   },
-  hide: function() {
+  hide: function () {
     $('.contents-container').unbind('click');
     $('.action-links li').removeClass('active');
-    $('.azimuth-container').attr('class', "azimuth-container menu-open");
+    $('.azimuth-container').attr('class', 'azimuth-container menu-open');
   },
-  toggle: function() {
-    $('.azimuth-container').toggleClass('menu-open')
+  toggle: function () {
+    $('.azimuth-container').toggleClass('menu-open');
   },
-  isOpen: function() {
+  isOpen: function () {
     var $azimuthContainer = $('.azimuth-container');
     return $azimuthContainer.hasClass('menu-small') || $azimuthContainer.hasClass('menu-medium') || $azimuthContainer.hasClass('menu-large');
   }
-}
-
+};
 adminPanel.blockEdit = {
   newBlock: false,
   zone: null,
   template: null,
   blockId: null,
   insertBefore: 1,
-
-  // Insert a pageblock into beginning of block zone, incrementing all other block's seq by one
-  insertInFront: function(pageBlockData) {
-    Azimuth.collections.PageBlocks.find({ page_id : pageBlockData.page_id, zone: pageBlockData.zone }).forEach(function(pageBlock) {
-      Azimuth.collections.PageBlocks.update(pageBlock._id, {$set: {seq: pageBlock.seq+1}});
+  insertInFront: function (pageBlockData) {
+    Azimuth.collections.PageBlocks.find({
+      page_id: pageBlockData.page_id,
+      zone: pageBlockData.zone
+    }).forEach(function (pageBlock) {
+      Azimuth.collections.PageBlocks.update(pageBlock._id, { $set: { seq: pageBlock.seq + 1 } });
     });
-
     Azimuth.collections.PageBlocks.insert(pageBlockData);
   },
-  // Insert a pageblock after a specific block, incrementing all following block's seq by one
-  insertAfter: function(pageBlockData, skip) {
-    Azimuth.collections.PageBlocks.find({page_id: pageBlockData.page_id, zone: pageBlockData.zone}, {skip: skip, sort: {seq: 1}}).forEach(function(pageBlock) {
-      Azimuth.collections.PageBlocks.update(pageBlock._id, {$set: {seq: pageBlock.seq+1}});
+  insertAfter: function (pageBlockData, skip) {
+    Azimuth.collections.PageBlocks.find({
+      page_id: pageBlockData.page_id,
+      zone: pageBlockData.zone
+    }, {
+      skip: skip,
+      sort: { seq: 1 }
+    }).forEach(function (pageBlock) {
+      Azimuth.collections.PageBlocks.update(pageBlock._id, { $set: { seq: pageBlock.seq + 1 } });
     });
-
     Azimuth.collections.PageBlocks.insert(pageBlockData);
   }
-}
-
+};
 adminPanel.actions = [
   {
     label: 'Page Settings',
@@ -109,4 +107,4 @@ adminPanel.actions = [
     template: 'admin_users',
     size: 'menu-large'
   }
-]
+];

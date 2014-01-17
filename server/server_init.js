@@ -1,73 +1,71 @@
 // Server-side startup code (set up collections, add default data if needed)
-
 // Initialize asset collection outside of startup
-Assets = new CollectionFS("assets")
+Assets = new CollectionFS('assets');
 var handler = {
-  "default": function (options) {
-    return {
-      blob: options.blob,
-      fileRecord: options.fileRecord
-    };
-  }
-}
+    'default': function (options) {
+      return {
+        blob: options.blob,
+        fileRecord: options.fileRecord
+      };
+    }
+  };
 Assets.fileHandlers(handler);
-
 Meteor.startup(function () {
   // Helper functions for authorization
   authorize = {
-    authorsAndAdmins: function() {
-      return Meteor.user() && Roles.userIsInRole(Meteor.user(), ['author','admin']);
+    authorsAndAdmins: function () {
+      return Meteor.user() && Roles.userIsInRole(Meteor.user(), [
+        'author',
+        'admin'
+      ]);
     },
-    admins: function() {
+    admins: function () {
       return Meteor.user() && Roles.userIsInRole(Meteor.user(), ['admin']);
     }
-  }
-
+  };
   AccountsEntry = {
     settings: {
       homeRoute: '/',
       defaultProfile: {}
     },
-    config: function(appConfig) {
+    config: function (appConfig) {
       return this.settings = _.extend(this.settings, appConfig);
     }
   };
   Meteor.methods({
-    entrySettings: function() {
+    entrySettings: function () {
       return {
         profileRoute: AccountsEntry.settings.profileRoute,
         homeRoute: AccountsEntry.settings.homeRoute
       };
     },
-    accountsCreateUser: function(username, email, password) {
+    accountsCreateUser: function (username, email, password) {
       if (username) {
         var userId = Accounts.createUser({
-          username: username,
-          email: email,
-          password: password,
-          profile: AccountsEntry.settings.defaultProfile || {}
-        });
+            username: username,
+            email: email,
+            password: password,
+            profile: AccountsEntry.settings.defaultProfile || {}
+          });
       } else {
         var userId = Accounts.createUser({
-          email: email,
-          password: password,
-          profile: AccountsEntry.settings.defaultProfile || {}
-        });
+            email: email,
+            password: password,
+            profile: AccountsEntry.settings.defaultProfile || {}
+          });
       }
-
       // This is our first user.  Make them an admin!
-      if(Meteor.users.find().count() == 1 && userId && !Roles.userIsInRole(userId, ['admin'])) {
+      if (Meteor.users.find().count() == 1 && userId && !Roles.userIsInRole(userId, ['admin'])) {
         // Add first user to admin role
         Roles.addUsersToRoles(userId, ['admin']);
       }
     },
-    usersExist: function() {
+    usersExist: function () {
       return Meteor.users.find().count() > 0;
     }
   });
-
   // Pages
-  Pages = new Meteor.Collection("pages");
+  Pages = new Meteor.Collection('pages');
   Meteor.publish('pages', function () {
     return Pages.find();
   });
@@ -78,23 +76,21 @@ Meteor.startup(function () {
   });
   if (!Pages.find().count()) {
     // First run -- Bootstrap the app with some base data
-
     // Insert a default page
     var pageId = Pages.insert({
-      slug: "home",
-      template: "page_default",
-      metadata: [{
-        key: "title",
-        value: "Home"
-      }]
-    });
+        slug: 'home',
+        template: 'page_default',
+        metadata: [{
+            key: 'title',
+            value: 'Home'
+          }]
+      });
   }
-
   // Blocks
   Meteor.publish('blocks', function () {
     return Blocks.find();
   });
-  Blocks = new Meteor.Collection("blocks");
+  Blocks = new Meteor.Collection('blocks');
   Blocks.allow({
     insert: authorize.authorsAndAdmins,
     update: authorize.authorsAndAdmins,
@@ -105,18 +101,15 @@ Meteor.startup(function () {
     Blocks.insert({
       template: 'twelve_column',
       tag: ['intro-block'],
-      contents: '<div class="centered">' +
-        '<img src="/packages/azimuth-core/img/azimuth-logo.png">' +
-        '<p>Welcome! For help getting started, check out <a href="http://azimuthc.ms/documentation">the docs</a>.</p></div>',
-      created: Date.now(),
+      contents: '<div class="centered">' + '<img src="/packages/azimuth-core/img/azimuth-logo.png">' + '<p>Welcome! For help getting started, check out <a href="http://azimuthc.ms/documentation">the docs</a>.</p></div>',
+      created: Date.now()
     });
   }
-
   // PageBlocks -- Links block instances and the pages that contain them
   Meteor.publish('pageBlocks', function () {
     return PageBlocks.find();
   });
-  PageBlocks = new Meteor.Collection("pageBlocks");
+  PageBlocks = new Meteor.Collection('pageBlocks');
   PageBlocks.allow({
     insert: authorize.authorsAndAdmins,
     update: authorize.authorsAndAdmins,
@@ -130,24 +123,22 @@ Meteor.startup(function () {
       page_id: pageId,
       block_id: blockId,
       seq: 1,
-      zone: "body",
+      zone: 'body',
       added: Date.now()
     });
   }
-
   // Users
   Meteor.publish('users', function () {
-  	if(authorize.admins) return Meteor.users.find();
-
-  	this.stop();
-	  return;
+    if (authorize.admins)
+      return Meteor.users.find();
+    this.stop();
+    return;
   });
   Meteor.users.allow({
     insert: authorize.admins,
     update: authorize.admins,
     remove: authorize.admins
   });
-
   // Roles
   Meteor.publish('roles', function () {
     return Meteor.roles.find();
@@ -157,9 +148,8 @@ Meteor.startup(function () {
     update: authorize.admins,
     remove: authorize.admins
   });
-
   // Site settings
-  Settings = new Meteor.Collection("settings");
+  Settings = new Meteor.Collection('settings');
   Meteor.publish('settings', function () {
     return Settings.find();
   });
@@ -170,17 +160,16 @@ Meteor.startup(function () {
   });
   if (Settings.find().count() === 0) {
     Settings.insert({
-      siteName: "Azimuth CMS",
-      indexPage: "home",
+      siteName: 'Azimuth CMS',
+      indexPage: 'home',
       showLoginInHeader: true,
       addNewPagesToHeader: true,
       openRegistration: false,
       theme: 'flatBlue'
     });
   }
-
   // Header and footer navigation
-  Navigation = new Meteor.Collection("navigation");
+  Navigation = new Meteor.Collection('navigation');
   Meteor.publish('navigation', function () {
     return Navigation.find();
   });
@@ -189,17 +178,27 @@ Meteor.startup(function () {
     update: authorize.admins,
     remove: authorize.admins
   });
-  if (!Navigation.findOne({location: "header"})) {
-  	var nav = [];
-    Pages.find().forEach(function(page) {
-      nav.push({id: page._id, title: page.title, url: '/' + page.slug, visible: true });
+  if (!Navigation.findOne({ location: 'header' })) {
+    var nav = [];
+    Pages.find().forEach(function (page) {
+      nav.push({
+        id: page._id,
+        title: page.title,
+        url: '/' + page.slug,
+        visible: true
+      });
     });
-    Navigation.insert({location: "header", pages: nav});
-    Navigation.insert({location: "footer", pages: nav});
+    Navigation.insert({
+      location: 'header',
+      pages: nav
+    });
+    Navigation.insert({
+      location: 'footer',
+      pages: nav
+    });
   }
-
   // Asset Library (uses CollectionFS package)
-  Meteor.publish('assets', function() {
+  Meteor.publish('assets', function () {
     return Assets.find();
   });
   Assets.allow({
@@ -208,12 +207,12 @@ Meteor.startup(function () {
     remove: authorize.authorsAndAdmins
   });
   var handler = {
-    "default": function (options) {
-      return {
-        blob: options.blob,
-        fileRecord: options.fileRecord
-      };
-    }
-  }
+      'default': function (options) {
+        return {
+          blob: options.blob,
+          fileRecord: options.fileRecord
+        };
+      }
+    };
   Assets.fileHandlers(handler);
 });

@@ -1,16 +1,14 @@
-
-Handlebars.registerHelper("account_buttons", function() {
+Handlebars.registerHelper('account_buttons', function () {
   return new Handlebars.SafeString(Template.account_buttons());
 });
-
 Template.account_buttons.helpers({
-  profileUrl: function() {
+  profileUrl: function () {
     if (!Meteor.call('entryProfileRoute')) {
       return false;
     }
     return Router.path(Meteor.call('entryProfileRoute'));
   },
-  wrapLinks: function() {
+  wrapLinks: function () {
     return Meteor.call('entryWrapLinks');
   }
 });
