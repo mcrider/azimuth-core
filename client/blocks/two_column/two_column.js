@@ -1,5 +1,4 @@
-// Accompanying JS file for the default page template.
-// Describes the page's metadata and actions.
+// Accompanying JS file for the two column block
 Template.two_column = Template.two_column || {};
 Template.two_column.label = '2 Column Block';
 Template.two_column.description = 'A basic content block that takes up a sixth of a row';
@@ -9,7 +8,7 @@ var fields = [{
       label: 'Contents'
     }];
 // This important method hooks the template into the CMS
-registry.blockTemplate({
+Azimuth.registry.blockTemplate({
   name: 'two_column',
   label: '2 Column Block',
   fields: fields

@@ -22,7 +22,7 @@ Template.navigation.events = {
     Session.set('link-location', $(e.currentTarget).closest('.row').find('.dd').first().attr('id'));
     // Clear modal form elements
     $('#linkModal').find('.form-control').val('');
-    utils.openModal('#linkModal');
+    Azimuth.utils.openModal('#linkModal');
   },
   'click .edit-link': function (e) {
     e.preventDefault();
@@ -31,7 +31,7 @@ Template.navigation.events = {
     // Add link contents to modal form elements
     $('#linkModal').find('.link-url').val(this.url);
     $('#linkModal').find('.link-title').val(this.title);
-    utils.openModal('#linkModal');
+    Azimuth.utils.openModal('#linkModal');
   },
   'click .edit-link-confirm': function (e) {
     e.preventDefault();
@@ -51,13 +51,13 @@ Template.navigation.events = {
     // Save to navigation
     var location = Azimuth.collections.Navigation.findOne({ location: linkLocation });
     Azimuth.collections.Navigation.update({ _id: location._id }, { $set: { pages: $('#' + linkLocation).nestable('serialize') } });
-    utils.closeModal('#linkModal');
+    Azimuth.utils.closeModal('#linkModal');
   },
   'click .delete-link': function (e) {
     e.preventDefault();
     Session.set('link-url', this.url);
     Session.set('link-location', $(e.currentTarget).closest('.dd').attr('id'));
-    utils.openModal('#deleteLinkModal');
+    Azimuth.utils.openModal('#deleteLinkModal');
   },
   'click .delete-link-confirm': function (e) {
     e.preventDefault();

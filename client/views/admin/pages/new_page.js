@@ -34,8 +34,8 @@ Template.new_page.events = {
       });
       Azimuth.collections.Navigation.update(Azimuth.collections.Navigation.findOne({ location: location })._id, { $set: { pages: currentPages } });
     };
-    updatePageNav('header', utils.getSetting('addNewPagesToHeader'));
-    updatePageNav('footer', utils.getSetting('addNewPagesToFooter'));
+    updatePageNav('header', Azimuth.utils.getSetting('addNewPagesToHeader'));
+    updatePageNav('footer', Azimuth.utils.getSetting('addNewPagesToFooter'));
     Router.go('/' + raw_slug);
     adminPanel.hide();
   },

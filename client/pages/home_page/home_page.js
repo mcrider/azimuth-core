@@ -4,7 +4,7 @@ Template.home_page = Template.home_page || {};
 Template.home_page.label = 'Default Template';
 Template.home_page.description = 'Basic one column layout';
 // This important method hooks the template into the CMS
-registry.pageTemplate({
+Azimuth.registry.pageTemplate({
   name: 'home_page',
   label: 'Home Page'
 });

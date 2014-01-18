@@ -4,7 +4,7 @@ Template.tag.rendered = function () {
     persist: false,
     maxItems: null,
     create: true,
-    options: utils.getDistinctBlockTags(),
+    options: Azimuth.utils.getDistinctBlockTags(),
     searchField: 'tag',
     valueField: 'tag',
     labelField: 'tag'

@@ -1,7 +1,7 @@
 // Common event handlers
-window.events = {
+window.Azimuth.events = {
   savePage: function (e) {
-    var pageData = utils.getFormValues('#pageEditForm');
+    var pageData = Azimuth.utils.getFormValues('#pageEditForm');
     e.preventDefault();
     Azimuth.collections.Pages.update({ _id: this._id }, { $set: pageData });
     noty({
@@ -11,12 +11,12 @@ window.events = {
   },
   showDeletePageModal: function (e) {
     e.preventDefault();
-    utils.openModal('#deletePageModal');
+    Azimuth.utils.openModal('#deletePageModal');
   },
   deletePage: function () {
-    var page = utils.getCurrentPage();
+    var page = Azimuth.utils.getCurrentPage();
     var title = page.title;
-    utils.closeModal('#deletePageModal');
+    Azimuth.utils.closeModal('#deletePageModal');
     // Delete from navs
     Azimuth.collections.Navigation.find().forEach(function (nav) {
       if (nav._id)

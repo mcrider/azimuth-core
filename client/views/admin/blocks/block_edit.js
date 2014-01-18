@@ -2,12 +2,12 @@ Template.block_edit.rendered = function () {
   $('select').selectize({ sortField: 'text' });
 };
 Template.block_edit.templates = function () {
-  return $.map(registry.blockTemplates, function (value, index) {
+  return $.map(Azimuth.registry.blockTemplates, function (value, index) {
     return [value];
   });
 };
 Template.block_edit.allTags = function () {
-  return utils.getDistinctBlockTags();
+  return Azimuth.utils.getDistinctBlockTags();
 };
 Template.block_edit.newBlock = function (options) {
   return adminPanel.blockEdit.newBlock;
@@ -30,12 +30,12 @@ Template.block_edit.events = {
     // Load block form in from registry
     var template = $(e.currentTarget).val();
     // Get template's fields from block registry
-    Session.set('blockFields', registry.blockTemplates[template].fields);
+    Session.set('blockFields', Azimuth.registry.blockTemplates[template].fields);
     adminPanel.blockEdit.template = template;
   },
   'change .block-tag-selector': function (e) {
     // Load block form in from registry
-    var tag = $(e.currentTarget).val(), page = utils.getCurrentPage();
+    var tag = $(e.currentTarget).val(), page = Azimuth.utils.getCurrentPage();
     if (adminPanel.blockEdit.insertAfter) {
       // Insert after a specific block
       var pageBlockData = {
@@ -61,7 +61,7 @@ Template.block_edit.events = {
   },
   'change .block-type-selector': function (e) {
     // Load block form in from registry
-    var type = $(e.currentTarget).val(), page = utils.getCurrentPage();
+    var type = $(e.currentTarget).val(), page = Azimuth.utils.getCurrentPage();
     if (adminPanel.blockEdit.insertAfter) {
       // Insert after a specific block
       var pageBlockData = {
@@ -91,12 +91,12 @@ Template.block_edit.events = {
   'click .submit': function () {
     // Save a new block -- create the block and insert into the PageBlock collection
     if (adminPanel.blockEdit.newBlock) {
-      var blockData = utils.getFormValues('.block-edit-form');
+      var blockData = Azimuth.utils.getFormValues('.block-edit-form');
       blockData.created = Date.now();
       blockData.template = adminPanel.blockEdit.template;
       var block_id = Azimuth.collections.Blocks.insert(blockData);
       var block = Azimuth.collections.Blocks.findOne({ _id: block_id });
-      var page = utils.getCurrentPage();
+      var page = Azimuth.utils.getCurrentPage();
       if (adminPanel.blockEdit.insertAfter) {
         // Insert after a specific block
         var pageBlockData = {
@@ -122,7 +122,7 @@ Template.block_edit.events = {
     else {
       var block = Azimuth.collections.Blocks.findOne({ _id: adminPanel.blockEdit.blockId });
       if (block) {
-        var blockData = utils.getFormValues('.block-edit-form');
+        var blockData = Azimuth.utils.getFormValues('.block-edit-form');
         blockData.tag = blockData.tag ? blockData.tag.replace(/^\s+|\s+$/g, '').split(/\s*,\s*/) : '';
         Azimuth.collections.Blocks.update({ _id: block._id }, { $set: blockData });
         noty({

@@ -8,7 +8,7 @@ if (typeof Handlebars !== 'undefined') {
       return false;
     }
     // Get zone settings for paging and sorting
-    var page = utils.getCurrentPage();
+    var page = Azimuth.utils.getCurrentPage();
     var limit = page['zone_' + zone + '_limit'] ? page['zone_' + zone + '_limit'] : 0;
     // The number of blocks to show per 'page' of blocks
     var skip = Session.get('zone_' + zone + '_skip') ? Session.get('zone_' + zone + '_skip') * limit : 0;
@@ -73,21 +73,21 @@ if (typeof Handlebars !== 'undefined') {
     // FIXME: Return error if type not valid template
     return Template.block_zone_editor.withData(options.hash);
   });
-  // Get a setting value
+  // Get a human readable time from a timestamp
   Handlebars.registerHelper('humanReadableTime', function (timestamp) {
-    return utils.displayHumanReadableTime(timestamp);
+    return Azimuth.utils.displayHumanReadableTime(timestamp);
   });
   // Get a setting value
   Handlebars.registerHelper('getSetting', function (settingName) {
-    return utils.getSetting(settingName);
+    return Azimuth.utils.getSetting(settingName);
   });
   // Return the current page object
   Handlebars.registerHelper('page', function () {
-    return utils.getCurrentPage();
+    return Azimuth.utils.getCurrentPage();
   });
   // Return true if a page slug is the current page's page slug
   Handlebars.registerHelper('isCurrentPage', function (slug) {
-    return utils.getCurrentPage().template == slug;
+    return Azimuth.utils.getCurrentPage().template == slug;
   });
   // Custom helper to meteor-roles package to test if user is an admin
   Handlebars.registerHelper('isAdmin', function () {
@@ -96,14 +96,14 @@ if (typeof Handlebars !== 'undefined') {
     var userId = Meteor.user()._id;
     return Roles.userIsInRole({ _id: userId }, ['admin']);
   });
-  // Custom helper to meteor-roles package to test if user is an admin
+  // Custom helper to meteor-roles package to test if user is an autho
   Handlebars.registerHelper('isAuthor', function () {
     if (!Meteor.user())
       return false;
     var userId = Meteor.user()._id;
     return Roles.userIsInRole({ _id: userId }, ['author']);
   });
-  // Custom helper to meteor-roles package to test if user is an admin
+  // Custom helper to meteor-roles package to test if user is an admin or an author
   Handlebars.registerHelper('isAuthorOrAdmin', function () {
     if (!Meteor.user())
       return false;
@@ -113,9 +113,9 @@ if (typeof Handlebars !== 'undefined') {
       'admin'
     ]);
   });
-  // Custom helper to meteor-roles package to test if user is an admin
+  // Check if registration is open to the public
   Handlebars.registerHelper('openRegistration', function (options) {
-    return utils.getSetting('openRegistration') || !Session.get('usersExist');
+    return Azimuth.utils.getSetting('openRegistration') || !Session.get('usersExist');
   });
   // Check if file extension is image
   Handlebars.registerHelper('ifImage', function (filename, options) {

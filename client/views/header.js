@@ -2,15 +2,15 @@
 // Describes the page's metadata and actions.
 Template.header.rendered = function () {
   // Set page title
-  document.title = utils.getSetting('siteName');
+  document.title = Azimuth.utils.getSetting('siteName');
   // Remove mobile/desktop loginButtons (having two {loginButtons} loaded causes errors with accounts-ui-bootstrap-dropdown)
   if ($('.mobile-login').is(':visible')) {
     $('.desktop-login').remove();
   } else {
     $('.mobile-login').remove();
   }
-  if (utils.postHeaderRendered != 'undefined')
-    utils.postHeaderRendered();
+  if (Azimuth.utils.postHeaderRendered != 'undefined')
+    Azimuth.utils.postHeaderRendered();
 };
 Template.header.helpers({
   displayName: function () {

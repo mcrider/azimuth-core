@@ -1,5 +1,5 @@
 // Register pages and blocks
-window.registry = {
+window.Azimuth.registry = {
   pageTemplates: {},
   pageTemplate: function (pageTemplate) {
     var name = pageTemplate.name;

@@ -24,11 +24,11 @@ Template.admin_users.events = {
   'click .delete-user': function (e) {
     e.preventDefault();
     Session.set('delete-user-id', this._id);
-    utils.openModal('#deleteUserModal');
+    Azimuth.utils.openModal('#deleteUserModal');
   },
   'click .delete-user-confirm': function (e) {
     e.preventDefault();
-    utils.closeModal('#deleteUserModal');
+    Azimuth.utils.closeModal('#deleteUserModal');
     var userId = Session.get('delete-user-id');
     if (!userId)
       return false;
@@ -41,7 +41,7 @@ Template.admin_users.events = {
   },
   'click .create-user': function (e) {
     e.preventDefault();
-    utils.openModal('#createUserModal');
+    Azimuth.utils.openModal('#createUserModal');
   },
   'click .create-user-confirm': function (e) {
     e.preventDefault();
@@ -85,7 +85,7 @@ Template.admin_users.events = {
         text: 'New account created!',
         type: 'success'
       });
-      utils.closeModal('#createUserModal');
+      Azimuth.utils.closeModal('#createUserModal');
     });
   }
 };

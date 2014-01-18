@@ -1,7 +1,7 @@
 // Utility methods common to many scripts
-window.utils = window.utils || {};
+Azimuth.utils = Azimuth.utils || {};
 // Get the page object corresponding to the current page slug
-utils.getCurrentPage = function () {
+Azimuth.utils.getCurrentPage = function () {
   var notFound = {
       notFound: true,
       title: 'Sorry, we couldn\'t find the requested page'
@@ -11,7 +11,7 @@ utils.getCurrentPage = function () {
   var page_slug = Router.current().path.split('/')[1];
   var page;
   if (!page_slug || page_slug == '') {
-    page_slug = utils.getSetting('indexPage');
+    page_slug = Azimuth.utils.getSetting('indexPage');
     page = Azimuth.collections.Pages.findOne({ slug: page_slug });
     if (!page) {
       page = Azimuth.collections.Pages.findOne();
@@ -27,7 +27,7 @@ utils.getCurrentPage = function () {
   return page;
 };
 // Get an array of form values for a form
-utils.getFormValues = function (selector) {
+Azimuth.utils.getFormValues = function (selector) {
   var values = {};
   // Turn form into array and handle special cases
   $.each($(selector).serializeArray(), function (i, field) {
@@ -41,7 +41,7 @@ utils.getFormValues = function (selector) {
   });
   return values;
 };
-utils.displayHumanReadableTime = function (timestamp) {
+Azimuth.utils.displayHumanReadableTime = function (timestamp) {
   var a = new Date(timestamp);
   var months = [
       'Jan',
@@ -72,7 +72,7 @@ utils.displayHumanReadableTime = function (timestamp) {
   var time = month + '/' + date + '/' + year.toString().slice(2) + ' @ ' + hour + ':' + min + ':' + sec;
   return time;
 };
-utils.displayHumanReadableDate = function (timestamp) {
+Azimuth.utils.displayHumanReadableDate = function (timestamp) {
   var a = new Date(timestamp);
   var months = [
       'Jan',
@@ -95,20 +95,20 @@ utils.displayHumanReadableDate = function (timestamp) {
   return time;
 };
 // Get a template fragment
-utils.loadTemplate = function (template) {
+Azimuth.utils.loadTemplate = function (template) {
   return Meteor.render(function () {
     return Template[template];  // this calls the template and returns the HTML.
   });
 };
 // Get a setting value
-utils.getSetting = function (settingName) {
+Azimuth.utils.getSetting = function (settingName) {
   var settings = Azimuth.collections.Settings.findOne();
   if (!settings || !settingName)
     return false;
   return Azimuth.collections.Settings.findOne()[settingName];
 };
 // Get a block fragment filled with block data
-utils.getBlockFragment = function (block) {
+Azimuth.utils.getBlockFragment = function (block) {
   if (block && block.template) {
     Template[block.template].block = block;
     var fragment = Template[block.template];  // this calls the template and returns the HTML.
@@ -150,7 +150,7 @@ $.noty.defaults = {
   buttons: false
 };
 // Open a modal
-utils.openModal = function (selector) {
+Azimuth.utils.openModal = function (selector) {
   if (!$(selector).hasClass('azimuth-modal')) {
     console.log('Modals need the .azimuth-modal class to work properly');
   }
@@ -160,25 +160,25 @@ utils.openModal = function (selector) {
   // Set up click handlers on any elements with the close class to close the modal
   $(selector).find('.close').click(function (e) {
     e.preventDefault();
-    utils.closeModal(selector);
+    Azimuth.utils.closeModal(selector);
   });
   // Bind to escape key
   $(document).on('keyup.azimuth-modal', function (e) {
     if (e.keyCode == 27) {
-      utils.closeModal(selector);
+      Azimuth.utils.closeModal(selector);
     }
   });
   // Open the modal
   $(selector).addClass('open');
 };
 // Close a modal
-utils.closeModal = function (selector) {
+Azimuth.utils.closeModal = function (selector) {
   $(selector).removeClass('open');
   $(document).unbind('keyup.azimuth-modal');
 };
 // Get all unique block tags
 // FIXME: If Meteor implements MongoDB's .distinct() method that would be much faster
-utils.getDistinctBlockTags = function () {
+Azimuth.utils.getDistinctBlockTags = function () {
   var blockTags = Azimuth.collections.Blocks.find({}, {
       fields: { tag: 1 },
       reactive: false

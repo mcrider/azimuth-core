@@ -65,7 +65,7 @@ Template.block_display.events = {
       if (block && block.template) {
         adminPanel.blockEdit.blockId = pageBlock.block_id;
         // Get template's fields from block registry, and inject values for each field
-        var registryFields = registry.blockTemplates[block.template].fields;
+        var registryFields = Azimuth.registry.blockTemplates[block.template].fields;
         _.each(registryFields, function (registryField) {
           var fieldName = registryField.name;
           registryField.value = block[fieldName];
@@ -86,7 +86,7 @@ Template.block_display.events = {
     e.preventDefault();
     var pageBlockId = $(e.currentTarget).closest('.azimuth-block').data('page-block-id');
     var pageBlock = Azimuth.collections.PageBlocks.findOne(pageBlockId);
-    var page = utils.getCurrentPage();
+    var page = Azimuth.utils.getCurrentPage();
     // If the pageBlock is just a block instance, first delete the block
     if (pageBlock.block_id) {
       Azimuth.collections.Blocks.remove(pageBlock.block_id);

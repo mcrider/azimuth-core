@@ -13,7 +13,7 @@ Template.site_settings.pages = function () {
 Template.site_settings.events = {
   'submit #siteSettingsForm': function (e) {
     e.preventDefault();
-    var settings = utils.getFormValues('#siteSettingsForm');
+    var settings = Azimuth.utils.getFormValues('#siteSettingsForm');
     Azimuth.collections.Settings.update({ _id: this._id }, { $set: settings });
     noty({
       text: 'Site settings saved.',
@@ -22,5 +22,5 @@ Template.site_settings.events = {
   }
 };
 Template.site_settings.indexPageEquals = function (slug) {
-  return utils.getSetting('indexPage') === slug;
+  return Azimuth.utils.getSetting('indexPage') === slug;
 };

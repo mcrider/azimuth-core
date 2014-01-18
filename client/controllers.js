@@ -27,7 +27,7 @@ PageController = BaseController.extend({
 });
 HomePageController = BaseController.extend({
   before: function () {
-    var page_slug = utils.getSetting('indexPage');
+    var page_slug = Azimuth.utils.getSetting('indexPage');
     var page = Azimuth.collections.Pages.findOne({ slug: page_slug });
     if (!page) {
       page = Azimuth.collections.Pages.findOne();
@@ -59,9 +59,9 @@ PageEditController = BaseController.extend({
       return false;
     // Add common edit page events
     Template[page.template + '_edit'].events = {
-      'submit #pageEditForm': events.savePage,
-      'click #deletePage': events.showDeletePageModal,
-      'click .delete-page': events.deletePage
+      'submit #pageEditForm': Azimuth.events.savePage,
+      'click #deletePage': Azimuth.events.showDeletePageModal,
+      'click .delete-page': Azimuth.events.deletePage
     };
     if (Roles.userIsInRole(Meteor.user(), [
         'admin',

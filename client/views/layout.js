@@ -1,6 +1,6 @@
 Template.layout.rendered = function () {
   // Render page metadata
-  var page = utils.getCurrentPage();
+  var page = Azimuth.utils.getCurrentPage();
   if (page && page.metadata) {
     $('head').find('.azimuth-tag').remove();
     page.metadata.forEach(function (tag) {
