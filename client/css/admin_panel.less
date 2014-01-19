@@ -161,8 +161,8 @@
 
       .azimuth-form-section {
         border-bottom: 1px solid #eee;
-        padding-bottom: 15px;
-        margin-bottom: 15px;
+        padding-bottom: 7px;
+        margin-bottom: 7px;
 
         &:last-child {
           border-bottom: 0px;
@@ -310,10 +310,12 @@
 .azimuth-button {
   font-family: 'Raleway', sans-serif;
   padding: 10px 15px;
+  display: inline-block;
   background: @button-color;
   color: #fff;
   border-radius: 4px;
   box-shadow: 0 3px @admin-background-color;
+  margin-bottom: 2px;
 
   i {
     font-size: .8em;
@@ -322,17 +324,20 @@
 
   &:hover {
     box-shadow: 0 1px @admin-background-color;
-    margin-top: 2px;
+    margin: 2px 0 0 0;
     color: #fff;
   }
 
   &.alert {
-    color: red;
+    background: #EB3E3E;
   }
   &.text {
     color: @button-color;
     background: none;
     box-shadow: none;
+    &:hover {
+      margin-top: 0px;
+    }
   }
 }
 
@@ -352,4 +357,72 @@
   background: @button-color;
   -webkit-box-shadow: none;
   box-shadow: none;
+}
+
+
+// Custom Modals
+.azimuth-modal {
+  width: 100%;
+  max-height: 80%;
+  top: -100%;
+  left: 0;
+  position: fixed;
+  padding: 2em;
+  background-color: white;
+  z-index: 1;
+  overflow: auto;
+
+  -webkit-box-shadow: 3px 3px 8px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow:    3px 3px 8px rgba(50, 50, 50, 0.75);
+  box-shadow:         3px 3px 8px rgba(50, 50, 50, 0.75);
+
+  -webkit-transition: all 400ms ease-in-out;
+  transition: all 400ms ease-in-out;
+
+  &.open {
+    top: 0;
+  }
+
+  .modal-body {
+    margin-bottom: 30px;
+  }
+}
+
+.azimuth-modal-bg {
+  display: none;
+  background: rgba(50, 50, 50, 0.75);
+  position: absolute;
+  height: 100%;
+  left: 0;
+  top: 0;
+  width: 100%;
+
+  &.open {
+    display: block;
+  }
+}
+
+/* Page metadata */
+#meta_tags {
+  legend {
+    i {
+      text-shadow: 2px 2px 3px #aaa;
+
+      &:hover {
+        text-shadow: none;
+        text-decoration: none;
+      }
+    }
+  }
+  .add-meta-tag, .remove-meta-tag {
+    i {
+      font-size: 1.4em;
+      text-shadow: 2px 2px 3px #aaa;
+
+      &:hover {
+        text-shadow: none;
+        text-decoration: none;
+      }
+    }
+  }
 }

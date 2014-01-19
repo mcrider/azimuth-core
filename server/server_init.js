@@ -101,7 +101,13 @@ Meteor.startup(function () {
     Blocks.insert({
       template: 'twelve_column',
       tag: ['intro-block'],
-      contents: '<div class="centered">' + '<img src="/packages/azimuth-core/img/azimuth-logo.png">' + '<p>Welcome! For help getting started, check out <a href="http://azimuthc.ms/documentation">the docs</a>.</p></div>',
+      contents: '<div class="centered"><img src="/packages/azimuth-core/img/azimuth-logo.png">' +
+                  '<p style="font-size: 1.6em;">' +
+                  '<span class="hi-there" style="font-weight: 500;">Hi There!</span>  ' +
+                  '<span class="start" style="font-weight: 100;">Let\'s get started.</span></p>' +
+                  '<p>If you need some help with Azimuth, please check out <a href="">the docs</a>.  ' +
+                  'When you’re ready, <a>login</a> and you can start crafting your site.  I ' +
+                  'recommend starting by editing this block (just hover over it and click the edit icon).</p></div>',
       created: Date.now()
     });
   }

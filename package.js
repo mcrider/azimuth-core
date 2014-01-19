@@ -20,7 +20,6 @@ Package.on_use(function (api) {
   api.add_files([
     'client/collections.js',
     'client/metadata_fields.js',
-    'client/lib/events.js',
     'client/lib/vendor/jquery.nestable.js',
     'client/lib/vendor/noty/jquery.noty.js',
     'client/lib/vendor/noty/layouts/inline.js',

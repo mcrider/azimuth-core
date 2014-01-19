@@ -104,12 +104,13 @@ Azimuth.utils.getSetting = function (settingName) {
 
 // Open a modal
 Azimuth.utils.openModal = function (selector) {
-  if (!$(selector).hasClass('azimuth-modal')) {
+  var $modal = $(selector).find('.azimuth-modal');
+  var $bg = $(selector).find('.azimuth-modal-bg');
+
+  if (!$modal.length) {
     console.log('Modals need the .azimuth-modal class to work properly');
   }
-  // Set an appropriate max-height for the modal and center it vertically
-  $(selector).css('max-height', $(window).height() * 0.9);
-  $(selector).css('margin-top', '-' + $(selector).height() / 2 - 50 + 'px');
+
   // Set up click handlers on any elements with the close class to close the modal
   $(selector).find('.close').click(function (e) {
     e.preventDefault();
@@ -122,11 +123,13 @@ Azimuth.utils.openModal = function (selector) {
     }
   });
   // Open the modal
-  $(selector).addClass('open');
+  $bg.addClass('open');
+  $modal.addClass('open');
 };
 // Close a modal
 Azimuth.utils.closeModal = function (selector) {
-  $(selector).removeClass('open');
+  $(selector).find('.azimuth-modal').removeClass('open');
+  $(selector).find('.azimuth-modal-bg').removeClass('open');
   $(document).unbind('keyup.azimuth-modal');
 };
 // Get all unique block tags
