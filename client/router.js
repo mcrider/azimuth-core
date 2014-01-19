@@ -40,39 +40,6 @@ Router.map(function () {
       Session.set('error', false);
     }
   });
-  // Add routes for admin-level pages if user has correct permissions
-  this.route('site_settings', {
-    controller: AdminController,
-    waitOn: function () {
-      return [
-        Meteor.subscribe('pages'),
-        Meteor.subscribe('settings')
-      ];
-    }
-  });
-  this.route('assets', {
-    controller: AdminController,
-    waitOn: function () {
-      return Meteor.subscribe('assets');
-    }
-  });
-  this.route('new_page', { controller: AdminController });
-  this.route('navigation', {
-    controller: AdminController,
-    waitOn: function () {
-      return Meteor.subscribe('roles');
-    }
-  });
-  this.route('admin_users', {
-    controller: AdminController,
-    path: '/users',
-    waitOn: function () {
-      return [
-        Meteor.subscribe('users'),
-        Meteor.subscribe('roles')
-      ];
-    }
-  });
   // Route / to the admin-set root page or the first page
   this.route('home', {
     path: '/',
