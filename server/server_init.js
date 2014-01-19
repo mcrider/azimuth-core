@@ -80,7 +80,7 @@ Meteor.startup(function () {
     var pageId = Pages.insert({
         slug: 'home',
         template: 'page_default',
-        metadata: [{
+        meta: [{
             key: 'title',
             value: 'Home'
           }]
@@ -120,8 +120,8 @@ Meteor.startup(function () {
     var pageId = Pages.findOne()._id;
     var blockId = Blocks.findOne()._id;
     PageBlocks.insert({
-      page_id: pageId,
-      block_id: blockId,
+      page: pageId,
+      block: blockId,
       seq: 1,
       zone: 'body',
       added: Date.now()

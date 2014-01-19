@@ -28,7 +28,7 @@ Template.block_display.zoneLabel = function (zone) {
   return zone.charAt(0).toUpperCase() + zone.slice(1);
 };
 Template.block_display.classifyTags = function () {
-  var block = Azimuth.collections.Blocks.findOne(this.block_id);
+  var block = Azimuth.collections.Blocks.findOne(this.block);
   if (block && block.tag) {
     return _.map(block.tag, function (tag) {
       return 'azimuth-tag-' + tag;
@@ -60,10 +60,10 @@ Template.block_display.events = {
     var pageBlock = Azimuth.collections.PageBlocks.findOne(pageBlockId);
     if (pageBlock.block_tag) {
     } else if (pageBlock.block_type) {
-    } else if (pageBlock.block_id) {
-      var block = Azimuth.collections.Blocks.findOne(pageBlock.block_id);
+    } else if (pageBlock.block) {
+      var block = Azimuth.collections.Blocks.findOne(pageBlock.block);
       if (block && block.template) {
-        adminPanel.blockEdit.blockId = pageBlock.block_id;
+        adminPanel.blockEdit.blockId = pageBlock.block;
         // Get template's fields from block registry, and inject values for each field
         var registryFields = Azimuth.registry.blockTemplates[block.template].fields;
         _.each(registryFields, function (registryField) {
@@ -88,8 +88,8 @@ Template.block_display.events = {
     var pageBlock = Azimuth.collections.PageBlocks.findOne(pageBlockId);
     var page = Azimuth.utils.getCurrentPage();
     // If the pageBlock is just a block instance, first delete the block
-    if (pageBlock.block_id) {
-      Azimuth.collections.Blocks.remove(pageBlock.block_id);
+    if (pageBlock.block) {
+      Azimuth.collections.Blocks.remove(pageBlock.block);
     }
     // Remove the pageblock from the page
     Azimuth.collections.PageBlocks.remove(pageBlockId);
@@ -118,7 +118,7 @@ Template.block_display.events = {
     }
     // Get previous pageBlock
     var targetPageBlock = Azimuth.collections.PageBlocks.findOne({
-        page_id: this.page_id,
+        page: this.page,
         zone: this.zone,
         seq: this.seq - 1
       });
@@ -140,7 +140,7 @@ Template.block_display.events = {
     }
     // Get next pageBlock
     var targetPageBlock = Azimuth.collections.PageBlocks.findOne({
-        page_id: this.page_id,
+        page: this.page,
         zone: this.zone,
         seq: this.seq + 1
       });

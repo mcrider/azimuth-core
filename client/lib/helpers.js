@@ -15,7 +15,7 @@ if (typeof Handlebars !== 'undefined') {
     // The current 'page' of blocks
     if (limit > 0) {
       Template.block_display.pageBlocks = Azimuth.collections.PageBlocks.find({
-        page_id: page._id,
+        page: page._id,
         zone: zone
       }, {
         skip: skip,
@@ -24,12 +24,12 @@ if (typeof Handlebars !== 'undefined') {
       });
     } else {
       Template.block_display.pageBlocks = Azimuth.collections.PageBlocks.find({
-        page_id: page._id,
+        page: page._id,
         zone: zone
       }, { sort: { seq: 1 } });
     }
     var numSets = limit > 0 ? Math.ceil(Azimuth.collections.PageBlocks.find({
-        page_id: page._id,
+        page: page._id,
         zone: zone
       }).count() / limit) : false;
     Template.block_display.numSets = numSets > 1 ? _.range(1, numSets + 1) : false;
@@ -57,7 +57,7 @@ if (typeof Handlebars !== 'undefined') {
       Template.block_set.blocks = blocks;
       return Template.block_set;
     } else {
-      var block = Azimuth.collections.Blocks.findOne(pageBlock.block_id);
+      var block = Azimuth.collections.Blocks.findOne(pageBlock.block);
       return Handlebars._globalHelpers.renderBlock(block);
     }
   });

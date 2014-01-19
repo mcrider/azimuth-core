@@ -39,7 +39,7 @@ Template.block_edit.events = {
     if (adminPanel.blockEdit.insertAfter) {
       // Insert after a specific block
       var pageBlockData = {
-          page_id: page._id,
+          page: page._id,
           block_tag: tag,
           seq: adminPanel.blockEdit.insertAfter + 1,
           zone: adminPanel.blockEdit.zone,
@@ -49,7 +49,7 @@ Template.block_edit.events = {
     } else {
       // Insert into the beginning of the block zone
       var pageBlockData = {
-          page_id: page._id,
+          page: page._id,
           block_tag: tag,
           seq: 1,
           zone: adminPanel.blockEdit.zone,
@@ -65,7 +65,7 @@ Template.block_edit.events = {
     if (adminPanel.blockEdit.insertAfter) {
       // Insert after a specific block
       var pageBlockData = {
-          page_id: page._id,
+          page: page._id,
           block_type: type,
           seq: adminPanel.blockEdit.insertAfter + 1,
           zone: adminPanel.blockEdit.zone,
@@ -75,7 +75,7 @@ Template.block_edit.events = {
     } else {
       // Insert into the beginning of the block zone
       var pageBlockData = {
-          page_id: page._id,
+          page: page._id,
           block_type: type,
           seq: 1,
           zone: adminPanel.blockEdit.zone,
@@ -94,14 +94,14 @@ Template.block_edit.events = {
       var blockData = Azimuth.utils.getFormValues('.block-edit-form');
       blockData.created = Date.now();
       blockData.template = adminPanel.blockEdit.template;
-      var block_id = Azimuth.collections.Blocks.insert(blockData);
-      var block = Azimuth.collections.Blocks.findOne({ _id: block_id });
+      var blockId = Azimuth.collections.Blocks.insert(blockData);
+      var block = Azimuth.collections.Blocks.findOne({ _id: blockId });
       var page = Azimuth.utils.getCurrentPage();
       if (adminPanel.blockEdit.insertAfter) {
         // Insert after a specific block
         var pageBlockData = {
-            page_id: page._id,
-            block_id: block_id,
+            page: page._id,
+            block: block,
             seq: adminPanel.blockEdit.insertAfter + 1,
             zone: adminPanel.blockEdit.zone,
             added: Date.now()
@@ -110,8 +110,8 @@ Template.block_edit.events = {
       } else {
         // Insert into the beginning of the block zone
         var pageBlockData = {
-            page_id: page._id,
-            block_id: block_id,
+            page: page._id,
+            block: block,
             seq: 1,
             zone: adminPanel.blockEdit.zone,
             added: Date.now()

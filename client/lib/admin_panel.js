@@ -45,7 +45,7 @@ adminPanel.blockEdit = {
   // Insert a pageBlock into front of block zone
   insertInFront: function (pageBlockData) {
     Azimuth.collections.PageBlocks.find({
-      page_id: pageBlockData.page_id,
+      page: pageBlockData.page,
       zone: pageBlockData.zone
     }).forEach(function (pageBlock) {
       Azimuth.collections.PageBlocks.update(pageBlock._id, { $set: { seq: pageBlock.seq + 1 } });
@@ -55,7 +55,7 @@ adminPanel.blockEdit = {
   // Insert a pageBlock after a specified pageBlock
   insertAfter: function (pageBlockData, skip) {
     Azimuth.collections.PageBlocks.find({
-      page_id: pageBlockData.page_id,
+      page: pageBlockData.page,
       zone: pageBlockData.zone
     }, {
       skip: skip,
