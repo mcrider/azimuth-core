@@ -94,12 +94,6 @@ Azimuth.utils.displayHumanReadableDate = function (timestamp) {
   var time = month + '/' + date + '/' + year.toString().slice(2);
   return time;
 };
-// Get a template fragment
-Azimuth.utils.loadTemplate = function (template) {
-  return Meteor.render(function () {
-    return Template[template];  // this calls the template and returns the HTML.
-  });
-};
 // Get a setting value
 Azimuth.utils.getSetting = function (settingName) {
   var settings = Azimuth.collections.Settings.findOne();
@@ -107,48 +101,7 @@ Azimuth.utils.getSetting = function (settingName) {
     return false;
   return Azimuth.collections.Settings.findOne()[settingName];
 };
-// Get a block fragment filled with block data
-Azimuth.utils.getBlockFragment = function (block) {
-  if (block && block.template) {
-    Template[block.template].block = block;
-    var fragment = Template[block.template];  // this calls the template and returns the HTML.
-  } else {
-    console.log('Block not found (or has no template specified)');
-    return false;
-  }
-  return fragment;
-};
-// Set the default Noty settings
-$.noty.defaults = {
-  layout: 'bottomRight',
-  theme: 'defaultTheme',
-  type: 'alert',
-  text: '',
-  dismissQueue: true,
-  template: '<div class="noty_message"><span class="noty_text"></span><div class="noty_close"></div></div>',
-  animation: {
-    open: { height: 'toggle' },
-    close: { height: 'toggle' },
-    easing: 'swing',
-    speed: 500
-  },
-  timeout: 2000,
-  force: false,
-  modal: false,
-  maxVisible: 5,
-  closeWith: ['click'],
-  callback: {
-    onShow: function () {
-    },
-    afterShow: function () {
-    },
-    onClose: function () {
-    },
-    afterClose: function () {
-    }
-  },
-  buttons: false
-};
+
 // Open a modal
 Azimuth.utils.openModal = function (selector) {
   if (!$(selector).hasClass('azimuth-modal')) {

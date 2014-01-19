@@ -68,11 +68,6 @@ if (typeof Handlebars !== 'undefined') {
     // FIXME: Return error if type not valid template
     return Template[options.hash.type].withData(options.hash);
   });
-  // Displays a region to manage blocks in the page edit template
-  Handlebars.registerHelper('blockZoneEditor', function (options) {
-    // FIXME: Return error if type not valid template
-    return Template.block_zone_editor.withData(options.hash);
-  });
   // Get a human readable time from a timestamp
   Handlebars.registerHelper('humanReadableTime', function (timestamp) {
     return Azimuth.utils.displayHumanReadableTime(timestamp);

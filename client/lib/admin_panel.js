@@ -42,6 +42,7 @@ adminPanel.blockEdit = {
   template: null,
   blockId: null,
   insertBefore: 1,
+  // Insert a pageBlock into front of block zone
   insertInFront: function (pageBlockData) {
     Azimuth.collections.PageBlocks.find({
       page_id: pageBlockData.page_id,
@@ -51,6 +52,7 @@ adminPanel.blockEdit = {
     });
     Azimuth.collections.PageBlocks.insert(pageBlockData);
   },
+  // Insert a pageBlock after a specified pageBlock
   insertAfter: function (pageBlockData, skip) {
     Azimuth.collections.PageBlocks.find({
       page_id: pageBlockData.page_id,
@@ -64,6 +66,7 @@ adminPanel.blockEdit = {
     Azimuth.collections.PageBlocks.insert(pageBlockData);
   }
 };
+// Specify actions and labels for the admin sidebar
 adminPanel.actions = [
   {
     label: 'Page Settings',
@@ -108,3 +111,36 @@ adminPanel.actions = [
     size: 'menu-large'
   }
 ];
+
+
+// Set the default Noty settings
+$.noty.defaults = {
+  layout: 'bottomRight',
+  theme: 'defaultTheme',
+  type: 'alert',
+  text: '',
+  dismissQueue: true,
+  template: '<div class="noty_message"><span class="noty_text"></span><div class="noty_close"></div></div>',
+  animation: {
+    open: { height: 'toggle' },
+    close: { height: 'toggle' },
+    easing: 'swing',
+    speed: 500
+  },
+  timeout: 2000,
+  force: false,
+  modal: false,
+  maxVisible: 5,
+  closeWith: ['click'],
+  callback: {
+    onShow: function () {
+    },
+    afterShow: function () {
+    },
+    onClose: function () {
+    },
+    afterClose: function () {
+    }
+  },
+  buttons: false
+};

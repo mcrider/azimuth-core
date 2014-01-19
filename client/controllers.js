@@ -1,3 +1,4 @@
+// Base controller to define features common to all other controllers
 BaseController = RouteController.extend({
   loadingTemplate: 'loading',
   after: function () {
@@ -25,6 +26,7 @@ PageController = BaseController.extend({
     ];
   }
 });
+// Controller for the home page
 HomePageController = BaseController.extend({
   before: function () {
     var page_slug = Azimuth.utils.getSetting('indexPage');
@@ -50,41 +52,7 @@ HomePageController = BaseController.extend({
     ];
   }
 });
-// Controller to handle editing of pages
-PageEditController = BaseController.extend({
-  before: function () {
-    var page_slug = this.params.page;
-    var page = Azimuth.collections.Pages.findOne({ slug: page_slug });
-    if (!page)
-      return false;
-    // Add common edit page events
-    Template[page.template + '_edit'].events = {
-      'submit #pageEditForm': Azimuth.events.savePage,
-      'click #deletePage': Azimuth.events.showDeletePageModal,
-      'click .delete-page': Azimuth.events.deletePage
-    };
-    if (Roles.userIsInRole(Meteor.user(), [
-        'admin',
-        'author'
-      ])) {
-      this.template = page.template + '_edit';
-      this.render();
-    } else {
-      this.template = 'not_authorized';
-      this.render();
-    }
-  },
-  waitOn: function () {
-    return [
-      Meteor.subscribe('settings'),
-      Meteor.subscribe('navigation'),
-      Meteor.subscribe('pages'),
-      Meteor.subscribe('blocks'),
-      Meteor.subscribe('pageBlocks'),
-      Meteor.subscribe('assets')
-    ];
-  }
-});
+// Controller for admin templates
 AdminController = BaseController.extend({
   before: function () {
     if (!Meteor.user() || !Roles.userIsInRole(Meteor.user(), [
@@ -104,6 +72,7 @@ AdminController = BaseController.extend({
     ];
   }
 });
+// Controller for account related pages
 LoginController = BaseController.extend({
   waitOn: function () {
     return [

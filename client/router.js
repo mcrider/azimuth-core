@@ -78,11 +78,6 @@ Router.map(function () {
     path: '/',
     controller: HomePageController
   });
-  // Route edit views
-  this.route('pageEdit', {
-    path: '/:page/edit',
-    controller: PageEditController
-  });
   // Route pages
   this.route('page', {
     path: '/:page',
