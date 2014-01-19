@@ -2,7 +2,7 @@
 Template.block_display.rendered = function () {
   // Display block-specific admin buttons when hovered over
   // FIXME: Need to make this available to touch events
-  if (Roles.userIsInRole({ _id: Meteor.user()._id }, [
+  if (Meteor.user() && Roles.userIsInRole({ _id: Meteor.user()._id }, [
       'author',
       'admin'
     ])) {
