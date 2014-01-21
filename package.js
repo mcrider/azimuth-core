@@ -98,7 +98,7 @@ Package.on_use(function (api) {
     'client/views/layout.js',
     'client/index.html',
     'img/azimuth-logo.png',
-    'img/buttons.gif',
+    'img/buttons.png',
     'img/toolbar.gif',
     'img/file.gif',
     'img/image.gif',

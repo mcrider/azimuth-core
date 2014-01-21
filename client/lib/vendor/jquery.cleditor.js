@@ -14,7 +14,8 @@
     defaultOptions: {
       width: 'auto',
       height: 250,
-      controls: 'bold italic underline strikethrough subscript superscript | font size ' + 'style | color highlight removeformat | bullets numbering | outdent ' + 'indent | alignleft center alignright justify | undo redo | ' + 'rule link unlink | cut copy paste pastetext | source ',
+      // controls: 'bold italic underline strikethrough subscript superscript | font size ' + 'style | color highlight removeformat | bullets numbering | outdent ' + 'indent | alignleft center alignright justify | undo redo | ' + 'rule link unlink | cut copy paste pastetext | source ',
+      controls: 'source | bold italic underline strikethrough | font size style color removeformat | bullets numbering | outdent indent | alignleft center alignright justify | link unlink | cut copy paste pastetext ',
       colors: 'FFF FCC FC9 FF9 FFC 9F9 9FF CFF CCF FCF ' + 'CCC F66 F96 FF6 FF3 6F9 3FF 6FF 99F F9F ' + 'BBB F00 F90 FC6 FF0 3F3 6CC 3CF 66C C6C ' + '999 C00 F60 FC3 FC0 3C0 0CC 36F 63F C3C ' + '666 900 C60 C93 990 090 399 33F 60C 939 ' + '333 600 930 963 660 060 366 009 339 636 ' + '000 300 630 633 330 030 033 006 309 303',
       fonts: 'Arial,Arial Black,Comic Sans MS,Courier New,Narrow,Garamond,' + 'Georgia,Impact,Sans Serif,Serif,Tahoma,Trebuchet MS,Verdana',
       sizes: '1,2,3,4,5,6,7',
@@ -388,7 +389,7 @@
   // hoverEnter - mouseenter event handler for buttons and popup items
   function hoverEnter(e) {
     var $div = $(e.target).closest('div');
-    $div.css(BACKGROUND_COLOR, $div.data(BUTTON_NAME) ? '#FFF' : '#FFC');
+    $div.css(BACKGROUND_COLOR, $div.data(BUTTON_NAME) ? '#a8abae' : '#a8abae');
   }
   // hoverLeave - mouseleave event handler for buttons and popup items
   function hoverLeave(e) {

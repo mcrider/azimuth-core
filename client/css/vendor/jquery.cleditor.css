@@ -1,11 +1,18 @@
-.cleditorMain {border:1px solid #999; padding:0 1px 1px; background-color:white}
+.cleditorMain {border:1px solid #999; background-color:white}
 .cleditorMain iframe {border:none; margin:0; padding:0}
 .cleditorMain textarea {border:none; margin:0; padding:0; overflow-y:scroll; font:10pt Arial,Verdana; resize:none; outline:none /* webkit grip focus */}
-.cleditorToolbar {background: url('/packages/azimuth-core/img/toolbar.gif') repeat}
+.cleditorToolbar {background: #2d353b;}
 .cleditorGroup {float:left; height:26px}
-.cleditorButton {float:left; width:24px; height:24px; margin:1px 0 1px 0; background: url('/packages/azimuth-core/img/buttons.gif')}
+.cleditorButton {float:left; width:24px; height:24px; margin:0; background: url('/packages/azimuth-core/img/buttons.png') no-repeat;}
 .cleditorDisabled {opacity:0.3; filter:alpha(opacity=30)}
-.cleditorDivider {float:left; width:1px; height:23px; margin:1px 0 1px 0; background:#CCC}
+.cleditorDivider {
+  display: none;
+  /*  float: left;
+  width: 1px;
+  height: 8px;
+  margin: 9px 0 1px 0;
+  background: #a8abae;*/
+}
 .cleditorPopup {border:solid 1px #999; background-color:white; color:#333333; position:absolute; font:10pt Arial,Verdana; cursor:default; z-index:10000}
 .cleditorList div {padding:2px 4px 2px 4px}
 .cleditorList p,
