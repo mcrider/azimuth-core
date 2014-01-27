@@ -22,11 +22,12 @@ Template.header.helpers({
   }
 });
 Template.header.headerNav = function () {
-  var nav = Azimuth.collections.Navigation.findOne({ location: 'header' });
-  if (nav)
-    return nav.pages;
-  return false;
+  return Azimuth.collections.Navigation.find({ location: 'header', root: true });
 };
 Template.header.pages = function () {
   return Azimuth.collections.Pages.find();
 };
+Template.header.child = function() {
+  var navId = this.toString();
+  return Azimuth.collections.Navigation.findOne(navId);
+}

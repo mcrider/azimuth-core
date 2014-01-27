@@ -1,5 +1,5 @@
 Template.block_edit.rendered = function () {
-  $('select').selectize({ sortField: 'text' });
+  $('.azimuth-admin-panel').find('select').selectize({ sortField: 'text' });
 };
 Template.block_edit.templates = function () {
   return $.map(Azimuth.registry.blockTemplates, function (value, index) {

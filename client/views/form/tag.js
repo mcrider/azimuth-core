@@ -1,5 +1,5 @@
 Template.tag.rendered = function () {
-  $('#tag').selectize({
+  $('.azimuth-admin-panel').find('#tag').selectize({
     delimiter: ',',
     persist: false,
     maxItems: null,

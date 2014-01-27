@@ -187,6 +187,13 @@
           line-height: 30px;
         }
       }
+      .navigation {
+        h2 {
+          display: inline-block;
+          margin: 0 20px 0 0;
+          vertical-align: middle;
+        }
+      }
     }
   }
 
@@ -273,8 +280,14 @@
     top: 50%;
     left: 50%;
     margin: -10px 0 0 -48px;
+    opacity: 0.9;
+    background: white;
+    border-radius: 4px;
     li {
       display: inline;
+      a {
+        color: #7acbe2;
+      }
     }
   }
 }
@@ -338,6 +351,10 @@
     &:hover {
       margin-top: 0px;
     }
+  }
+  &.small {
+    padding: 6px 8px;
+    font-size: .8em;
   }
 }
 

@@ -1,8 +1,5 @@
 Template.site_settings.rendered = function () {
-  // Initialize the list of themes
-  return Meteor.call('listThemes', function (error, result) {
-    Session.set('themeList', result);
-  });
+  $('.azimuth-admin-panel').find('select').selectize({ sortField: 'text' });
 };
 Template.site_settings.settings = function () {
   return Azimuth.collections.Settings.findOne();

@@ -1,5 +1,5 @@
 Template.metadata.rendered = function () {
-  $('select').selectize({ sortField: 'text' });
+  $('.azimuth-admin-panel').find('select').selectize({ sortField: 'text' });
 };
 Template.metadata.events = {
   'click .add-meta-tag': function (e) {

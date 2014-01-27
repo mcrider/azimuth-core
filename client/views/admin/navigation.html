@@ -1,7 +1,7 @@
 <template name="navigation">
   <div class="navigation">
     <h2>Header Navigation</h2>
-    <a class="add-link"><i class="icon icon-plus"></i>&nbsp;Add link</a>
+    <a class="azimuth-button add-link small"><i class="icon icon-plus"></i>&nbsp;Add link</a>
     <div class="header-dd dd" id="header">
       {{#if headerNav}}
         {{#with headerNav}}
@@ -13,7 +13,7 @@
     </div>
 
     <h2>Footer Navigation</h2>
-    <a class="add-link"><i class="icon icon-plus"></i>&nbsp;Add link</a>
+    <a class="azimuth-button add-link small"><i class="icon icon-plus"></i>&nbsp;Add link</a>
     <div class="footer-dd dd" id="footer">
       {{#if footerNav}}
         {{#with footerNav}}
@@ -25,52 +25,90 @@
     </div>
   </div>
 
-  <div class="azimuth-modal" id="linkModal">
-    <div class="modal-header">
-      <h3>Edit Link</h3>
-    </div>
-    <div class="modal-body">
-      <form class="create-user-form">
-        <div class="form-group">
+  <div class="azimuth-modal-container" id="addLinkModal">
+    <div class="azimuth-modal">
+      <div class="modal-header">
+        <h3>Add Link</h3>
+      </div>
+      <div class="modal-body">
+        <form>
+          <h5>Existing Page</h5>
+          <select id="existingPage" placeholder="Select an existing page">
+            <option>Select an existing page</option>
+            {{#each allPages}}
+            <option value="{{slug}}">{{slug}}</option>
+            {{/each}}
+          </select>
+
+          <h5>Custom URL</h5>
           <label>URL</label>
           <input type="text" class="form-control link-url" value=''>
-        </div>
-
-        <div class="form-group">
           <label>Title</label>
           <input type="text" class="form-control link-title" value=''>
-        </div>
-      </form>
+        </form>
+      </div>
+      <div class="azimuth-buttons clear">
+        <a class="azimuth-button text left cancel close">Cancel</a>
+        <a class="azimuth-button right add-link-confirm alert"><i class="icon icon-plus"></i>Add</a>
+      </div>
     </div>
-    <div class="modal-footer">
-      <button class="btn close pull-left">Cancel</button>
-      <button class="edit-link-confirm button pull-right">Save</button>
-    </div>
+    <div class="azimuth-modal-bg close"></div>
   </div>
-  <div class="azimuth-modal" id="deleteLinkModal">
-    <div class="modal-header">
-      <h3>Delete Link</h3>
+
+  <div class="azimuth-modal-container" id="editLinkModal">
+    <div class="azimuth-modal">
+      <div class="modal-header">
+        <h3>Edit Link</h3>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <h4>Need to populate with link values</h4>
+            <label>URL</label>
+            <input type="text" class="form-control link-url" value=''>
+          </div>
+          <div class="form-group">
+            <label>Title</label>
+            <input type="text" class="form-control link-title" value=''>
+          </div>
+        </form>
+      </div>
+      <div class="azimuth-buttons clear">
+        <a class="azimuth-button text left cancel close">Cancel</a>
+        <a class="azimuth-button right edit-link-confirm alert"><i class="icon icon-checkmark"></i>Save</a>
+      </div>
     </div>
-    <div class="modal-body">
-      <p>Are you sure you wish to delete this link?  This action can not be undone</p>
-    </div>
-    <div class="modal-footer">
-      <button class="btn close pull-left">Cancel</button>
-      <button class="delete-link-confirm button pull-right">Delete</button>
-    </div>
+    <div class="azimuth-modal-bg close"></div>
   </div>
+
+  <div class="azimuth-modal-container" id="deleteLinkModal">
+    <div class="azimuth-modal">
+      <div class="modal-header">
+        <h3>Delete Link</h3>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this link?</p>
+      </div>
+      <div class="azimuth-buttons clear">
+        <a class="azimuth-button text left cancel close">Cancel</a>
+        <a class="azimuth-button right delete-link-confirm alert"><i class="icon icon-cross"></i>Delete</a>
+      </div>
+    </div>
+    <div class="azimuth-modal-bg close"></div>
+  </div>
+
 </template>
 
 <template name="navigation_root">
   <ol class="dd-list">
     {{#each this}}
       {{#if children}}
-        <li class="dd-item" data-url="{{url}}" data-title="{{title}}" data-id="{{id}}">
+        <li class="dd-item" data-url="{{url}}" data-title="{{title}}" data-id="{{_id}}">
           <div class="dd-handle">{{title}}</div><div class="edit-link-container"><a href="#" class="edit-link"><i class='icon icon-document-edit'></i></a></div><div class="edit-link-container"><a href="#" class="delete-link"><i class='icon icon-cross'></i></a></div>
             {{>navigation_child}}
         </li>
       {{else}}
-        <li class="dd-item" data-url="{{url}}" data-title="{{title}}" data-id="{{id}}">
+        <li class="dd-item" data-url="{{url}}" data-title="{{title}}" data-id="{{_id}}">
           <div class="dd-handle">{{title}}</div><div class="edit-link-container"><a href="#" class="edit-link"><i class='icon icon-document-edit'></i></a></div><div class="edit-link-container"><a href="#" class="delete-link"><i class='icon icon-cross'></i></a></div>
         </li>
       {{/if}}
@@ -82,14 +120,16 @@
   <ol class="dd-list">
     {{#each children}}
       {{#if children}}
-        <li class="dd-item" data-url="{{url}}" data-title="{{title}}" data-id="{{id}}">
+        <li class="dd-item" data-url="{{url}}" data-title="{{title}}" data-id="{{_id}}">
           <div class="dd-handle">{{title}}</div><div class="edit-link-container"><a href="#" class="edit-link"><i class='icon icon-document-edit'></i></a></div><div class="edit-link-container"><a href="#" class="delete-link"><i class='icon icon-cross'></i></a></div>
             {{>navigation_child}}
         </li>
       {{else}}
-        <li class="dd-item" data-url="{{url}}" data-title="{{title}}" data-id="{{id}}">
+        {{#with child}}
+        <li class="dd-item" data-url="{{url}}" data-title="{{title}}" data-id="{{_id}}">
           <div class="dd-handle">{{title}}</div><div class="edit-link-container"><a href="#" class="edit-link"><i class='icon icon-document-edit'></i></a></div><div class="edit-link-container"><a href="#" class="delete-link"><i class='icon icon-cross'></i></a></div>
         </li>
+        {{/with}}
       {{/if}}
     {{/each}}
   </ol>

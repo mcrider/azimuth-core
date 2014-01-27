@@ -7,8 +7,10 @@ window.adminPanel = {
       $azimuthContainer.removeClass('menu-small menu-medium menu-large ' + template);
       return;
     }
+
+    $azimuthContainer.attr('class', 'azimuth-container menu-open');
     $azimuthContainer.addClass(template);
-    $azimuthContainer.removeClass('menu-small menu-medium menu-large').addClass(size);
+    $azimuthContainer.addClass(size);
     $('.contents-container').on('click', function (e) {
       e.stopPropagation();
       adminPanel.hide();

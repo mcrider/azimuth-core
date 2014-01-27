@@ -474,7 +474,7 @@
         requested: {},
         loaded: {}
       };
-      if (Azimuth.utils.isArray(plugins)) {
+      if (utils.isArray(plugins)) {
         for (i = 0, n = plugins.length; i < n; i++) {
           if (typeof plugins[i] === 'string') {
             queue.push(plugins[i]);

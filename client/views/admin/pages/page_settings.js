@@ -1,5 +1,5 @@
 Template.page_settings.rendered = function () {
-  $('select').selectize({ sortField: 'text' });
+  $('.azimuth-admin-panel').find('select').selectize({ sortField: 'text' });
 };
 Template.page_settings.events = {
   'click .delete-page': function(e) {
@@ -16,11 +16,6 @@ Template.page_settings.events = {
       });
       return false;
     }
-    // Delete from navs
-    Azimuth.collections.Navigation.find().forEach(function (nav) {
-      if (nav._id)
-        Azimuth.collections.Navigation.update({ _id: nav._id }, { $pull: { 'pages': { url: '/' + page.slug } } });
-    });
     Router.go('/');
     Azimuth.collections.Pages.remove(page._id);
     noty({

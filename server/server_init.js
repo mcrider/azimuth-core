@@ -79,6 +79,7 @@ Meteor.startup(function () {
     // Insert a default page
     var pageId = Pages.insert({
         slug: 'home',
+        label: 'Home',
         template: 'page_default',
         meta: [{
             key: 'title',
@@ -185,22 +186,19 @@ Meteor.startup(function () {
     remove: authorize.admins
   });
   if (!Navigation.findOne({ location: 'header' })) {
-    var nav = [];
     Pages.find().forEach(function (page) {
-      nav.push({
-        id: page._id,
-        title: page.title,
+      Navigation.insert({
+        location: 'header',
+        title: page.label,
         url: '/' + page.slug,
-        visible: true
+        root: true
       });
-    });
-    Navigation.insert({
-      location: 'header',
-      pages: nav
-    });
-    Navigation.insert({
-      location: 'footer',
-      pages: nav
+      Navigation.insert({
+        location: 'footer',
+        title: page.label,
+        url: '/' + page.slug,
+        root: true
+      });
     });
   }
   // Asset Library (uses CollectionFS package)
