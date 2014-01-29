@@ -1,10 +1,10 @@
 Template.new_page.events = {
   'click .submit': function (e) {
     e.preventDefault();
-    var raw_title = $('.new-page-title').val();
-    var raw_slug = $('.new-page-slug').val();
+    var rawTitle = $('.new-page-title').val();
+    var rawSlug = $('.new-page-slug').val();
     // Validate input
-    if (raw_title == '' || raw_slug == '') {
+    if (rawTitle == '' || rawSlug == '') {
       noty({
         text: 'Please enter values for all fields.',
         type: 'error'
@@ -12,36 +12,34 @@ Template.new_page.events = {
       return false;
     }
     var pageId = Azimuth.collections.Pages.insert({
-        slug: raw_slug,
-        template: 'page_default'
-      });
-    // Add to title metadata attribute
-    Azimuth.collections.Pages.update({ _id: pageId }, {
-      $push: {
-        'metadata': {
-          key: 'title',
-          value: raw_title
-        }
-      }
+      slug: rawSlug,
+      label: rawTitle,
+      template: 'page_default',
+      meta: [{
+        key: 'title',
+        value: rawTitle
+      }]
     });
     // Add to navigation
-    var updatePageNav = function (location, visible) {
-      var currentPages = Azimuth.collections.Navigation.findOne({ location: location }).pages;
-      currentPages.push({
-        title: raw_title,
-        url: '/' + raw_slug,
-        visible: visible
-      });
-      Azimuth.collections.Navigation.update(Azimuth.collections.Navigation.findOne({ location: location })._id, { $set: { pages: currentPages } });
+    var updatePageNav = function (location, title, slug) {
+      var navData = {
+        location: location,
+        title: title,
+        url: '/' + slug,
+        root: true
+      };
+      Azimuth.collections.Navigation.insert(navData)
     };
-    updatePageNav('header', Azimuth.utils.getSetting('addNewPagesToHeader'));
-    updatePageNav('footer', Azimuth.utils.getSetting('addNewPagesToFooter'));
-    Router.go('/' + raw_slug);
+    if (Azimuth.utils.getSetting('addNewPagesToHeader'))
+      updatePageNav('header', rawTitle, rawSlug);
+    if (Azimuth.utils.getSetting('addNewPagesToFooter'))
+      updatePageNav('footer', rawTitle, rawSlug);
+    Router.go('/' + rawSlug);
     adminPanel.hide();
   },
   'keyup .new-page-title': function () {
-    var raw_title = $('.new-page-title').val();
-    raw_title = raw_title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
-    $('.new-page-slug').val(raw_title);
+    var rawTitle = $('.new-page-title').val();
+    rawTitle = rawTitle.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+    $('.new-page-slug').val(rawTitle);
   }
 };

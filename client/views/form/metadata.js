@@ -4,8 +4,8 @@ Template.metadata.rendered = function () {
 Template.metadata.events = {
   'click .add-meta-tag': function (e) {
     e.preventDefault();
-    var meta_key = $(e.currentTarget).closest('.meta-row').find('.meta-key').val();
-    var meta_value = $(e.currentTarget).closest('.meta-row').find('.meta-value').val();
+    var meta_key = $(e.currentTarget).closest('tr').find('.meta-key').val();
+    var meta_value = $(e.currentTarget).closest('tr').find('.meta-value').val();
     var page = Azimuth.utils.getCurrentPage();
     var currentMetadata = Azimuth.collections.Pages.findOne(page._id, { reactive: false }).meta;
     if (!meta_key || !meta_value || _.findWhere(currentMetadata, { key: meta_key })) {

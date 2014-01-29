@@ -2,7 +2,7 @@
   <label>Page Template</label>
   <select class='page-template-selector' name="template" id="template">
     {{#each templates}}
-    <option value="{{name}}" {{#if isCurrentPage name}}selected="selected"{{/if}}>{{label}}</option>
+    <option value="{{name}}" {{selectIfCurrentTemplate name}}>{{label}}</option>
     {{/each}}
   </select>
 </template>

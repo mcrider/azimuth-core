@@ -17,6 +17,10 @@ Template.page_settings.events = {
       return false;
     }
     Router.go('/');
+    if(Azimuth.collections.Navigation.findOne({url: '/' + page.slug})) {
+      var navId = Azimuth.collections.Navigation.findOne({url: '/' + page.slug})._id;
+      Azimuth.collections.Navigation.remove(navId);
+    }
     Azimuth.collections.Pages.remove(page._id);
     noty({
       text: 'Page successfully deleted.',

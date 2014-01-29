@@ -11,3 +11,7 @@ Template.page_template_selector.events = {
     Router.go(Router.current().path);
   }
 };
+Template.site_settings.selectIfCurrentTemplate = function (slug) {
+  debugger;
+  if (Azimuth.utils.getCurrentPage().template == slug) return 'selected';
+};

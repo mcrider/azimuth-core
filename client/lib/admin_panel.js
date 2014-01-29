@@ -78,18 +78,18 @@ adminPanel.actions = [
     size: 'menu-medium'
   },
   {
-    label: 'Navigation',
-    icon: 'icon-menu',
-    description: 'Edit page meta tags',
-    template: 'navigation',
-    size: 'menu-medium'
-  },
-  {
     label: 'New Page',
     icon: 'icon-plus',
     description: 'Edit page meta tags',
     template: 'new_page',
     size: 'menu-small'
+  },
+  {
+    label: 'Navigation',
+    icon: 'icon-menu',
+    description: 'Edit page meta tags',
+    template: 'navigation',
+    size: 'menu-medium'
   },
   {
     label: 'Assets',

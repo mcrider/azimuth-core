@@ -76,13 +76,13 @@ if (typeof Handlebars !== 'undefined') {
   Handlebars.registerHelper('getSetting', function (settingName) {
     return Azimuth.utils.getSetting(settingName);
   });
+  // Get a setting value as a boolean
+  Handlebars.registerHelper('getSetting', function (settingName) {
+    return Azimuth.utils.getSetting(settingName);
+  });
   // Return the current page object
   Handlebars.registerHelper('page', function () {
     return Azimuth.utils.getCurrentPage();
-  });
-  // Return true if a page slug is the current page's page slug
-  Handlebars.registerHelper('isCurrentPage', function (slug) {
-    return Azimuth.utils.getCurrentPage().template == slug;
   });
   // Custom helper to meteor-roles package to test if user is an admin
   Handlebars.registerHelper('isAdmin', function () {

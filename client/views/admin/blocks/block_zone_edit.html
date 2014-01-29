@@ -5,9 +5,9 @@
     <h6>Limit</h6>
     <p>Limit the number of blocks that display at once.</p>
     <select class="block-count" placeholder="Off">
-      <option {{#if limitEquals "0"}}selected="selected"{{/if}} value="0">Off</option>
+      <option {{selectIfLimitEquals "0"}} value="0">Off</option>
       {{#each blockCount}}
-        <option {{#if limitEquals blockCount}}selected="selected"{{/if}} value="{{this}}">{{this}}</option>
+        <option {{selectIfLimitEquals blockCount}} value="{{this}}">{{this}}</option>
       {{/each}}
     </select>
   </div>

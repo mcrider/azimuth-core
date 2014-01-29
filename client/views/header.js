@@ -12,15 +12,13 @@ Template.header.rendered = function () {
   if (Azimuth.utils.postHeaderRendered != 'undefined')
     Azimuth.utils.postHeaderRendered();
 };
-Template.header.helpers({
-  displayName: function () {
-    var user = Meteor.user();
-    return user.profile && user.profile.name || user.username || user.emails && user.emails[0] && user.emails[0].address;
-  },
-  loading: function () {
-    return Session.get('loading');
-  }
-});
+Template.header.displayName = function () {
+  var user = Meteor.user();
+  return user.profile && user.profile.name || user.username || user.emails && user.emails[0] && user.emails[0].address;
+};
+Template.header.loading = function () {
+  return Session.get('loading');
+};
 Template.header.headerNav = function () {
   return Azimuth.collections.Navigation.find({ location: 'header', root: true });
 };
