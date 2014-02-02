@@ -22,6 +22,7 @@ PageController = BaseController.extend({
       Meteor.subscribe('pages'),
       Meteor.subscribe('blocks'),
       Meteor.subscribe('pageBlocks'),
+      Meteor.subscribe('userData'),
       Meteor.subscribe('assets')
     ];
   }
@@ -48,6 +49,7 @@ HomePageController = BaseController.extend({
       Meteor.subscribe('pages'),
       Meteor.subscribe('blocks'),
       Meteor.subscribe('pageBlocks'),
+      Meteor.subscribe('userData'),
       Meteor.subscribe('assets')
     ];
   }
@@ -68,7 +70,8 @@ AdminController = BaseController.extend({
     return [
       Meteor.subscribe('pages'),
       Meteor.subscribe('settings'),
-      Meteor.subscribe('navigation')
+      Meteor.subscribe('navigation'),
+      Meteor.subscribe('userData')
     ];
   }
 });

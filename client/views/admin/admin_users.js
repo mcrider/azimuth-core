@@ -1,13 +1,7 @@
-Template.admin_users.users = function () {
-  return Meteor.users.find();
-};
 Template.admin_users.events = {
   'click .admin': function () {
-    if (!this._id)
+    if (!this._id || Meteor.userId() == this._id)
       return false;
-    if (Meteor.userId() == this._id)
-      return false;
-    // Can't un-admin yourself
     if (_.contains(this.roles, 'admin'))
       Roles.removeUsersFromRoles([this._id], ['admin']);
     else
@@ -30,9 +24,7 @@ Template.admin_users.events = {
     e.preventDefault();
     Azimuth.utils.closeModal('#deleteUserModal');
     var userId = Session.get('delete-user-id');
-    if (!userId)
-      return false;
-    if (Meteor.userId() == userId)
+    if (!userId || Meteor.userId() == userId)
       return false;
     // Can't delete yourself
     Roles.removeUsersFromRoles([userId], ['admin']);
@@ -89,3 +81,12 @@ Template.admin_users.events = {
     });
   }
 };
+Template.admin_users.users = function () {
+  return Meteor.users.find();
+};
+Template.admin_users.enableIfRoleIs = function (role) {
+  if (Roles.userIsInRole({ _id: this._id }, [role])) return 'enabled';
+}
+Template.admin_users.getJoinDate = function() {
+  return this.createdAt ? Azimuth.utils.displayHumanReadableDate(this.createdAt) : '';
+}

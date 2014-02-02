@@ -10,6 +10,7 @@ Azimuth.collections = {
   PageBlocks: new Meteor.Collection('pageBlocks'),
   Settings: new Meteor.Collection('settings'),
   Navigation: new Meteor.Collection('navigation'),
+  UserData: new Meteor.Collection('userData'),
   Assets: new CollectionFS('assets')
 };
 // Set a session variable to tell the client if users exist.

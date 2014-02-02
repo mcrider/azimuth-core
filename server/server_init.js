@@ -33,24 +33,21 @@ Meteor.startup(function () {
     }
   };
   Meteor.methods({
-    entrySettings: function () {
-      return {
-        profileRoute: AccountsEntry.settings.profileRoute,
-        homeRoute: AccountsEntry.settings.homeRoute
-      };
-    },
     accountsCreateUser: function (username, email, password) {
       if (username) {
         var userId = Accounts.createUser({
             username: username,
             email: email,
             password: password,
+            createdAt: Date.now(),
             profile: AccountsEntry.settings.defaultProfile || {}
           });
       } else {
         var userId = Accounts.createUser({
             email: email,
+            username: email,
             password: password,
+            createdAt: Date.now(),
             profile: AccountsEntry.settings.defaultProfile || {}
           });
       }
@@ -63,6 +60,25 @@ Meteor.startup(function () {
     usersExist: function () {
       return Meteor.users.find().count() > 0;
     }
+  });
+  // Roles
+  Meteor.publish('roles', function () {
+    return Meteor.roles.find();
+  });
+  Meteor.roles.allow({
+    insert: authorize.admins,
+    update: authorize.admins,
+    remove: authorize.admins
+  });
+  // Users
+  Meteor.publish('userData', function () {
+    if (authorize.admins)
+      return Meteor.users.find();
+  });
+  Meteor.users.allow({
+    insert: authorize.admins,
+    update: authorize.admins,
+    remove: authorize.admins
   });
   // Pages
   Pages = new Meteor.Collection('pages');
@@ -134,27 +150,6 @@ Meteor.startup(function () {
       added: Date.now()
     });
   }
-  // Users
-  Meteor.publish('users', function () {
-    if (authorize.admins)
-      return Meteor.users.find();
-    this.stop();
-    return;
-  });
-  Meteor.users.allow({
-    insert: authorize.admins,
-    update: authorize.admins,
-    remove: authorize.admins
-  });
-  // Roles
-  Meteor.publish('roles', function () {
-    return Meteor.roles.find();
-  });
-  Meteor.roles.allow({
-    insert: authorize.admins,
-    update: authorize.admins,
-    remove: authorize.admins
-  });
   // Site settings
   Settings = new Meteor.Collection('settings');
   Meteor.publish('settings', function () {

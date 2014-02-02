@@ -69,7 +69,7 @@
 
 // Set font and standard element styles throughout admin-related elements
 .azimuth-admin-panel, .azimuth-block-zone-toolbar, .no-blocks {
-  h1,h2,h3,h4,h5,h6,p {
+  h1,h2,h3,h4,h5,h6,p,table {
     font-family: 'Raleway', sans-serif;
     color: #222;
     font-size: 12px;
@@ -159,6 +159,10 @@
         padding: 15px;
       }
 
+      table {
+        width: 100%;
+      }
+
       .azimuth-form-section {
         border-bottom: 1px solid #eee;
         padding-bottom: 7px;
@@ -170,10 +174,6 @@
       }
 
       .metadata-widget {
-        table {
-          width: 100%;
-        }
-
         .selectize-control {
           width: 100px;
         }
@@ -187,7 +187,7 @@
           line-height: 30px;
         }
       }
-      .navigation {
+      .navigation, .user-list {
         h2 {
           display: inline-block;
           margin: 0 20px 0 0;
@@ -441,5 +441,11 @@
         text-decoration: none;
       }
     }
+  }
+}
+
+.azimuth-table {
+  &.users-table {
+    margin-top: 20px;
   }
 }
