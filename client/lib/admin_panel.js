@@ -1,5 +1,6 @@
 // Admin panel class and helpers
-window.adminPanel = {
+window.Azimuth = window.Azimuth || {};
+Azimuth.adminPanel = {
   loadTemplate: function (template, size) {
     $azimuthContainer = $('.azimuth-container');
     // Hide the panel if clicking on the same action
@@ -13,7 +14,7 @@ window.adminPanel = {
     $azimuthContainer.addClass(size);
     $('.contents-container').on('click', function (e) {
       e.stopPropagation();
-      adminPanel.hide();
+      Azimuth.adminPanel.hide();
     });
     $('.admin-view').html('');
     UI.insert(UI.render(Template[template]), document.getElementsByClassName('admin-view')[0]);
@@ -22,7 +23,7 @@ window.adminPanel = {
     $('.azimuth-container').addClass('menu-open');
     $('.contents-container').on('click', function (e) {
       e.stopPropagation();
-      adminPanel.hide();
+      Azimuth.adminPanel.hide();
     });
   },
   hide: function () {
@@ -38,7 +39,7 @@ window.adminPanel = {
     return $azimuthContainer.hasClass('menu-small') || $azimuthContainer.hasClass('menu-medium') || $azimuthContainer.hasClass('menu-large');
   }
 };
-adminPanel.blockEdit = {
+Azimuth.adminPanel.blockEdit = {
   newBlock: false,
   zone: null,
   template: null,
@@ -69,7 +70,7 @@ adminPanel.blockEdit = {
   }
 };
 // Specify actions and labels for the admin sidebar
-adminPanel.actions = [
+Azimuth.adminPanel.actions = [
   {
     label: 'Page Settings',
     icon: 'icon-document-edit',

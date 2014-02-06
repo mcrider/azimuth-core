@@ -12,7 +12,7 @@ Template.block_zone_edit.blockCount = function () {
   return _.range(1, 51);
 };
 Template.block_zone_edit.limit = function () {
-  var zone = adminPanel.blockEdit.zone;
+  var zone = Azimuth.adminPanel.blockEdit.zone;
   var page = Azimuth.utils.getCurrentPage();
   var limit = page['zone_' + zone + '_limit'];
   return limit && limit > 0 ? page['zone_' + zone + '_limit'] : false;

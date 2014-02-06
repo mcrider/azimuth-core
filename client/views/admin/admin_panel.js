@@ -19,9 +19,9 @@ Template.admin_panel.events = {
       $(e.currentTarget).parent('li').addClass('active');
     var template = this.template;
     var size = this.size;
-    adminPanel.loadTemplate(template, size);
+    Azimuth.adminPanel.loadTemplate(template, size);
   }
 };
 Template.admin_panel.actions = function () {
-  return adminPanel.actions;
+  return Azimuth.adminPanel.actions;
 };

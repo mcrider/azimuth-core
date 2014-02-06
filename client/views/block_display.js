@@ -42,20 +42,20 @@ Template.block_display.events = {
     zone = $(e.currentTarget).closest('.azimuth-block-zone').data('zone');
     if (!zone)
       return false;
-    adminPanel.blockEdit.newBlock = true;
+    Azimuth.adminPanel.blockEdit.newBlock = true;
     Session.set('blockFields', false);
-    adminPanel.blockEdit.zone = zone;
-    adminPanel.blockEdit.insertAfter = false;
-    adminPanel.loadTemplate('block_edit', 'menu-medium');
+    Azimuth.adminPanel.blockEdit.zone = zone;
+    Azimuth.adminPanel.blockEdit.insertAfter = false;
+    Azimuth.adminPanel.loadTemplate('block_edit', 'menu-medium');
   },
   'click .block-zone-edit': function (e) {
     e.stopPropagation();
-    adminPanel.blockEdit.zone = zone;
-    adminPanel.loadTemplate('block_zone_edit', 'menu-medium');
+    Azimuth.adminPanel.blockEdit.zone = zone;
+    Azimuth.adminPanel.loadTemplate('block_zone_edit', 'menu-medium');
   },
   'click .block-edit': function (e) {
     e.stopPropagation();
-    adminPanel.blockEdit.newBlock = false;
+    Azimuth.adminPanel.blockEdit.newBlock = false;
     var pageBlockId = $(e.currentTarget).closest('.azimuth-block').data('page-block-id');
     var pageBlock = Azimuth.collections.PageBlocks.findOne(pageBlockId);
     if (pageBlock.block_tag) {
@@ -63,7 +63,7 @@ Template.block_display.events = {
     } else if (pageBlock.block) {
       var block = Azimuth.collections.Blocks.findOne(pageBlock.block);
       if (block && block.template) {
-        adminPanel.blockEdit.blockId = pageBlock.block;
+        Azimuth.adminPanel.blockEdit.blockId = pageBlock.block;
         // Get template's fields from block registry, and inject values for each field
         var registryFields = Azimuth.registry.blockTemplates[block.template].fields;
         _.each(registryFields, function (registryField) {
@@ -71,7 +71,7 @@ Template.block_display.events = {
           registryField.value = block[fieldName];
         });
         Session.set('blockFields', registryFields);
-        adminPanel.loadTemplate('block_edit', 'menu-medium');
+        Azimuth.adminPanel.loadTemplate('block_edit', 'menu-medium');
       } else {
         console.log('Block not found (or has no template specified)');
       }
@@ -100,11 +100,11 @@ Template.block_display.events = {
     var zone = $(e.currentTarget).closest('.azimuth-block-zone').data('zone');
     if (!zone)
       return false;
-    adminPanel.blockEdit.newBlock = true;
+    Azimuth.adminPanel.blockEdit.newBlock = true;
     Session.set('blockFields', false);
-    adminPanel.blockEdit.zone = zone;
-    adminPanel.blockEdit.insertAfter = this.seq;
-    adminPanel.loadTemplate('block_edit', 'menu-medium');
+    Azimuth.adminPanel.blockEdit.zone = zone;
+    Azimuth.adminPanel.blockEdit.insertAfter = this.seq;
+    Azimuth.adminPanel.loadTemplate('block_edit', 'menu-medium');
   },
   'click .block-move-left': function (e) {
     e.stopPropagation();

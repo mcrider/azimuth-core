@@ -35,7 +35,7 @@ Template.new_page.events = {
     if (Azimuth.utils.getSetting('addNewPagesToFooter'))
       updatePageNav('footer', rawTitle, rawSlug);
     Router.go('/' + rawSlug);
-    adminPanel.hide();
+    Azimuth.adminPanel.hide();
   },
   'keyup .new-page-title': function () {
     var rawTitle = $('.new-page-title').val();
