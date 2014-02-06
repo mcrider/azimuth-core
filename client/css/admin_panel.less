@@ -113,11 +113,12 @@
       background-color: @admin-background-color;
       float: left;
       margin: 0;
-      padding-top: 12px;
+      padding: 12px 0 0 0;
       width: @action-links-width;
       height: 100%;
 
       li {
+        line-height: 1.6;
         text-align: center;
 
         .icon {
@@ -126,6 +127,7 @@
         }
 
         a {
+          display: inline-block;
           font-size: 10px;
           color: @text-color;
         }
@@ -138,6 +140,7 @@
 
         &:hover, &.active {
           border-left: 2px solid @link-color;
+          text-decoration: none;
 
           a {
             display: block;
