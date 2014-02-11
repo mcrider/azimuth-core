@@ -112,10 +112,12 @@ if (typeof Handlebars !== 'undefined') {
   Handlebars.registerHelper('openRegistration', function (options) {
     return Azimuth.utils.getSetting('openRegistration') || !Session.get('usersExist');
   });
-  // Check if file extension is image
-  Handlebars.registerHelper('ifImage', function (filename, options) {
-    return /\.(gif|jpg|jpeg|tiff|png)$/i.test(filename);
+  // Get an imageUrl or path to default image
+  Handlebars.registerHelper('imageUrlOrDefault', function (filename, options) {
+    var filename = this.fileHandler.default.url;
+    return /\.(gif|jpg|jpeg|tiff|png)$/i.test(filename) ? filename : '/packages/azimuth-core/img/file-large.png';
   });
+
   // Get an appropriate handle for the user or false if not signed in
   Handlebars.registerHelper('signedInAs', function () {
     if (Meteor.user() && Meteor.user().username) {

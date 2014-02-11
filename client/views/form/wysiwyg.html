@@ -3,4 +3,74 @@
     <label>{{label}}</label>
     <textarea class="html-editor" id="{{uniqueId}}" name="{{fieldName}}" rows="5" placeholder="Contents">{{value}}</textarea>
   </div>
+
+  <div class="azimuth-modal-container" id="wysiwygFileModal">
+    <div class="azimuth-modal">
+      <div class="modal-header">
+        <h3>Insert File Link</h3>
+      </div>
+      <div class="modal-body">
+        <table class='azimuth-table file-list'>
+          {{#each fileList}}
+            <tr>
+              <td>
+                <a class="insert-file" href="{{cfsFileUrl 'default'}}">
+                  <img src="{{imageUrlOrDefault 'default'}}">
+                </a>
+              </td>
+              <td>
+                <a class="insert-file" href="{{cfsFileUrl 'default'}}">{{filename}}</a>
+                <br />
+                <span class="file-date">{{humanReadableTime uploadDate}}</span>
+                <span class="file-size">{{cfsFormattedSize}}</span>
+              </td>
+            </tr>
+          {{else}}
+            <tr>
+              <td class='no-files'>No files uploaded.  Go to your asset library to add some!</td>
+            </tr>
+          {{/each}}
+        </table>
+      </div>
+      <div class="azimuth-buttons clear">
+        <a class="azimuth-button text right cancel close">Cancel</a>
+      </div>
+    </div>
+    <div class="azimuth-modal-bg close"></div>
+  </div>
+
+  <div class="azimuth-modal-container" id="wysiwygImageModal">
+    <div class="azimuth-modal">
+      <div class="modal-header">
+        <h3>Insert Image</h3>
+      </div>
+      <div class="modal-body">
+        <table class='azimuth-table file-list'>
+          {{#each imageList}}
+            <tr>
+              <td>
+                <a class="insert-image" href="{{cfsFileUrl 'default'}}">
+                  <img src="{{imageUrlOrDefault 'default'}}">
+                </a>
+              </td>
+              <td>
+                <a class="insert-image" href="{{cfsFileUrl 'default'}}">{{filename}}</a>
+                <br />
+                <span class="file-date">{{humanReadableTime uploadDate}}</span>
+                <span class="file-size">{{cfsFormattedSize}}</span>
+              </td>
+            </tr>
+          {{else}}
+            <tr>
+              <td class='no-files'>No files uploaded.  Go to your asset library to add some!</td>
+            </tr>
+          {{/each}}
+        </table>
+      </div>
+      <div class="azimuth-buttons clear">
+        <a class="azimuth-button text right cancel close">Cancel</a>
+      </div>
+    </div>
+    <div class="azimuth-modal-bg close"></div>
+  </div>
 </template>

@@ -97,7 +97,7 @@ Azimuth.adminPanel.actions = [
     icon: 'icon-camera',
     description: 'Edit page meta tags',
     template: 'assets',
-    size: 'menu-medium'
+    size: 'menu-large'
   },
   {
     label: 'Site Settings',
