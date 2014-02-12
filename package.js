@@ -55,7 +55,6 @@ Package.on_use(function (api) {
     'client/pages/home_page/home_page.js',
     'client/pages/page_default/page_default.js',
     'client/pages/sidebar_left/sidebar_left.js',
-    'client/pages/sidebar_left_fixed/sidebar_left_fixed.js',
     'client/pages/sidebar_right/sidebar_right.js',
     'client/views/accounts/account_buttons.js',
     'client/views/accounts/error.js',

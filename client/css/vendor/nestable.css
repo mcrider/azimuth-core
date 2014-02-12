@@ -100,7 +100,7 @@
 
 @media only screen and (min-width: 700px) {
 
-    .dd { float: left; width: 85%; }
+    .dd { float: left; width: 95%; }
     .dd + .dd { margin-left: 2%; }
 
 }

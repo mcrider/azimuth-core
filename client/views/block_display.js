@@ -80,20 +80,6 @@ Template.block_display.events = {
       return false;
     }
   },
-  'click .block-delete': function (e) {
-    // FIXME: This needs a confirmation dialogish-type-thing
-    e.stopPropagation();
-    e.preventDefault();
-    var pageBlockId = $(e.currentTarget).closest('.azimuth-block').data('page-block-id');
-    var pageBlock = Azimuth.collections.PageBlocks.findOne(pageBlockId);
-    var page = Azimuth.utils.getCurrentPage();
-    // If the pageBlock is just a block instance, first delete the block
-    if (pageBlock.block) {
-      Azimuth.collections.Blocks.remove(pageBlock.block);
-    }
-    // Remove the pageblock from the page
-    Azimuth.collections.PageBlocks.remove(pageBlockId);
-  },
   'click .block-add': function (e) {
     e.preventDefault();
     e.stopPropagation();

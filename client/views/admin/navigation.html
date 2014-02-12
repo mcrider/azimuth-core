@@ -1,7 +1,9 @@
 <template name="navigation">
   <div class="navigation">
-    <h2>Header Navigation</h2>
-    <a class="azimuth-button add-link small"><i class="icon icon-plus"></i>&nbsp;Add link</a>
+    <h1>Navigation</h1>
+
+    <h4 class="inline">Header Navigation</h4>
+    <a class="azimuth-button add-link small text"><i class="icon icon-plus"></i>&nbsp;Add link</a>
     <div class="header-dd dd" id="header">
       {{#if headerNav}}
         {{#with headerNav}}
@@ -11,9 +13,9 @@
         <div class="dd-empty">Drag pages here to add them to header navigation.</div>
       {{/if}}
     </div>
-
-    <h2>Footer Navigation</h2>
-    <a class="azimuth-button add-link small"><i class="icon icon-plus"></i>&nbsp;Add link</a>
+    <div class="clear"></div>
+    <h4 class="inline">Footer Navigation</h4>
+    <a class="azimuth-button add-link small text"><i class="icon icon-plus"></i>&nbsp;Add link</a>
     <div class="footer-dd dd" id="footer">
       {{#if footerNav}}
         {{#with footerNav}}

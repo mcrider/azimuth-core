@@ -4,11 +4,12 @@ Template.page_template_selector.templates = function () {
   });
 };
 Template.page_template_selector.events = {
-  'change .page-template-selector': function () {
-    var pageData = Azimuth.utils.getFormValues('#pageEditForm');
-    Azimuth.collections.Pages.update({ _id: this._id }, { $set: pageData });
+  'change .page-template-selector': function (e) {
+    var newTemplate = $(e.currentTarget).val();
+    var pageId = Azimuth.utils.getCurrentPage()._id;
+    Azimuth.collections.Pages.update({ _id: pageId }, { $set: { template: newTemplate } });
     // Redirect to current page
-    Router.go(Router.current().path);
+    // Router.go(Router.current().path);
   }
 };
 Template.site_settings.selectIfCurrentTemplate = function (slug) {

@@ -85,6 +85,20 @@ Template.block_edit.events = {
     }
     Azimuth.adminPanel.hide();
   },
+  'click .block-delete': function (e) {
+    // FIXME: This needs a confirmation dialogish-type-thing
+    e.stopPropagation();
+    e.preventDefault();
+    var pageBlockId = $(e.currentTarget).closest('.azimuth-block').data('page-block-id');
+    var pageBlock = Azimuth.collections.PageBlocks.findOne(pageBlockId);
+    var page = Azimuth.utils.getCurrentPage();
+    // If the pageBlock is just a block instance, first delete the block
+    if (pageBlock.block) {
+      Azimuth.collections.Blocks.remove(pageBlock.block);
+    }
+    // Remove the pageblock from the page
+    Azimuth.collections.PageBlocks.remove(pageBlockId);
+  },
   'click .cancel': function () {
     Azimuth.adminPanel.hide();
   },
