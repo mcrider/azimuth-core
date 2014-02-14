@@ -40,11 +40,25 @@ Azimuth.adminPanel = {
   }
 };
 Azimuth.adminPanel.blockEdit = {
-  newBlock: false,
-  zone: null,
-  template: null,
-  blockId: null,
-  insertBefore: 1,
+  settings: {
+    newBlock: false,
+    zone: null,
+    template: null,
+    pageBlockId: null,
+    blockId: null,
+    insertBefore: 1
+  },
+  reset: function(settings) {
+    var defaultSettings = {
+      newBlock: false,
+      zone: null,
+      template: null,
+      pageBlockId: null,
+      blockId: null,
+      insertBefore: 1
+    };
+    this.settings = _.extend(defaultSettings, settings);
+  },
   // Insert a pageBlock into front of block zone
   insertInFront: function (pageBlockData) {
     Azimuth.collections.PageBlocks.find({

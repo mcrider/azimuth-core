@@ -1,61 +1,64 @@
 <template name="block_edit">
-  {{#if newBlock}}
-    <h3>Add block</h3>
+  <div class="block-edit">
+    {{#if addBlock}}
+      <h1>Add block</h1>
 
-    <div class="azimuth-form-section">
-      <h6>New block</h6>
-      <p>Create a new block.</p>
-      <select class="block-template-selector" placeholder="Select A Block Type">
-        <option>Select A Block Type</option>
-        {{#each templates}}
-          <option value="{{name}}">{{label}}</option>
-        {{/each}}
-      </select>
-    </div>
-
-    <div class="azimuth-form-section">
-      <h6>By Tag</h6>
-      <p>Add a set of blocks with a particular tag.</p>
-      <select class="block-tag-selector" placeholder="Select A Tag">
-        <option>Select A Tag</option>
-        {{#each allTags}}
-          <option value="{{tag}}">{{tag}}</option>
-        {{/each}}
-      </select>
-    </div>
-
-    <div class="azimuth-form-section">
-      <h6>By Type</h6>
-      <p>Add all existing blocks of a particular type.</p>
-      <select class="block-type-selector" placeholder="Select A Block Type">
-        <option>Select A Block Type</option>
-        {{#each templates}}
-          <option value="{{name}}">{{label}}</option>
-        {{/each}}
-      </select>
-    </div>
-
-  {{else}}
-    <h3>Edit Block</h3>
-  {{/if}}
-
-  {{#if blockFields}}
-    <!-- Display block edit form -->
-    <form class="block-edit-form">
-      {{> tag tags=currentBlockTags}}
-
-      {{#each blockFields}}
-        {{> formHelper value=this.value type=this.type label=this.label fieldName=this.name }}
-      {{/each}}
-
-      <a class="azimuth-button alert delete-page">Delete Page</a>
-
-      <div class="azimuth-buttons clear">
-        <a class="azimuth-button text left cancel">Cancel</a>
-        <a class="azimuth-button right submit"><i class="icon icon-checkmark"></i>Save</a>
+      <div class="azimuth-form-section">
+        <h6>New block</h6>
+        <p>Create a new block.</p>
+        <select class="block-template-selector" placeholder="Select A Block Type">
+          <option>Select A Block Type</option>
+          {{#each templates}}
+            <option value="{{name}}">{{label}}</option>
+          {{/each}}
+        </select>
       </div>
-    </form>
-  {{/if}}
+
+      <div class="azimuth-form-section">
+        <h6>By Tag</h6>
+        <p>Add a set of blocks with a particular tag.</p>
+        <select class="block-tag-selector" placeholder="Select A Tag">
+          <option>Select A Tag</option>
+          {{#each allTags}}
+            <option value="{{tag}}">{{tag}}</option>
+          {{/each}}
+        </select>
+      </div>
+
+      <div class="azimuth-form-section">
+        <h6>By Type</h6>
+        <p>Add all existing blocks of a particular type.</p>
+        <select class="block-type-selector" placeholder="Select A Block Type">
+          <option>Select A Block Type</option>
+          {{#each templates}}
+            <option value="{{name}}">{{label}}</option>
+          {{/each}}
+        </select>
+      </div>
+
+    {{else}}
+      <div>
+        <h1>Edit Block</h1>
+        {{#if blockId}}<a class="azimuth-button alert delete-block small right">Delete Block</a>{{/if}}
+      </div>
+    {{/if}}
+
+    {{#if blockFields}}
+      <!-- Display block edit form -->
+      <form class="block-edit-form">
+        {{> tag tags=currentBlockTags}}
+
+        {{#each blockFields}}
+          {{> formHelper value=this.value type=this.type label=this.label fieldName=this.name }}
+        {{/each}}
+
+        <div class="azimuth-buttons clear">
+          <a class="azimuth-button text left cancel">Cancel</a>
+          <a class="azimuth-button right submit"><i class="icon icon-checkmark"></i>Save</a>
+        </div>
+      </form>
+    {{/if}}
+  </div>
 
    <div class="azimuth-modal-container" id="deleteBlockModal">
     <div class="azimuth-modal">
@@ -67,7 +70,7 @@
       </div>
       <div class="azimuth-buttons clear">
         <a class="azimuth-button text left cancel close">Cancel</a>
-        <a class="azimuth-button right delete-page-confirm alert"><i class="icon icon-cross"></i>Delete</a>
+        <a class="azimuth-button right delete-block-confirm alert"><i class="icon icon-cross"></i>Delete</a>
       </div>
     </div>
     <div class="azimuth-modal-bg close"></div>

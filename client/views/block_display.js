@@ -1,4 +1,4 @@
-// Handles the block templates for the admin
+// Handles the display and entry point of editing functions for blocks
 Template.block_display.rendered = function () {
   // Display block-specific admin buttons when hovered over
   // FIXME: Need to make this available to touch events
@@ -27,6 +27,7 @@ Template.block_display.currentBlockPage = function (zone) {
 Template.block_display.zoneLabel = function (zone) {
   return zone.charAt(0).toUpperCase() + zone.slice(1);
 };
+// Create classes for all block tags and append to the block
 Template.block_display.classifyTags = function () {
   var block = Azimuth.collections.Blocks.findOne(this.block);
   if (block && block.tag) {
@@ -37,25 +38,27 @@ Template.block_display.classifyTags = function () {
     return '';
 };
 Template.block_display.events = {
+  // Add a block to the beginning of the block zone
   'click .block-zone-add': function (e) {
     e.stopPropagation();
     zone = $(e.currentTarget).closest('.azimuth-block-zone').data('zone');
     if (!zone)
       return false;
-    Azimuth.adminPanel.blockEdit.newBlock = true;
     Session.set('blockFields', false);
-    Azimuth.adminPanel.blockEdit.zone = zone;
-    Azimuth.adminPanel.blockEdit.insertAfter = false;
+    Session.set('addBlock', true);
+    Azimuth.adminPanel.blockEdit.reset({newBlock: true, zone: zone, insertAfter: false});
     Azimuth.adminPanel.loadTemplate('block_edit', 'menu-medium');
   },
+  // Edit a block zone's settings
   'click .block-zone-edit': function (e) {
     e.stopPropagation();
-    Azimuth.adminPanel.blockEdit.zone = zone;
+    Azimuth.adminPanel.blockEdit.reset({zone: zone});
     Azimuth.adminPanel.loadTemplate('block_zone_edit', 'menu-medium');
   },
+  // Edit a block's content and tags
   'click .block-edit': function (e) {
     e.stopPropagation();
-    Azimuth.adminPanel.blockEdit.newBlock = false;
+    Azimuth.adminPanel.blockEdit.reset({newBlock: false});
     var pageBlockId = $(e.currentTarget).closest('.azimuth-block').data('page-block-id');
     var pageBlock = Azimuth.collections.PageBlocks.findOne(pageBlockId);
     if (pageBlock.block_tag) {
@@ -63,7 +66,8 @@ Template.block_display.events = {
     } else if (pageBlock.block) {
       var block = Azimuth.collections.Blocks.findOne(pageBlock.block);
       if (block && block.template) {
-        Azimuth.adminPanel.blockEdit.blockId = pageBlock.block;
+        Azimuth.adminPanel.blockEdit.settings.pageBlockId = pageBlock._id;
+        Azimuth.adminPanel.blockEdit.settings.blockId = block._id;
         // Get template's fields from block registry, and inject values for each field
         var registryFields = Azimuth.registry.blockTemplates[block.template].fields;
         _.each(registryFields, function (registryField) {
@@ -86,10 +90,8 @@ Template.block_display.events = {
     var zone = $(e.currentTarget).closest('.azimuth-block-zone').data('zone');
     if (!zone)
       return false;
-    Azimuth.adminPanel.blockEdit.newBlock = true;
     Session.set('blockFields', false);
-    Azimuth.adminPanel.blockEdit.zone = zone;
-    Azimuth.adminPanel.blockEdit.insertAfter = this.seq;
+    Azimuth.adminPanel.blockEdit.reset({newBlock: true, zone: zone, insertAfter: this.seq});
     Azimuth.adminPanel.loadTemplate('block_edit', 'menu-medium');
   },
   'click .block-move-left': function (e) {
