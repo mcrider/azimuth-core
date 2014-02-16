@@ -8,7 +8,7 @@ Azimuth.adminPanel = {
       $azimuthContainer.removeClass('menu-small menu-medium menu-large ' + template);
       return;
     }
-
+    $('.azimuth-block-edit-toggle, .azimuth-block-edit-panel').removeClass('active');
     $azimuthContainer.attr('class', 'azimuth-container menu-open');
     $azimuthContainer.addClass(template);
     $azimuthContainer.addClass(size);

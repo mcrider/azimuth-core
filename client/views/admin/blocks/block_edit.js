@@ -142,7 +142,6 @@ Template.block_edit.allTags = function () {
   return Azimuth.utils.getDistinctBlockTags();
 };
 Template.block_edit.blockId = function () {
-  debugger;
   return Azimuth.adminPanel.blockEdit.settings.blockId;
 };
 Template.block_edit.addBlock = function (options) {

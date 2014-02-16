@@ -288,29 +288,150 @@
   }
 }
 
-.azimuth-block-edit-panel {
-  display: none;
+.azimuth-block {
+  -webkit-transform: translateZ(0);
+}
+.azimuth-block-edit-toggle {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 32px;
+  padding: 0.28em;
+  line-height: 0;
+  vertical-align: middle;
   text-align: center;
-  padding-top: 5px;
-  background-color: rgba(200, 200, 200, 0.5);
-  .edit-buttons {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -10px 0 0 -48px;
-    opacity: 0.9;
-    background: white;
-    border-radius: 4px;
-    li {
-      display: inline;
-      a {
-        color: #7acbe2;
+  background: #2d353b;
+  opacity: 0.7;
+  border: none;
+  border-radius: 0.3em;
+  cursor: pointer;
+  text-decoration: none;
+  -webkit-transition: opacity 0.25s ease;
+  -moz-transition: opacity 0.25s ease;
+  -ms-transition: opacity 0.25s ease;
+  transition: opacity 0.25s ease;
+
+  &:hover, &.active {
+    opacity: 0.95;
+  }
+
+  .pip {
+    margin: 0 1px;
+    background: #7acbe2;
+    display: inline-block;
+    width: 0.32em;
+    height: 0.32em;
+    border-radius: 100%;
+    border: none;
+  }
+}
+
+.azimuth-block-edit-panel {
+  z-index: 101;
+  position: absolute;
+  bottom: auto;
+  left: auto;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  max-width: 90%;
+  margin: 1.21924em auto;
+  display: inline-block;
+  background: #2d353b;
+  opacity: 0;
+  border-radius: 0.5em;
+  -webkit-box-shadow: 2px 0px 2px rgba(50, 50, 50, 0.25);
+  -moz-box-shadow:    2px 0px 2px rgba(50, 50, 50, 0.25);
+  box-shadow:         2px 0px 2px rgba(50, 50, 50, 0.25);
+  -webkit-transition: opacity, -webkit-transform;
+  -moz-transition: opacity, -moz-transform;
+  -ms-transition: opacity, -ms-transform;
+  transition: opacity, transform;
+  -webkit-transition-duration: 0.25s;
+  -moz-transition-duration: 0.25s;
+  transition-duration: 0.25s;
+
+  &.active {
+    -webkit-transform: scale(1) translateZ(0);
+    -moz-transform: scale(1) translateZ(0);
+    -ms-transform: scale(1) translateZ(0);
+    -o-transform: scale(1) translateZ(0);
+    transform: scale(1) translateZ(0);
+    opacity: 1;
+  }
+
+  .edit-panel-main-wrapper {
+      position: relative;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      overflow: hidden;
+      margin: 0;
+      max-width: 22em;
+      border-radius: 0.5em;
+      -webkit-transition: max-height;
+      -moz-transition: max-height;
+      -ms-transition: max-height;
+      transition: max-height;
+      -webkit-transition-duration: 0.25s;
+      -moz-transition-duration: 0.25s;
+      transition-duration: 0.25s;
+
+      .edit-panel-content-wrapper {
+        text-align: cemter;
+        position: relative;
+        max-height: 15em;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 0.5em;
+        -webkit-font-smoothing: subpixel-antialiased;
+
+          .edit-buttons {
+            margin: 0;
+            li {
+              border-left: 1px solid #292f38;
+              border-right: 1px solid #353c48;
+              display: inline-block;
+              a {
+                padding: 5px 10px;
+                display: inline-block;
+                color: @text-color;
+
+                &:hover {
+                  padding-bottom: 3px;
+                  border-bottom: 2px solid @link-color;
+                }
+              }
+            }
+          }
       }
+  }
+
+  .edit-tooltip-container {
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    width: 1.3em;
+    height: 1.3em;
+    padding-top: 5px;
+    overflow: hidden;
+    height: 10px;
+    margin-top: -5px;
+    margin-left: -0.65em;
+
+    .edit-tooltip {
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      width: 1.3em;
+      height: 1.3em;
+      -webkit-transform: rotate(45deg);
+      -moz-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      -o-transform: rotate(45deg);
+
+      background: #2d353b;
+      box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+      border-top-left-radius: 0;
     }
   }
 }
@@ -333,6 +454,9 @@
     }
     a {
       color: @text-color;
+      &:hover {
+        color: #7acbe2;
+      }
     }
   }
 
