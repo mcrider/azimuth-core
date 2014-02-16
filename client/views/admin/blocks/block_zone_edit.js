@@ -1,3 +1,14 @@
+//  ______     ______     __     __    __     __  __     ______   __  __
+// /\  __ \   /\___  \   /\ \   /\ "-./  \   /\ \/\ \   /\__  _\ /\ \_\ \
+// \ \  __ \  \/_/  /__  \ \ \  \ \ \-./\ \  \ \ \_\ \  \/_/\ \/ \ \  __ \
+//  \ \_\ \_\   /\_____\  \ \_\  \ \_\ \ \_\  \ \_____\    \ \_\  \ \_\ \_\
+//   \/_/\/_/   \/_____/   \/_/   \/_/  \/_/   \/_____/     \/_/   \/_/\/_/
+//
+// azimuth-core/views/admin/blocks/block_zone_edit.js
+//
+// Helpers and event handlers for the block zone editor admin panel.
+//
+
 Template.block_zone_edit.events = {
   'click .page-count': function (e) {
     e.preventDefault();

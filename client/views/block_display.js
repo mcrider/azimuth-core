@@ -1,4 +1,14 @@
-// Handles the display and entry point of editing functions for blocks
+//  ______     ______     __     __    __     __  __     ______   __  __
+// /\  __ \   /\___  \   /\ \   /\ "-./  \   /\ \/\ \   /\__  _\ /\ \_\ \
+// \ \  __ \  \/_/  /__  \ \ \  \ \ \-./\ \  \ \ \_\ \  \/_/\ \/ \ \  __ \
+//  \ \_\ \_\   /\_____\  \ \_\  \ \_\ \ \_\  \ \_____\    \ \_\  \ \_\ \_\
+//   \/_/\/_/   \/_____/   \/_/   \/_/  \/_/   \/_____/     \/_/   \/_/\/_/
+//
+// azimuth-core/client/views/block_display.js
+//
+// Handles the display and entry point of editing functions for blocks.
+//
+
 Template.block_display.rendered = function () {
   // Display block-specific admin buttons when hovered over
   // FIXME: Need to make this available to touch events

@@ -1,8 +1,14 @@
-/* init.js
- *
- * Startup code for the front-end.  Defines the collections that Azimuth interacts with.
- *
- */
+//  ______     ______     __     __    __     __  __     ______   __  __
+// /\  __ \   /\___  \   /\ \   /\ "-./  \   /\ \/\ \   /\__  _\ /\ \_\ \
+// \ \  __ \  \/_/  /__  \ \ \  \ \ \-./\ \  \ \ \_\ \  \/_/\ \/ \ \  __ \
+//  \ \_\ \_\   /\_____\  \ \_\  \ \_\ \ \_\  \ \_____\    \ \_\  \ \_\ \_\
+//   \/_/\/_/   \/_____/   \/_/   \/_/  \/_/   \/_____/     \/_/   \/_/\/_/
+//
+// azimuth-core/client/collections.js
+//
+// Initialize Azimuth's collections and serve them to the client.
+//
+
 window.Azimuth = window.Azimuth || {};
 Azimuth.collections = {
   Pages: new Meteor.Collection('pages'),

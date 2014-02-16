@@ -1,4 +1,14 @@
-// Utility methods common to many scripts
+//  ______     ______     __     __    __     __  __     ______   __  __
+// /\  __ \   /\___  \   /\ \   /\ "-./  \   /\ \/\ \   /\__  _\ /\ \_\ \
+// \ \  __ \  \/_/  /__  \ \ \  \ \ \-./\ \  \ \ \_\ \  \/_/\ \/ \ \  __ \
+//  \ \_\ \_\   /\_____\  \ \_\  \ \_\ \ \_\  \ \_____\    \ \_\  \ \_\ \_\
+//   \/_/\/_/   \/_____/   \/_/   \/_/  \/_/   \/_____/     \/_/   \/_/\/_/
+//
+// azimuth-core/client/lib/utils.js
+//
+// Common utility methods used in various parts of the application.
+//
+
 Azimuth.utils = Azimuth.utils || {};
 // Get the page object corresponding to the current page slug
 Azimuth.utils.getCurrentPage = function () {

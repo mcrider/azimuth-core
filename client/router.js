@@ -1,8 +1,15 @@
-/* router.js
- *
- * Uses Meteor-router to route URLs to the correct page.
- *
- */
+//  ______     ______     __     __    __     __  __     ______   __  __
+// /\  __ \   /\___  \   /\ \   /\ "-./  \   /\ \/\ \   /\__  _\ /\ \_\ \
+// \ \  __ \  \/_/  /__  \ \ \  \ \ \-./\ \  \ \ \_\ \  \/_/\ \/ \ \  __ \
+//  \ \_\ \_\   /\_____\  \ \_\  \ \_\ \ \_\  \ \_____\    \ \_\  \ \_\ \_\
+//   \/_/\/_/   \/_____/   \/_/   \/_/  \/_/   \/_____/     \/_/   \/_/\/_/
+//
+// azimuth-core/client/router.js
+//
+// Iron-Router route configuration -- Direct the user to different parts of
+// the app based on the URL they enter.
+//
+
 // Global configuration
 Router.configure({
   layoutTemplate: 'layout',

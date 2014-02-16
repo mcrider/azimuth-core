@@ -1,4 +1,15 @@
-// Accompanying JS file for the three column block
+//  ______     ______     __     __    __     __  __     ______   __  __
+// /\  __ \   /\___  \   /\ \   /\ "-./  \   /\ \/\ \   /\__  _\ /\ \_\ \
+// \ \  __ \  \/_/  /__  \ \ \  \ \ \-./\ \  \ \ \_\ \  \/_/\ \/ \ \  __ \
+//  \ \_\ \_\   /\_____\  \ \_\  \ \_\ \ \_\  \ \_____\    \ \_\  \ \_\ \_\
+//   \/_/\/_/   \/_____/   \/_/   \/_/  \/_/   \/_____/     \/_/   \/_/\/_/
+//
+// azimuth-core/client/blocks/three_column/three_column.js
+//
+// Metadata and settings definition for the three column block template.
+// The HTML for this template can be found in the respective directory in the view package.
+//
+
 Template.three_column = Template.three_column || {};
 Template.three_column.label = '3 Column Block';
 Template.three_column.description = 'A basic content block that takes up 1/4 of a row';

@@ -1,5 +1,14 @@
-// Accompanying JS file for the header template.
-// Describes the page's metadata and actions.
+//  ______     ______     __     __    __     __  __     ______   __  __
+// /\  __ \   /\___  \   /\ \   /\ "-./  \   /\ \/\ \   /\__  _\ /\ \_\ \
+// \ \  __ \  \/_/  /__  \ \ \  \ \ \-./\ \  \ \ \_\ \  \/_/\ \/ \ \  __ \
+//  \ \_\ \_\   /\_____\  \ \_\  \ \_\ \ \_\  \ \_____\    \ \_\  \ \_\ \_\
+//   \/_/\/_/   \/_____/   \/_/   \/_/  \/_/   \/_____/     \/_/   \/_/\/_/
+//
+// azimuth-core/client/views/header.js
+//
+// Helpers for the header template.
+//
+
 Template.header.rendered = function () {
   // Set page title
   document.title = Azimuth.utils.getSetting('siteName');
