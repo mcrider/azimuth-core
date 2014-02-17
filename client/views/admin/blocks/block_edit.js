@@ -99,13 +99,12 @@ Template.block_edit.events = {
       blockData.created = Date.now();
       blockData.template = Azimuth.adminPanel.blockEdit.settings.template;
       var blockId = Azimuth.collections.Blocks.insert(blockData);
-      var block = Azimuth.collections.Blocks.findOne({ _id: blockId });
       var page = Azimuth.utils.getCurrentPage();
       if (Azimuth.adminPanel.blockEdit.settings.insertAfter) {
         // Insert after a specific block
         var pageBlockData = {
             page: page._id,
-            block: block,
+            block: blockId,
             seq: Azimuth.adminPanel.blockEdit.settings.insertAfter + 1,
             zone: Azimuth.adminPanel.blockEdit.settings.zone,
             added: Date.now()
@@ -115,7 +114,7 @@ Template.block_edit.events = {
         // Insert into the beginning of the block zone
         var pageBlockData = {
             page: page._id,
-            block: block,
+            block: blockId,
             seq: 1,
             zone: Azimuth.adminPanel.blockEdit.settings.zone,
             added: Date.now()

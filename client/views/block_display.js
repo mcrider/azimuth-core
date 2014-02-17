@@ -9,35 +9,6 @@
 // Handles the display and entry point of editing functions for blocks.
 //
 
-Template.block_display.rendered = function () {
-  // Display block-specific admin buttons when hovered over
-  // FIXME: Need to make this available to touch events
-  if (Meteor.user() && Roles.userIsInRole({ _id: Meteor.user()._id }, [
-      'author',
-      'admin'
-    ])) {
-    // Setup block edit panel interactions
-    $(this.findAll('.azimuth-block > *')).append('<a href="#" class="azimuth-block-edit-toggle"><span class="pip"></span><span class="pip"></span><span class="pip"></span></a>');
-    $('.azimuth-block').undelegate('click').delegate('.azimuth-block-edit-toggle', 'click', function(e) {
-      e.stopPropagation();
-      // Store some state about what we're currently editing
-      Azimuth.adminPanel.blockEdit.settings.pageBlockId = $(e.currentTarget).closest('.azimuth-block').data('page-block-id');
-      Azimuth.adminPanel.blockEdit.settings.zone = $(e.currentTarget).closest('.azimuth-block-zone').data('zone');
-      $('.azimuth-block-edit-toggle').removeClass('active');
-      $(this).addClass('active');
-      // Get the position of the toggle button so we can center the edit panel under it
-      var offset = $(this).offset();
-      var toggleWidth = $(this).width();
-      var offsetTop = offset.top + 5;
-      var offsetLeft = offset.left - ($('.azimuth-block-edit-panel').width() / 2) + (toggleWidth / 2) + 3;
-      $('.azimuth-block-edit-panel').css('top', offsetTop).css('left', offsetLeft).toggleClass('active');
-    })
-    $('html').click(function() {
-      $('.azimuth-block-edit-toggle').removeClass('active');
-      if($('.azimuth-block-edit-panel').hasClass('active')) $('.azimuth-block-edit-panel').removeClass('active');
-    })
-  }
-};
 Template.block_display.currentBlockPage = function (zone) {
   return Session.equals('zone_' + zone + '_skip', this.valueOf() - 1) ? 'active' : '';
 };
@@ -63,7 +34,7 @@ Template.block_display.events = {
       return false;
     Session.set('blockFields', false);
     Session.set('addBlock', true);
-    Azimuth.adminPanel.blockEdit.reset({newBlock: true, zone: zone, insertAfter: false});
+    Azimuth.adminPanel.blockEdit.reset({newBlock: true, zone: zone});
     Azimuth.adminPanel.loadTemplate('block_edit', 'menu-medium');
   },
   // Edit a block zone's settings

@@ -39,6 +39,14 @@ if (typeof Handlebars !== 'undefined') {
   Handlebars.registerHelper('renderBlock', function (block) {
     if (block && block.template) {
       Template[block.template].block = block;
+      var _rendered = typeof Template[block.template].rendered == "function" ? Template[block.template].rendered : false;
+      Template[block.template].rendered = function() {
+        // Call the existing rendered function from our custom one
+        if (_rendered) {
+          _rendered.apply(this, arguments);
+        }
+        Azimuth.adminPanel.initEditToggle.apply(this, arguments)
+      }
       return Template[block.template];  // this calls the template and returns the HTML.
     } else {
       console.log('Block not found (or has no template specified)');

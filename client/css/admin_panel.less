@@ -328,6 +328,7 @@
 
 .azimuth-block-edit-panel {
   z-index: 101;
+  display: none;
   position: absolute;
   bottom: auto;
   left: auto;
@@ -335,7 +336,6 @@
   -moz-box-sizing: border-box;
   max-width: 90%;
   margin: 1.21924em auto;
-  display: inline-block;
   background: #2d353b;
   opacity: 0;
   border-radius: 0.5em;
@@ -351,6 +351,7 @@
   transition-duration: 0.25s;
 
   &.active {
+    display: inline-block;
     -webkit-transform: scale(1) translateZ(0);
     -moz-transform: scale(1) translateZ(0);
     -ms-transform: scale(1) translateZ(0);
