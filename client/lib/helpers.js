@@ -40,12 +40,15 @@ if (typeof Handlebars !== 'undefined') {
     if (block && block.template) {
       Template[block.template].block = block;
       var _rendered = typeof Template[block.template].rendered == "function" ? Template[block.template].rendered : false;
-      Template[block.template].rendered = function() {
+      var _customRendered = function() {
         // Call the existing rendered function from our custom one
         if (_rendered) {
           _rendered.apply(this, arguments);
         }
         Azimuth.adminPanel.initEditToggle.apply(this, arguments)
+      }
+      if (!Template[block.template].rendered || !_.isEqual(Template[block.template].rendered.toString(), _customRendered.toString())) {
+        Template[block.template].rendered = _customRendered;
       }
       return Template[block.template];  // this calls the template and returns the HTML.
     } else {

@@ -89,7 +89,7 @@ Template.block_edit.events = {
     Azimuth.utils.closeModal('#deleteBlockModal');
     Azimuth.adminPanel.hide();
   },
-  'click .cancel-block': function () {
+  'click .cancel': function () {
     Azimuth.adminPanel.hide();
   },
   'click .submit': function () {

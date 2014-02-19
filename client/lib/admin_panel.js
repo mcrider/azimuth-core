@@ -100,7 +100,7 @@ Azimuth.adminPanel.blockEdit = {
     };
     this.settings = _.extend(defaultSettings, settings);
   },
-  // Insert a pageBlock into front of block zone
+  // Insert a pageBlock into beginning of block zone
   insertInFront: function (pageBlockData) {
     Azimuth.collections.PageBlocks.find({
       page: pageBlockData.page,

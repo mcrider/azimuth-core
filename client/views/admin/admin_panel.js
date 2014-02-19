@@ -36,14 +36,14 @@ Template.admin_panel.events = {
   'click .block-edit': function (e) {
     e.stopPropagation();
     var pageBlockId = Azimuth.adminPanel.blockEdit.settings.pageBlockId;
-    Azimuth.adminPanel.blockEdit.reset({newBlock: false, pageBlockId: pageBlockId});
     var pageBlock = Azimuth.collections.PageBlocks.findOne(pageBlockId);
+    Azimuth.adminPanel.blockEdit.reset({newBlock: false, pageBlockId: pageBlockId});
     if (pageBlock && pageBlock.block_tag) {
     } else if (pageBlock && pageBlock.block_type) {
     } else if (pageBlock && pageBlock.block) {
       var block = Azimuth.collections.Blocks.findOne(pageBlock.block);
       if (block && block.template) {
-        Azimuth.adminPanel.blockEdit.settings.pageBlockId = pageBlock._id;
+        Azimuth.adminPanel.blockEdit.settings.pageBlockId = pageBlockId;
         Azimuth.adminPanel.blockEdit.settings.blockId = block._id;
         // Get template's fields from block registry, and inject values for each field
         var registryFields = Azimuth.registry.blockTemplates[block.template].fields;
@@ -68,13 +68,16 @@ Template.admin_panel.events = {
     if (!zone)
       return false;
     Session.set('blockFields', false);
-    Azimuth.adminPanel.blockEdit.reset({newBlock: true, zone: zone, insertAfter: this.seq});
+    Session.set('addBlock', true);
+    var pageBlock = Azimuth.collections.PageBlocks.find(Azimuth.adminPanel.blockEdit.settings.pageBlockId);
+    Azimuth.adminPanel.blockEdit.reset({newBlock: true, zone: zone, insertBefore: false, insertAfter: pageBlock.seq});
     Azimuth.adminPanel.loadTemplate('block_edit', 'menu-medium');
   },
   'click .block-move-left': function (e) {
     e.stopPropagation();
+    var pageBlock = Azimuth.collections.PageBlocks.findOne(Azimuth.adminPanel.blockEdit.settings.pageBlockId);
     // Ensure we can even move the block backwards
-    if (this.seq == 1) {
+    if (pageBlock.seq == 1) {
       noty({
         text: 'Could not move block.',
         type: 'error'
@@ -83,20 +86,21 @@ Template.admin_panel.events = {
     }
     // Get previous pageBlock
     var targetPageBlock = Azimuth.collections.PageBlocks.findOne({
-        page: this.page,
-        zone: this.zone,
-        seq: this.seq - 1
+        page: pageBlock.page,
+        zone: pageBlock.zone,
+        seq: pageBlock.seq - 1
       });
     // Decrement current pageBlock seq
-    Azimuth.collections.PageBlocks.update({ _id: this._id }, { $set: { seq: this.seq - 1 } });
+    Azimuth.collections.PageBlocks.update({ _id: pageBlock._id }, { $set: { seq: pageBlock.seq - 1 } });
     // Increment target pageBlock seq
-    Azimuth.collections.PageBlocks.update({ _id: targetPageBlock._id }, { $set: { seq: this.seq } });
+    Azimuth.collections.PageBlocks.update({ _id: targetPageBlock._id }, { $set: { seq: pageBlock.seq } });
   },
   'click .block-move-right': function (e) {
     e.stopPropagation();
+    var pageBlock = Azimuth.collections.PageBlocks.findOne(Azimuth.adminPanel.blockEdit.settings.pageBlockId);
     // Ensure we can even move the block forwards
     var lastPageBlock = Azimuth.collections.PageBlocks.findOne({}, { sort: { seq: -1 } });
-    if (!lastPageBlock || lastPageBlock.seq <= this.seq) {
+    if (!lastPageBlock || lastPageBlock.seq <= pageBlock.seq) {
       noty({
         text: 'Could not move block.',
         type: 'error'
@@ -105,14 +109,14 @@ Template.admin_panel.events = {
     }
     // Get next pageBlock
     var targetPageBlock = Azimuth.collections.PageBlocks.findOne({
-        page: this.page,
-        zone: this.zone,
-        seq: this.seq + 1
+        page: pageBlock.page,
+        zone: pageBlock.zone,
+        seq: pageBlock.seq + 1
       });
     // Increment current pageBlock seq
-    Azimuth.collections.PageBlocks.update({ _id: this._id }, { $set: { seq: this.seq + 1 } });
+    Azimuth.collections.PageBlocks.update({ _id: pageBlock._id }, { $set: { seq: pageBlock.seq + 1 } });
     // Decrement target pageBlock seq
-    Azimuth.collections.PageBlocks.update({ _id: targetPageBlock._id }, { $set: { seq: this.seq } });
+    Azimuth.collections.PageBlocks.update({ _id: targetPageBlock._id }, { $set: { seq: pageBlock.seq } });
   }
 };
 Template.admin_panel.actions = function () {
