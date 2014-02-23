@@ -51,7 +51,6 @@ Package.on_use(function (api) {
     'client/blocks/three_column/three_column.js',
     'client/blocks/twelve_column/twelve_column.js',
     'client/blocks/two_column/two_column.js',
-    'client/blocks/row_separator/row_separator.js',
     'client/pages/home_page/home_page.js',
     'client/pages/page_default/page_default.js',
     'client/pages/sidebar_left/sidebar_left.js',

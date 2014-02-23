@@ -39,7 +39,6 @@ Template.block_display.events = {
   },
   // Edit a block zone's settings
   'click .block-zone-edit': function (e) {
-    debugger;
     e.stopPropagation();
     Azimuth.adminPanel.blockEdit.reset({zone: zone});
     Azimuth.adminPanel.loadTemplate('block_zone_edit', 'menu-medium');

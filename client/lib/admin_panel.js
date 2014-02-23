@@ -64,6 +64,12 @@ Azimuth.adminPanel = {
         Azimuth.adminPanel.blockEdit.settings.zone = $(e.currentTarget).closest('.azimuth-block-zone').data('zone');
         $('.azimuth-block-edit-toggle').removeClass('active');
         $(this).addClass('active');
+        // Toggle the row break active state
+        if (Azimuth.adminPanel.blockEdit.getPageBlock().break) {
+          $('.azimuth-block-edit-panel .block-break-after').addClass('highlight');
+        } else{
+          $('.azimuth-block-edit-panel .block-break-after').removeClass('highlight');
+        }
         // Get the position of the toggle button so we can center the edit panel under it
         var offset = $(this).offset();
         var toggleWidth = $(this).width();
@@ -122,6 +128,13 @@ Azimuth.adminPanel.blockEdit = {
       Azimuth.collections.PageBlocks.update(pageBlock._id, { $set: { seq: pageBlock.seq + 1 } });
     });
     Azimuth.collections.PageBlocks.insert(pageBlockData);
+  },
+  // Convenience methods
+  getPageBlock: function() {
+    return Azimuth.collections.PageBlocks.findOne(this.settings.pageBlockId);
+  },
+  getBlock: function() {
+    return Azimuth.collections.Blocks.findOne(this.settings.blockId);
   }
 };
 // Specify actions and labels for the admin sidebar

@@ -69,13 +69,20 @@ Template.admin_panel.events = {
       return false;
     Session.set('blockFields', false);
     Session.set('addBlock', true);
-    var pageBlock = Azimuth.collections.PageBlocks.find(Azimuth.adminPanel.blockEdit.settings.pageBlockId);
+    var pageBlock = Azimuth.adminPanel.blockEdit.getPageBlock();
     Azimuth.adminPanel.blockEdit.reset({newBlock: true, zone: zone, insertBefore: false, insertAfter: pageBlock.seq});
     Azimuth.adminPanel.loadTemplate('block_edit', 'menu-medium');
   },
+  'click .block-break-after': function (e) {
+    e.stopPropagation();
+    $('.azimuth-block-edit-toggle, .azimuth-block-edit-panel').removeClass('active');
+    var pageBlock = Azimuth.adminPanel.blockEdit.getPageBlock();
+    Azimuth.collections.PageBlocks.update({ _id: pageBlock._id }, { $set: { break: !pageBlock.break } });
+  },
   'click .block-move-left': function (e) {
     e.stopPropagation();
-    var pageBlock = Azimuth.collections.PageBlocks.findOne(Azimuth.adminPanel.blockEdit.settings.pageBlockId);
+    $('.azimuth-block-edit-toggle, .azimuth-block-edit-panel').removeClass('active');
+    var pageBlock = Azimuth.adminPanel.blockEdit.getPageBlock();
     // Ensure we can even move the block backwards
     if (pageBlock.seq == 1) {
       noty({
@@ -97,7 +104,8 @@ Template.admin_panel.events = {
   },
   'click .block-move-right': function (e) {
     e.stopPropagation();
-    var pageBlock = Azimuth.collections.PageBlocks.findOne(Azimuth.adminPanel.blockEdit.settings.pageBlockId);
+    $('.azimuth-block-edit-toggle, .azimuth-block-edit-panel').removeClass('active');
+    var pageBlock = Azimuth.adminPanel.blockEdit.getPageBlock();
     // Ensure we can even move the block forwards
     var lastPageBlock = Azimuth.collections.PageBlocks.findOne({}, { sort: { seq: -1 } });
     if (!lastPageBlock || lastPageBlock.seq <= pageBlock.seq) {

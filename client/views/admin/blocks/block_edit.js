@@ -123,7 +123,7 @@ Template.block_edit.events = {
       }
     }  // Save changes to an existing block
     else {
-      var block = Azimuth.collections.Blocks.findOne({ _id: Azimuth.adminPanel.blockEdit.settings.blockId });
+      var block = Azimuth.adminPanel.blockEdit.getBlock();
       if (block) {
         var blockData = Azimuth.utils.getFormValues('.block-edit-form');
         blockData.tag = blockData.tag ? blockData.tag.replace(/^\s+|\s+$/g, '').split(/\s*,\s*/) : '';
@@ -163,7 +163,7 @@ Template.block_edit.renderField = function (field) {
   return field.name;
 };
 Template.block_edit.currentBlockTags = function () {
-  var block = Azimuth.collections.Blocks.findOne(Azimuth.adminPanel.blockEdit.settings.blockId);
+  var block = Azimuth.adminPanel.blockEdit.getBlock();
   if (block && block.tag)
     return block.tag;
   else
