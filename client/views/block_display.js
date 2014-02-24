@@ -10,7 +10,11 @@
 //
 
 Template.block_display.currentBlockPage = function (zone) {
-  return Session.equals('zone_' + zone + '_skip', this.valueOf() - 1) ? 'active' : '';
+  var page = Azimuth.utils.getCurrentPage();
+  if(!Session.get(page.slug + '_' + zone + '_skip')) {
+    Session.set(page.slug + '_' + zone + '_skip', 0);
+  }
+  return Session.equals(page.slug + '_' + zone + '_skip', this.valueOf() - 1) ? 'active current' : '';
 };
 Template.block_display.zoneLabel = function (zone) {
   return zone.charAt(0).toUpperCase() + zone.slice(1);
@@ -29,7 +33,7 @@ Template.block_display.events = {
   // Add a block to the beginning of the block zone
   'click .block-zone-add': function (e) {
     e.stopPropagation();
-    zone = $(e.currentTarget).closest('.azimuth-block-zone').data('zone');
+    var zone = $(e.currentTarget).closest('.azimuth-block-zone').data('zone');
     if (!zone)
       return false;
     Session.set('blockFields', false);
@@ -40,7 +44,13 @@ Template.block_display.events = {
   // Edit a block zone's settings
   'click .block-zone-edit': function (e) {
     e.stopPropagation();
+    var zone = $(e.currentTarget).closest('.azimuth-block-zone').data('zone');
     Azimuth.adminPanel.blockEdit.reset({zone: zone});
     Azimuth.adminPanel.loadTemplate('block_zone_edit', 'menu-medium');
+  },
+  'click .page': function (e) {
+    var page = Azimuth.utils.getCurrentPage();
+    var zone = $(e.currentTarget).closest('.pagination').data('zone');
+    Session.set(page.slug + '_' + zone + '_skip', this.valueOf() - 1);
   }
 };

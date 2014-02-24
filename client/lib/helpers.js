@@ -9,9 +9,9 @@ if (typeof Handlebars !== 'undefined') {
     }
     // Get zone settings for paging and sorting
     var page = Azimuth.utils.getCurrentPage();
-    var limit = page['zone_' + zone + '_limit'] ? page['zone_' + zone + '_limit'] : 0;
+    var limit = page['zone_' + zone + '_limit'] ? parseInt(page['zone_' + zone + '_limit'], 10) : 0;
     // The number of blocks to show per 'page' of blocks
-    var skip = Session.get('zone_' + zone + '_skip') ? Session.get('zone_' + zone + '_skip') * limit : 0;
+    var skip = Session.get(page.slug + '_' + zone + '_skip') ? Session.get(page.slug + '_' + zone + '_skip') * limit : 0;
     // The current 'page' of blocks
     if (limit > 0) {
       Template.block_display.pageBlocks = Azimuth.collections.PageBlocks.find({
