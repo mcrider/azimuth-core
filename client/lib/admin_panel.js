@@ -59,6 +59,7 @@ Azimuth.adminPanel = {
       $(this.firstNode).append('<a href="#" class="azimuth-block-edit-toggle"><span class="pip"></span><span class="pip"></span><span class="pip"></span></a>');
       $('.azimuth-block').undelegate('click').delegate('.azimuth-block-edit-toggle', 'click', function(e) {
         e.stopPropagation();
+        e.preventDefault();
         // Store some state about what we're currently editing
         Azimuth.adminPanel.blockEdit.settings.pageBlockId = $(e.currentTarget).closest('.azimuth-block').data('page-block-id');
         Azimuth.adminPanel.blockEdit.settings.zone = $(e.currentTarget).closest('.azimuth-block-zone').data('zone');
