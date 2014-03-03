@@ -8,7 +8,7 @@ Package.on_use(function (api) {
     'less', 'spiderable', 'standard-app-packages'], 'client');
 
   // Use the meteorite smart packages specified in smart.json
-  api.use(['roles','iron-router','analyticsjs', 'collectionFS'], 'client');
+  api.use(['roles','iron-router','blaze-layout','analyticsjs', 'collectionFS'], 'client');
 
   // And ensure we have the packages we need server-side available to the server
   api.use(['accounts-base', 'accounts-password', 'spiderable', 'roles', 'collectionFS', 'cfs-public-folder'], 'server');
@@ -41,11 +41,11 @@ Package.on_use(function (api) {
     'client/css/vendor/nestable.css',
     'client/css/main.less',
     'client/css/admin_panel.less',
-    'client/css/dripicons.css',
     'client/css/fonts/dripicons.eot',
     'client/css/fonts/dripicons.svg',
     'client/css/fonts/dripicons.ttf',
     'client/css/fonts/dripicons.woff',
+    'client/css/dripicons.css',
     'client/blocks/four_column/four_column.js',
     'client/blocks/six_column/six_column.js',
     'client/blocks/three_column/three_column.js',

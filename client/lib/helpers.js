@@ -1,8 +1,8 @@
 // Helpers (additional public functions) for Handlebars templates
 if (typeof Handlebars !== 'undefined') {
   // Display all blocks for a page in a given block zone
-  Handlebars.registerHelper('renderBlocks', function (options) {
-    var zone = options.hash.zone;
+  Handlebars.registerHelper('renderBlocks', function () {
+    var zone = this.zone;
     if (!zone) {
       console.log('Block zone not specified');
       return false;
@@ -73,11 +73,12 @@ if (typeof Handlebars !== 'undefined') {
     }
   });
   // Renders a form element using a template in views/form/
-  Handlebars.registerHelper('formHelper', function (options) {
-    if (options.hash.type == 'wysiwyg')
-      options.hash.uniqueId = options.hash.fieldName + '_' + Math.random().toString(36).substring(7);
+  Handlebars.registerHelper('formHelper', function () {
+    if (this.type == 'wysiwyg')
+      this.uniqueId = this.fieldName + '_' + Math.random().toString(36).substring(7);
     // FIXME: Return error if type not valid template
-    return Template[options.hash.type].withData(options.hash);
+    // return Template[this.type].withData(this);
+    return Template[this.type];
   });
   // Get a human readable time from a timestamp
   Handlebars.registerHelper('humanReadableTime', function (timestamp) {
@@ -120,7 +121,7 @@ if (typeof Handlebars !== 'undefined') {
     ]);
   });
   // Check if registration is open to the public
-  Handlebars.registerHelper('openRegistration', function (options) {
+  Handlebars.registerHelper('openRegistration', function () {
     return Azimuth.utils.getSetting('openRegistration') || !Session.get('usersExist');
   });
   // Get an imageUrl or path to default image

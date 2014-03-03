@@ -10,7 +10,11 @@
     "roles": {},
     "iron-router": {
       "git": "https://github.com/EventedMind/iron-router.git",
-      "branch": "shark"
+      "branch": "blaze-integration"
+    },
+    "blaze-layout": {
+      "git": "https://github.com/EventedMind/blaze-layout.git",
+      "branch": "master"
     },
     "collectionFS": {
       "path": "../../packages/collectionFS"

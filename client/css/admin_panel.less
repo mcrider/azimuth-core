@@ -60,7 +60,6 @@
 
 .azimuth-container {
   .azimuth-admin-panel {
-    min-width: 380px;
     display: none;
 
     position: fixed;
@@ -224,6 +223,9 @@
     }
 
     &.menu-small {
+      .azimuth-admin-panel {
+        min-width: 380px;
+      }
       .contents-container {
         -webkit-transform: translate3d((@action-links-width + @menu-small-width), 0, 0);
         transform: translate3d((@action-links-width + @menu-small-width), 0, 0);
@@ -234,6 +236,9 @@
       }
     }
     &.menu-medium {
+      .azimuth-admin-panel {
+        min-width: 380px;
+      }
       .contents-container {
         -webkit-transform: translate3d((@action-links-width + @menu-medium-width), 0, 0);
         transform: translate3d((@action-links-width + @menu-medium-width), 0, 0);
@@ -254,6 +259,9 @@
       }
     }
     &.menu-large {
+      .azimuth-admin-panel {
+        min-width: 380px;
+      }
       .contents-container {
         -webkit-transform: translate3d((@action-links-width + @menu-large-width), 0, 0);
         transform: translate3d((@action-links-width + @menu-large-width), 0, 0);

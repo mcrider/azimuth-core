@@ -28,7 +28,7 @@ Azimuth.adminPanel = {
       Azimuth.adminPanel.hide();
     });
     $('.admin-view').html('');
-    UI.insert(UI.render(Template[template]), document.getElementsByClassName('admin-view')[0]);
+    UI.DomRange.insert(UI.render(Template[template]).dom, document.getElementsByClassName('admin-view')[0]);
   },
   show: function () {
     $('.azimuth-container').addClass('menu-open');
