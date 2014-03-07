@@ -9,12 +9,6 @@
 // Helpers and event handlers for the signup form.
 //
 
-Meteor.call('entrySettings', function (err, data) {
-  if (err) {
-    console.log(err);
-  }
-  return Session.set('entrySettings', data);
-});
 Handlebars.registerHelper('capitalize', function (str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 });

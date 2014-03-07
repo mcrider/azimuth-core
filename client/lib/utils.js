@@ -16,7 +16,7 @@ Azimuth.utils.getCurrentPage = function () {
       notFound: true,
       title: 'Sorry, we couldn\'t find the requested page'
     };
-  if (!Router.current().path)
+  if (!Router.current() || !Router.current().path)
     return notFound;
   var page_slug = Router.current().path.split('/')[1];
   var page;

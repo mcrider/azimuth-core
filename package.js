@@ -36,7 +36,6 @@ Package.on_use(function (api) {
     'client/lib/registry.js',
     'client/lib/utils.js',
     'client/lib/admin_panel.js',
-    'client/controllers.js',
     'client/router.js',
     'client/css/vendor/nestable.css',
     'client/css/main.less',
