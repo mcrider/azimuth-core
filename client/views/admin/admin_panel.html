@@ -1,0 +1,31 @@
+<template name="admin_panel">
+  <div class="azimuth-admin-panel">
+    <ul class="action-links">
+      {{#each actions}}
+        <li>
+          <a href="#" class="action" title="{{description}}">
+            <div class="icon {{icon}}"></div>
+            <p>{{label}}</p>
+          </a>
+        </li>
+      {{/each}}
+    </ul>
+    <div class="admin-view-container"><div class="admin-view"></div></div>
+  </div>
+  <div class="azimuth-block-edit-panel">
+    <div class="edit-panel-main-wrapper">
+      <div class="edit-panel-content-wrapper">
+        <ul class="edit-buttons">
+          <li><a href="#" title="Move Left" class="block-move-left"><i class="icon icon-chevron-left"></i></a></li><!--
+          --><li><a href="#" title="Edit" class="block-edit"><i class="icon icon-document-edit"></i></a></li><!--
+          --><li><a href="#" title="Add Block After" class="block-add"><i class="icon icon-plus"></i></a></li><!--
+          --><li><a href="#" title="Break Row After" class="block-break-after"><i class="icon icon-arrow-thin-down"></i></a></li><!--
+          --><li><a href="#" title="Move Right" class="block-move-right"><i class="icon icon-chevron-right"></i></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="edit-tooltip-container">
+      <div class="edit-tooltip"></div>
+    </div>
+  </div>
+</template>

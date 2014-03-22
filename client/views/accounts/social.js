@@ -1,33 +1,41 @@
-var capitalize;
+//  ______     ______     __     __    __     __  __     ______   __  __
+// /\  __ \   /\___  \   /\ \   /\ "-./  \   /\ \/\ \   /\__  _\ /\ \_\ \
+// \ \  __ \  \/_/  /__  \ \ \  \ \ \-./\ \  \ \ \_\ \  \/_/\ \/ \ \  __ \
+//  \ \_\ \_\   /\_____\  \ \_\  \ \_\ \ \_\  \ \_____\    \ \_\  \ \_\ \_\
+//   \/_/\/_/   \/_____/   \/_/   \/_/  \/_/   \/_____/     \/_/   \/_/\/_/
+//
+// azimuth-core/views/accounts/social.js
+//
+// Helpers and event handlers for social login functionality.
+//
 
+var capitalize;
 Template.social.helpers({
-  buttonText: function() {
+  buttonText: function () {
     return Session.get('buttonText');
   },
-  google: function() {
+  google: function () {
     if (this[0] === 'g' && this[1] === 'o') {
       return true;
     }
   }
 });
-
 Template.social.events({
-  'click .btn': function(event) {
+  'click .btn': function (event) {
     var callback, loginWithService, options, serviceName;
     serviceName = $(event.target).attr('id').split('-')[1];
     var loginButtonsSession = Accounts._loginButtonsSession;
-    callback = function(err) {
+    callback = function (err) {
       if (!err) {
         return Router.go('/');
       } else if (err instanceof Accounts.LoginCancelledError) {
-
       } else if (err instanceof ServiceConfiguration.ConfigError) {
         return loginButtonsSession.configureService(serviceName);
       } else {
-        return loginButtonsSession.errorMessage(err.reason || "Unknown error");
+        return loginButtonsSession.errorMessage(err.reason || 'Unknown error');
       }
     };
-    loginWithService = Meteor["loginWith" + capitalize(serviceName)];
+    loginWithService = Meteor['loginWith' + capitalize(serviceName)];
     options = {};
     if (Accounts.ui._options.requestPermissions[serviceName]) {
       options.requestPermissions = Accounts.ui._options.requestPermissions[serviceName];
@@ -39,7 +47,6 @@ Template.social.events({
     return Router.go('/');
   }
 });
-
-capitalize = function(str) {
+capitalize = function (str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };

@@ -1,151 +1,139 @@
 // Helpers (additional public functions) for Handlebars templates
 if (typeof Handlebars !== 'undefined') {
   // Display all blocks for a page in a given block zone
-  Handlebars.registerHelper('renderBlocks', function (options) {
-    var zone = options.hash.zone;
+  Handlebars.registerHelper('renderBlocks', function () {
+    var zone = this.zone;
     if (!zone) {
       console.log('Block zone not specified');
       return false;
     }
-
     // Get zone settings for paging and sorting
-    var page = utils.getCurrentPage();
-    var limit = page["zone_"+zone+"_limit"] ? page["zone_"+zone+"_limit"] : 0; // The number of blocks to show per 'page' of blocks
-    var skip = Session.get("zone_"+zone+"_skip") ? Session.get("zone_"+zone+"_skip") * limit : 0; // The current 'page' of blocks
-
+    var page = Azimuth.utils.getCurrentPage();
+    var limit = page['zone_' + zone + '_limit'] ? parseInt(page['zone_' + zone + '_limit'], 10) : 0;
+    // The number of blocks to show per 'page' of blocks
+    var skip = Session.get(page.slug + '_' + zone + '_skip') ? Session.get(page.slug + '_' + zone + '_skip') * limit : 0;
+    // The current 'page' of blocks
     if (limit > 0) {
-      Template["block_display"].pageBlocks = Azimuth.collections.PageBlocks.find({page_id: page._id, zone: zone}, {skip: skip, limit: limit});
-    } else {
-      Template["block_display"].pageBlocks = Azimuth.collections.PageBlocks.find({page_id: page._id, zone: zone});
-    }
-
-    var numSets = limit > 0 ? Math.ceil(Azimuth.collections.PageBlocks.find({page_id: page._id, zone: zone}).count() / limit) : false;
-    Template["block_display"].numSets = numSets > 1 ? _.range(1, numSets + 1) : false;
-    Template["block_display"].zone = zone;
-    return Template["block_display"]();
-  });
-
-  // Display a block/blocks from a pageBlock
-  Handlebars.registerHelper('renderPageBlock', function (pageBlock) {
-    var fragment = '';
-    if (pageBlock.block_tag) {
-      // Fetch blocks with a given tag and add to fragments
-      Azimuth.collections.Blocks.find({tag: pageBlock.block_tag}).forEach(function(block) {
-        fragment = fragment.concat(utils.getBlockFragment(block));
-      });
-    } else if (pageBlock.block_type) {
-      // Fetch each block with the given template (== type) and add to fragments
-      Azimuth.collections.Blocks.find({template: pageBlock.block_type}).forEach(function(block) {
-        fragment = fragment.concat(utils.getBlockFragment(block));
+      Template.block_display.pageBlocks = Azimuth.collections.PageBlocks.find({
+        page: page._id,
+        zone: zone
+      }, {
+        skip: skip,
+        limit: limit,
+        sort: { seq: 1 }
       });
     } else {
-      var block = Azimuth.collections.Blocks.findOne(pageBlock.block_id);
-      if (block && block.template) {
-        Template[block.template].block = block;
-        var fragment = Template[block.template](); // this calls the template and returns the HTML.
-      } else {
-        console.log('Block not found (or has no template specified)' );
-      }
+      Template.block_display.pageBlocks = Azimuth.collections.PageBlocks.find({
+        page: page._id,
+        zone: zone
+      }, { sort: { seq: 1 } });
     }
-    return fragment;
+    var numSets = limit > 0 ? Math.ceil(Azimuth.collections.PageBlocks.find({
+        page: page._id,
+        zone: zone
+      }).count() / limit) : false;
+    Template.block_display.numSets = numSets > 1 ? _.range(1, numSets + 1) : false;
+    Template.block_display.zone = zone;
+    return Template.block_display;
   });
-
-  // Renders a single instance of a block
   Handlebars.registerHelper('renderBlock', function (block) {
+    var block = block || this;
     if (block && block.template) {
       Template[block.template].block = block;
-      var fragment = Template[block.template](); // this calls the template and returns the HTML.
+      var _rendered = typeof Template[block.template].rendered == "function" ? Template[block.template].rendered : false;
+      var _customRendered = function() {
+        // Call the existing rendered function from our custom one
+        if (_rendered) {
+          _rendered.apply(this, arguments);
+        }
+        Azimuth.adminPanel.initEditToggle.apply(this, arguments)
+      }
+      if (!Template[block.template].rendered || !_.isEqual(Template[block.template].rendered.toString(), _customRendered.toString())) {
+        Template[block.template].rendered = _customRendered;
+      }
+      return Template[block.template];  // this calls the template and returns the HTML.
     } else {
-      console.log('Block not found (or has no template specified)' );
+      console.log('Block not found (or has no template specified)');
     }
-
-    return fragment;
   });
-
+  // Display a block/blocks from a pageBlock
+  Handlebars.registerHelper('renderPageBlock', function (pageBlock) {
+    var pageBlock = this;
+    if (pageBlock.block_tag) {
+      // Fetch blocks with a given tag and add to fragments
+      var blocks = Azimuth.collections.Blocks.find({ tag: pageBlock.block_tag });
+      Template.block_set.blocks = blocks;
+      return Template.block_set;
+    } else if (pageBlock.block_type) {
+      // Fetch each block with the given template (== type) and add to fragments
+      var blocks = Azimuth.collections.Blocks.find({ template: pageBlock.block_type });
+      Template.block_set.blocks = blocks;
+      return Template.block_set;
+    } else {
+      var block = Azimuth.collections.Blocks.findOne(pageBlock.block);
+      return Handlebars._globalHelpers.renderBlock(block);
+    }
+  });
   // Renders a form element using a template in views/form/
-  Handlebars.registerHelper("formHelper", function (options) {
-    if(options.hash.type == 'wysiwyg') options.hash.uniqueId = options.hash.fieldName + '_' + Math.random().toString(36).substring(7);
+  Handlebars.registerHelper('formHelper', function () {
+    if (this.type == 'wysiwyg')
+      this.uniqueId = this.fieldName + '_' + Math.random().toString(36).substring(7);
     // FIXME: Return error if type not valid template
-    return new Handlebars.SafeString(Template[options.hash.type](options.hash));
+    // return Template[this.type].withData(this);
+    return Template[this.type];
   });
-
-  // Displays a region to manage blocks in the page edit template
-  Handlebars.registerHelper("blockZoneEditor", function (options) {
-    // FIXME: Return error if type not valid template
-    return new Handlebars.SafeString(Template['block_zone_editor'](options.hash));
+  // Get a human readable time from a timestamp
+  Handlebars.registerHelper('humanReadableTime', function (timestamp) {
+    return Azimuth.utils.displayHumanReadableTime(timestamp);
   });
-
   // Get a setting value
-  Handlebars.registerHelper("humanReadableTime", function (timestamp) {
-    return utils.displayHumanReadableTime(timestamp);
+  Handlebars.registerHelper('getSetting', function (settingName) {
+    return Azimuth.utils.getSetting(settingName);
   });
-
-  // Get a setting value
-  Handlebars.registerHelper("getSetting", function (settingName) {
-    var settingValue = utils.getSetting(settingName);
-    if (settingValue) return utils.getSetting(settingName);
-  	else return '';
+  // Get a setting value as a boolean
+  Handlebars.registerHelper('getSetting', function (settingName) {
+    return Azimuth.utils.getSetting(settingName);
   });
-
-  // Get a boolean setting value (i.e. check a setting's truth value to determine to display block)
-  Handlebars.registerHelper("ifSetting", function (settingName, block) {
-  	var settings = Azimuth.collections.Settings.findOne();
-  	if (!settings || !settingName) return false;
-  	if (settings[settingName] != false) return block(this);
-  });
-
-
   // Return the current page object
-  Handlebars.registerHelper("page", function () {
-    return utils.getCurrentPage();
+  Handlebars.registerHelper('page', function () {
+    return Azimuth.utils.getCurrentPage();
   });
-
-  // Return true if a page slug is the current page's page slug
-  Handlebars.registerHelper("ifCurrentPage", function (slug, block) {
-    if (utils.getCurrentPage().template == slug) return block(this);
-    else return false;
-  });
-
   // Custom helper to meteor-roles package to test if user is an admin
-  Handlebars.registerHelper("ifAdmin", function (userId, block) {
-    if (Roles.userIsInRole({_id: userId}, ['admin'])) return block(this);
-    else return '';
-  });
-
-  // Custom helper to meteor-roles package to test if user is an admin
-  Handlebars.registerHelper("ifAuthor", function (userId, block) {
-    if (Roles.userIsInRole({_id: userId}, ['author'])) return block(this);
-    else return '';
-  });
-
-  // Custom helper to meteor-roles package to test if user is an admin
-  Handlebars.registerHelper("ifAuthorOrAdmin", function (block) {
-    if(!Meteor.user()) return '';
-
+  Handlebars.registerHelper('isAdmin', function () {
+    if (!Meteor.user())
+      return false;
     var userId = Meteor.user()._id;
-    if (Roles.userIsInRole({_id: userId}, ['author', 'admin'])) return block(this);
-    else return '';
+    return Roles.userIsInRole({ _id: userId }, ['admin']);
+  });
+  // Custom helper to meteor-roles package to test if user is an autho
+  Handlebars.registerHelper('isAuthor', function () {
+    if (!Meteor.user())
+      return false;
+    var userId = Meteor.user()._id;
+    return Roles.userIsInRole({ _id: userId }, ['author']);
+  });
+  // Custom helper to meteor-roles package to test if user is an admin or an author
+  Handlebars.registerHelper('isAuthorOrAdmin', function () {
+    if (!Meteor.user())
+      return false;
+    var userId = Meteor.user()._id;
+    return Roles.userIsInRole({ _id: userId }, [
+      'author',
+      'admin'
+    ]);
+  });
+  // Check if registration is open to the public
+  Handlebars.registerHelper('openRegistration', function () {
+    return Azimuth.utils.getSetting('openRegistration') || !Session.get('usersExist');
+  });
+  // Get an imageUrl or path to default image
+  Handlebars.registerHelper('imageUrlOrDefault', function (filename, options) {
+    var filename = this.fileHandler.default.url;
+    return /\.(gif|jpg|jpeg|tiff|png)$/i.test(filename) ? filename : '/packages/azimuth-core/img/file-large.png';
   });
 
-  // Custom helper to meteor-roles package to test if user is an admin
-  Handlebars.registerHelper("ifOpenRegistration", function (options) {
-    if(utils.getSetting('openRegistration') || !Session.get('usersExist')) {
-      return options.fn(this);
-    } else {
-      return options.inverse(this);
-    }
-  });
-
-  // Check if file extension is image
-  Handlebars.registerHelper('ifImage', function(filename, options) {
-    if((/\.(gif|jpg|jpeg|tiff|png)$/i).test(filename)) {
-      return options.fn(this);
-    } else {
-      return options.inverse(this);
-    }
-  });
-
-  Handlebars.registerHelper("signedInAs", function() {
+  // Get an appropriate handle for the user or false if not signed in
+  Handlebars.registerHelper('signedInAs', function () {
     if (Meteor.user() && Meteor.user().username) {
       return Meteor.user().username;
     } else if (Meteor.user() && Meteor.user().profile && Meteor.user().profile.name) {

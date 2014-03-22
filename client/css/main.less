@@ -6,15 +6,10 @@
   display: none !important;
 }
 
-.hide-until-rendered {
-  display: none !important;
-}
-
-
 .navbar, .top-bar {
   margin-bottom: 0;
 
-  i.fa-user.logged-in {
+  i.icon-user.logged-in {
     text-shadow: 0 0 9px rgb(17, 142, 202);
   }
 }
@@ -43,6 +38,14 @@ footer {
   width: 100%;
   height: 300px;
   font-size: .7em;
+}
+
+.azimuth-tag-intro-block {
+  padding: 20px;
+  p {
+    margin-top: 20px;
+    font-size: .9em;
+  }
 }
 
 .modal textarea {
@@ -186,90 +189,3 @@ footer {
   }
 }
 
-// Asset Manager
-.file-row {
-  margin-bottom: 20px;
-}
-.file-date, .file-size {
-  font-size: .8em;
-  margin-right: 10px;
-  color: #ddd;
-}
-#image_asset_list, #file_asset_list {
-  .file-list {
-    margin: 0;
-    width: 348px;
-    overflow: auto;
-    height: 250px;
-
-    .file-row {
-      cursor: pointer;
-      padding: 5px 0;
-      margin-bottom: 10px;
-
-      &:hover {
-        background: #757575;
-      }
-    }
-  }
-}
-
-// Navigation editor
-.navigation {
-  margin-top: 20px;
-
-  .add-link {
-    margin-left: 20px;
-    margin-bottom: 7px;
-  }
-}
-
-// Custom Modals
-.azimuth-modal {
-  display: none;
-  width: 50%;
-  top: 50%;
-  left: 25%;
-  position: fixed;
-  padding: 2em;
-  background-color: white;
-  z-index: 1;
-  overflow: auto;
-
-  -webkit-box-shadow: 3px 3px 8px rgba(50, 50, 50, 0.75);
-  -moz-box-shadow:    3px 3px 8px rgba(50, 50, 50, 0.75);
-  box-shadow:         3px 3px 8px rgba(50, 50, 50, 0.75);
-
-  &.open {
-    display: block;
-  }
-
-  .modal-body {
-    margin-bottom: 30px;
-  }
-}
-
-/* Page metadata */
-#meta_tags {
-  legend {
-    i {
-      text-shadow: 2px 2px 3px #aaa;
-
-      &:hover {
-        text-shadow: none;
-        text-decoration: none;
-      }
-    }
-  }
-  .add-meta-tag, .remove-meta-tag {
-    i {
-      font-size: 1.4em;
-      text-shadow: 2px 2px 3px #aaa;
-
-      &:hover {
-        text-shadow: none;
-        text-decoration: none;
-      }
-    }
-  }
-}

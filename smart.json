@@ -3,14 +3,25 @@
   "description": "Core code for Azimuth CMS",
   "homepage": "https://github.com/mcrider/azimuth-core",
   "author": "Matt Crider (http://matthewcrider.com)",
-  "version": "0.2.1",
+  "version": "0.2.0",
   "git": "https://github.com/mcrider/azimuth-core.git",
   "packages": {
     "underscore-string": {},
-    "font-awesome": {},
     "roles": {},
-    "iron-router": {},
-    "collectionFS": {},
+    "iron-router": {
+      "git": "https://github.com/EventedMind/iron-router.git",
+      "branch": "blaze-integration"
+    },
+    "blaze-layout": {
+      "git": "https://github.com/EventedMind/blaze-layout.git",
+      "branch": "master"
+    },
+    "collectionFS": {
+      "path": "../../packages/collectionFS"
+    },
     "analyticsjs": {}
   }
 }
+
+
+

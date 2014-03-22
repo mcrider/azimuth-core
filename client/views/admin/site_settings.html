@@ -1,0 +1,56 @@
+<template name="site_settings">
+  <div class="site-settings">
+    <h1>Site Settings</h1>
+
+    {{#with settings}}
+      <form id="siteSettingsForm">
+        <div class="azimuth-form-section">
+          <label>Site Name</label>
+          <input type="text" id="siteName" name="siteName"  value="{{siteName}}" placeholder="Site Name">
+        </div>
+
+        <div class="azimuth-form-section">
+          <label>Site Logo URL</label>
+          <input type="text" id="logoUrl" name="logoUrl"  value="{{logoUrl}}" placeholder="Logo URL">
+        </div>
+
+        <div class="azimuth-form-section">
+          <label>Site Index Page</label>
+          <select name="indexPage" id="indexPage">
+            {{#each allPages}}
+            <option value="{{slug}}" {{selectIfIndexEquals slug}}>{{label}}</option>
+            {{/each}}
+          </select>
+        </div>
+
+        <div class="azimuth-form-section">
+          <label>Header Settings</label>
+
+          <label class="checkbox-label" for="showLoginInHeader">
+            <input id="showLoginInHeader" name="showLoginInHeader" {{checkSetting 'showLoginInHeader'}} type="checkbox" /> Show login menu in header
+          </label>
+          <label class="checkbox-label" for="addNewPagesToHeader">
+            <input id="addNewPagesToHeader" name="addNewPagesToHeader" {{checkSetting 'addNewPagesToHeader'}} type="checkbox" /> Add new pages to header by default
+          </label>
+          <label class="checkbox-label" for="openRegistration">
+            <input id="openRegistration" name="openRegistration" {{checkSetting 'allowUserRegistration'}} type="checkbox" /> Open registration to the public
+          </label>
+        </div>
+
+        <div class="azimuth-form-section">
+          <label>Footer Settings</label>
+          <input type="text" id="footerMessage" name="footerMessage"  value="{{footerMessage}}" placeholder="Footer Message (e.g. copyright)">
+          <label class="checkbox-label" for="addNewPagesToFooter">
+            <input id="addNewPagesToFooter" name="addNewPagesToFooter" {{checkSetting 'addNewPagesToFooter'}} type="checkbox" /> Add new pages to footer by default
+          </label>
+        </div>
+
+        <div class="azimuth-buttons clear">
+          <a class="azimuth-button text left cancel">Cancel</a>
+          <a class="azimuth-button right submit save-site-settings"><i class="icon icon-checkmark"></i>Save</a>
+        </div>
+      </form>
+    {{/with}}
+
+  </div>
+</template>

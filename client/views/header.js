@@ -1,37 +1,40 @@
-// Accompanying JS file for the header template.
-// Describes the page's metadata and actions.
+//  ______     ______     __     __    __     __  __     ______   __  __
+// /\  __ \   /\___  \   /\ \   /\ "-./  \   /\ \/\ \   /\__  _\ /\ \_\ \
+// \ \  __ \  \/_/  /__  \ \ \  \ \ \-./\ \  \ \ \_\ \  \/_/\ \/ \ \  __ \
+//  \ \_\ \_\   /\_____\  \ \_\  \ \_\ \ \_\  \ \_____\    \ \_\  \ \_\ \_\
+//   \/_/\/_/   \/_____/   \/_/   \/_/  \/_/   \/_____/     \/_/   \/_/\/_/
+//
+// azimuth-core/client/views/header.js
+//
+// Helpers for the header template.
+//
 
-Template.header.rendered = function() {
+Template.header.rendered = function () {
   // Set page title
-  document.title = utils.getSetting('siteName');
-
-
+  document.title = Azimuth.utils.getSetting('siteName');
   // Remove mobile/desktop loginButtons (having two {loginButtons} loaded causes errors with accounts-ui-bootstrap-dropdown)
-  if($('.mobile-login').is(":visible")) {
+  if ($('.mobile-login').is(':visible')) {
     $('.desktop-login').remove();
   } else {
     $('.mobile-login').remove();
   }
-
-  if(utils.postHeaderRendered != 'undefined') utils.postHeaderRendered();
-}
-
-Template.header.helpers({
-  displayName: function(){
-    var user = Meteor.user();
-    return (user.profile && user.profile.name) || user.username || (user.emails && user.emails[0] && user.emails[0].address);
-  },
-  loading : function() {
-    return Session.get('loading');
-  }
-});
-
-Template.header.headerNav = function () {
-  var nav = Azimuth.collections.Navigation.findOne({location: "header_active"});
-  if (nav) return nav.pages;
-  return false;
+  if (Azimuth.utils.postHeaderRendered != 'undefined')
+    Azimuth.utils.postHeaderRendered();
 };
-
+Template.header.displayName = function () {
+  var user = Meteor.user();
+  return user.profile && user.profile.name || user.username || user.emails && user.emails[0] && user.emails[0].address;
+};
+Template.header.loading = function () {
+  return Session.get('loading');
+};
+Template.header.headerNav = function () {
+  return Azimuth.collections.Navigation.find({ location: 'header', root: true });
+};
 Template.header.pages = function () {
   return Azimuth.collections.Pages.find();
 };
+Template.header.child = function() {
+  var navId = this.toString();
+  return Azimuth.collections.Navigation.findOne(navId);
+}

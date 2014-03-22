@@ -1,8 +1,14 @@
-/* router.js
- *
- * Uses Meteor-router to route URLs to the correct page.
- *
- */
+//  ______     ______     __     __    __     __  __     ______   __  __
+// /\  __ \   /\___  \   /\ \   /\ "-./  \   /\ \/\ \   /\__  _\ /\ \_\ \
+// \ \  __ \  \/_/  /__  \ \ \  \ \ \-./\ \  \ \ \_\ \  \/_/\ \/ \ \  __ \
+//  \ \_\ \_\   /\_____\  \ \_\  \ \_\ \ \_\  \ \_____\    \ \_\  \ \_\ \_\
+//   \/_/\/_/   \/_____/   \/_/   \/_/  \/_/   \/_____/     \/_/   \/_/\/_/
+//
+// azimuth-core/client/router.js
+//
+// Iron-Router route configuration -- Direct the user to different parts of
+// the app based on the URL they enter.
+//
 
 // Global configuration
 Router.configure({
@@ -11,89 +17,113 @@ Router.configure({
   notFoundTemplate: '404',
   yieldTemplates: {
     'header': { to: 'header' },
-    'footer': { to: 'footer' }
+    'footer': { to: 'footer' },
+    'admin_panel': { to: 'admin_panel' }
   }
 });
-
 // Set up our routes
-Router.map(function() {
+Router.map(function () {
   // Account routes
-  this.route("login", {
-    path: "/login",
-    controller: LoginController,
-    before: function() {
-      Session.set('error', void 0);
+  this.route('login', {
+    path: '/login',
+    waitOn: function () {
+      return [
+        Meteor.subscribe('settings'),
+        Meteor.subscribe('navigation')
+      ];
+    },
+    before: function () {
+      Session.set('error', false);
       Session.set('buttonText', 'in');
     }
   });
-  this.route("sign_up", {
-    path: "/sign-up",
-    controller: LoginController,
-    before: function() {
-      Session.set('error', void 0);
+  this.route('sign_up', {
+    path: '/sign-up',
+    waitOn: function () {
+      return [
+        Meteor.subscribe('settings'),
+        Meteor.subscribe('navigation')
+      ];
+    },
+    before: function () {
+      Session.set('error', false);
       Session.set('buttonText', 'up');
     }
   });
-  this.route("forgot_password", {
-    path: "/forgot-password",
-    controller: LoginController,
-    before: function() {
-      Session.set('error', void 0);
-    }
-  });
-
-  // Add routes for admin-level pages if user has correct permissions
-  this.route('site_settings', {
-    controller: AdminController,
-    waitOn: function() {
+  this.route('forgot_password', {
+    path: '/forgot-password',
+    waitOn: function () {
       return [
-        Meteor.subscribe('pages'),
-        Meteor.subscribe('settings')
+        Meteor.subscribe('settings'),
+        Meteor.subscribe('navigation')
       ];
+    },
+    before: function () {
+      Session.set('error', false);
     }
   });
-  this.route('assets', {
-    controller: AdminController,
-    waitOn: function() {
-      return Meteor.subscribe('assets');
-    }
-  });
-  this.route('new_page', {
-    controller: AdminController
-  });
-  this.route('navigation', {
-    controller: AdminController,
-    waitOn: function() {
-      return Meteor.subscribe('roles');
-    }
-  });
-  this.route('admin_users', {
-    controller: AdminController,
-    path: '/users',
-    waitOn: function() {
-      return [
-        Meteor.subscribe('users'),
-        Meteor.subscribe('roles')
-      ];
-    }
-  });
-
   // Route / to the admin-set root page or the first page
   this.route('home', {
     path: '/',
-    controller: HomePageController
-  })
-
-  // Route edit views
-  this.route('pageEdit', {
-    path: '/:page/edit',
-    controller: PageEditController
+    waitOn: function() {
+      return [
+        this.subscribe('settings'),
+        this.subscribe('navigation'),
+        this.subscribe('pages'),
+        this.subscribe('blocks'),
+        this.subscribe('pageBlocks'),
+        this.subscribe('userData'),
+        this.subscribe('assets')
+      ];
+    },
+    action: function() {
+      if (this.ready()) {
+        var page_slug = Azimuth.utils.getSetting('indexPage');
+        var page = Azimuth.collections.Pages.findOne({ slug: page_slug });
+        if (!page) {
+          page = Azimuth.collections.Pages.findOne();
+          if (!page)
+            return '404';
+          else
+            page_slug = page.slug;
+        }
+        this.template = page.template;
+        this.render(page.template);
+      } else {
+        this.render('loading');
+      }
+    }
   });
-
   // Route pages
   this.route('page', {
     path: '/:page',
-    controller: PageController
+    waitOn: function() {
+      return [
+         Meteor.subscribe('settings'),
+      Meteor.subscribe('navigation'),
+      Meteor.subscribe('pages'),
+      Meteor.subscribe('blocks'),
+      Meteor.subscribe('pageBlocks'),
+      Meteor.subscribe('userData'),
+      Meteor.subscribe('assets')
+      ];
+    },
+    action: function() {
+      if (this.ready()) {
+        var page_slug = this.params.page;
+        var page = Azimuth.collections.Pages.findOne({ slug: page_slug });
+        if (!page) {
+          page = Azimuth.collections.Pages.findOne();
+          if (!page)
+            return '404';
+          else
+            page_slug = page.slug;
+        }
+        this.template = page.template;
+        this.render(page.template);
+      } else {
+        this.render('loading');
+      }
+    }
   });
-
 });

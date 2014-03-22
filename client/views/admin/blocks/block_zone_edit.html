@@ -1,0 +1,28 @@
+<template name="block_zone_edit">
+  <h3>Block Zone Settings</h3>
+
+  <div class="select-container">
+    <h6>Limit</h6>
+    <p>Limit the number of blocks that display at once.</p>
+    <select class="block-count" placeholder="Off">
+      <option {{selectIfLimitEquals "0"}} value="0">Off</option>
+      {{#each blockCount}}
+        <option {{selectIfLimitEquals blockCount}} value="{{this}}">{{this}}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  <div class="select-container">
+    <h6>Sort</h6>
+    <p>Sort blocks in this block zone.</p>
+    <select class="block-sort">
+      <option>Select One</option>
+      <option value="sort-reverse">Reverse Order</option>
+      <option value="sort-date-up">By Date (New → Old)</option>
+      <option value="sort-date-down">By Date (Old → New)</option>
+    </select>
+  </div>
+
+</template>
+
+

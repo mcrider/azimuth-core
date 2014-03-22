@@ -1,0 +1,41 @@
+<template name="metadata">
+  <div class="metadata-widget">
+    <label for="contents">{{label}}</label>
+    <table class="azimuth-table">
+      <thead>
+        <tr>
+          <th>Tag</th>
+          <th>Value</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each current_fields}}
+          <tr>
+            <td class="meta-key-existing">{{key}}</td>
+            <td class="meta-value-existing">{{value}}</td>
+            <td>
+              <a href="#" class="remove-meta-tag"><i class="icon icon-cross"></i></a>
+            </td>
+          </tr>
+        {{/each}}
+        <tr>
+          <td colspan='3'>Add a metadata field</td>
+        </tr>
+        <tr>
+          <td>
+            <select name="meta_key" class="meta-key">
+              {{#each metadata_field_list}}
+                <option value="{{meta_key}}">{{meta_name}}</option>
+              {{/each}}
+            </select>
+          </td>
+          <td><input type="text" class="meta-value"></td>
+          <td>
+            <a href="#" class="add-meta-tag"><i class="icon icon-plus"></i></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</template>
