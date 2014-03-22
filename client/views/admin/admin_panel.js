@@ -74,13 +74,13 @@ Template.admin_panel.events = {
     Azimuth.adminPanel.loadTemplate('block_edit', 'menu-medium');
   },
   'click .block-break-after': function (e) {
-    e.stopPropagation();
+    e.preventDefault();
     $('.azimuth-block-edit-toggle, .azimuth-block-edit-panel').removeClass('active');
     var pageBlock = Azimuth.adminPanel.blockEdit.getPageBlock();
     Azimuth.collections.PageBlocks.update({ _id: pageBlock._id }, { $set: { break: !pageBlock.break } });
   },
   'click .block-move-left': function (e) {
-    e.stopPropagation();
+    e.preventDefault();
     $('.azimuth-block-edit-toggle, .azimuth-block-edit-panel').removeClass('active');
     var pageBlock = Azimuth.adminPanel.blockEdit.getPageBlock();
     // Ensure we can even move the block backwards
@@ -103,7 +103,7 @@ Template.admin_panel.events = {
     Azimuth.collections.PageBlocks.update({ _id: targetPageBlock._id }, { $set: { seq: pageBlock.seq } });
   },
   'click .block-move-right': function (e) {
-    e.stopPropagation();
+    e.preventDefault();
     $('.azimuth-block-edit-toggle, .azimuth-block-edit-panel').removeClass('active');
     var pageBlock = Azimuth.adminPanel.blockEdit.getPageBlock();
     // Ensure we can even move the block forwards

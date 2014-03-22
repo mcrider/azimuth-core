@@ -56,7 +56,7 @@ Azimuth.adminPanel = {
         'admin'
       ])) {
       // Setup block edit panel interactions
-      $(this.firstNode).append('<a href="#" class="azimuth-block-edit-toggle"><span class="pip"></span><span class="pip"></span><span class="pip"></span></a>');
+      $(this.firstNode.parentElement).find(':first-child').first().append('<a href="#" class="azimuth-block-edit-toggle"><span class="pip"></span><span class="pip"></span><span class="pip"></span></a>');
       $('.azimuth-block').undelegate('click').delegate('.azimuth-block-edit-toggle', 'click', function(e) {
         e.stopPropagation();
         e.preventDefault();

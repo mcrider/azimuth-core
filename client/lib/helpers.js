@@ -37,6 +37,7 @@ if (typeof Handlebars !== 'undefined') {
     return Template.block_display;
   });
   Handlebars.registerHelper('renderBlock', function (block) {
+    var block = block || this;
     if (block && block.template) {
       Template[block.template].block = block;
       var _rendered = typeof Template[block.template].rendered == "function" ? Template[block.template].rendered : false;
@@ -57,6 +58,7 @@ if (typeof Handlebars !== 'undefined') {
   });
   // Display a block/blocks from a pageBlock
   Handlebars.registerHelper('renderPageBlock', function (pageBlock) {
+    var pageBlock = this;
     if (pageBlock.block_tag) {
       // Fetch blocks with a given tag and add to fragments
       var blocks = Azimuth.collections.Blocks.find({ tag: pageBlock.block_tag });
