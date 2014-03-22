@@ -7,9 +7,8 @@ Getting Azimuth installed is easy.  Get a copy of [node.js](http://nodejs.org/) 
 3.  Create a project from the command line: `mrt create my-project` (You can delete the generated my-project html, css, and js files)
 4.  Its a good idea to disable autopublish: `mrt remove autopublish`
 5.  Pick a front-end framework: `mrt add azimuth-views-foundation` or `mrt add azimuth-views-bootstrap`
-6.  (optional) Install a theme
-7.  Add azimuth Core: mrt add azimuth-core
-8.  Start your server: `mrt`
+6.  Add azimuth Core: mrt add azimuth-core
+7.  Start your server: `mrt`
 
 **New to Meteor?**  There is a vibrant and growing community for Meteor developers.  Check out the [canonical Meteor docs](http://docs.meteor.com/#meteor_startup), [Sacha Grief's new book](http://www.discovermeteor.com/), the [Meteor Google group](https://groups.google.com/forum/?fromgroups=#!forum/meteor-talk), and of course [Stack Overflow](http://stackoverflow.com/questions/tagged/meteor) for more help working with Meteor.
 
@@ -22,11 +21,10 @@ Azimuth comes with an assortment of page layouts, but you might find you need to
 *   `[page_name].css` Any styles specific to the page.  Note that this CSS is compiled into the main CSS file and will affect elements outside of the page.  A good practice is to scope this CSS within a high-level selector (e.g. a class) in your template.
 *   `[page_name].html` Describes the layout of the page.
 *   `[page_name].js` Registers the page to make it available to the system.  It is important to edit this when creating a new page.  You may also add event handlers and other javascript you want executed on this page (see the [meteor.js docs](http://docs.meteor.com/#templates_api) for more information)
-*   `[page_name]_edit.html` What you will see when editing the page.  All fields are specified in this file using the form helper methods and block zones.
 
 #### Creating a new page template
 
-The easiest way to create a new page template is to copy an existing one from Github and rename it (including each file's filename and the template name inside the code).  You are then free to edit the page layout in the [page_name].html file and add/remove fields in the [page_name]_edit.html file.  Place your new page template anywhere within your project (usually within its own folder in the client/ directory)
+The easiest way to create a new page template is to copy an existing one from Github and rename it (including each file's filename and the template name inside the code).  You are then free to edit the page layout in the [page_name].html file.  Place your new page template anywhere within your project (usually within its own folder in the client/ directory)
 
 ### Blocks
 
@@ -34,27 +32,25 @@ Blocks are how Azimuth adds small bits of content to an existing page layout.  A
 
 #### Block files
 
-*   `[block_name].css`Any styles specific to the page.  Note that this CSS is compiled into the main CSS file and will affect elements outside of the page.
+*   `[block_name].css`Any styles specific to the page.  Note that this CSS is compiled into the main CSS file and will affect elements outside of the page (so, its a good idea to scope your block and your CSS within a specific class).
 *   `[block_name].html`Describes the layout of the block.
-*   `[block_name].js`Registers the page to make it available to the system.  It is important to edit this when creating a new page.  You may also add event handlers and other javascript you want executed on this page (see the [meteor.js docs](http://docs.meteor.com/#templates_api) for more information)
-*   `[block_name]_edit.html`What you will see when editing the page.  All fields are specified in this file using the form helper method.
-*   `[block_name]_edit.js`Accompanying JS for the block edit form.  This is typically empty but you may want to add some code to handle special events for the edit form (e.g. an autocomplete handler).
+*   `[block_name].js`Registers the block to make it available to the system, and defines the block's editable fields.  It is important to edit this when creating a new block.  You may also add other javascript you want executed on this block (see the [meteor.js docs](http://docs.meteor.com/#templates_api) for more information)
 
 #### Creating a new block template
 
-The easiest way to create a new block template is to copy an existing one from github and rename it (including each file's filename and the template name inside the code).  Your new block can be added to your project just like how pages are.
+The easiest way to create a new block template is to copy an existing one from github and rename it (including each file's filename and the template name inside the code).  Your new block can be added to your project just like how pages are (and placed typically in the client/blocks/ directory).
 
 ### Overriding the default layout
 
 Azimuth uses [Iron Router](https://github.com/EventedMind/iron-router) to render templates and route the user to the correct page.  Iron Router uses a layout template to define the general layout of your pages and how other templates are rendered within it.  In your own project, you can override this layout, allowing you to create a custom header or footer or otherwise display your pages however you like.  To do this, `mrt add iron-router` to your project and direct it to use a custom layout like so:
 
 ```
-Router.configure({
+Package['iron-router'].Router.configure({
   layoutTemplate: 'custom_layout'
 });
 ```
 
-Then create the custom_layout template [modeled after the default layout](https://github.com/mcrider/azimuth-core/blob/master/client/views/layout.html).  You can then replace the header and footer yields to point to your custom header and footer templates.
+Then create the custom_layout template [modeled after the default layout](https://github.com/mcrider/azimuth-core/blob/master/client/views/layout.html).  You can then replace the header and footer yields to point to your custom header and footer templates (or code them directly in the layout).
 
 ### Form Elements
 
@@ -73,7 +69,7 @@ Form helper calls take this form:
 
 ### Theming
 
-CSS added anywhere to your meteor project will be included in the global CSS file.  Styles can be added in the form of CSS files or .less files (Meteor will automatically parse LESS files once you 'mrt add less' to your project).
+CSS added anywhere to your meteor project will be included in the global CSS file.  Styles can be added in the form of CSS files or .less files (Meteor will automatically parse LESS files once you 'mrt add less' to your project).  Once you've picked a front-end framework, you can find a wealth of themes for them or easily target elements as described in the framework's documentation.
 
 ### Creating a Views Package
 
@@ -106,7 +102,7 @@ Until Meteor comes out with a better implementation, Azimuth uses the [Spiderabl
 
 ### Deploying Azimuth
 
-While its easy enough to get Azimuth running on your local machine, it can be a little confusing to get it running on a public server (other than [Meteor's own public servers](http://docs.meteor.com/#deploying)).  Thankfully, there's been some solid work recently in the Meteor community to help get Meteor projects running on cloud servers such as [Amazon EC2](https://github.com/netmute/meteor.sh) and [Heroku](https://github.com/oortcloud/heroku-buildpack-meteorite).  This web site is hosted on EC2 using the above deploy script and the deployment process is simple and painless.
+While its easy enough to get Azimuth running on your local machine, it can be a little confusing to get it running on a public server (other than [Meteor's own public servers](http://docs.meteor.com/#deploying)).  Thankfully, there's been some solid work recently in the Meteor community to help get Meteor projects running on cloud servers such as [Amazon EC2](https://github.com/netmute/meteor.sh) and [Heroku](https://github.com/oortcloud/heroku-buildpack-meteorite).  Another promising initiative by Arunoda called [Meteor-Up](https://github.com/arunoda/meteor-up) is currently being used to host Azimuthc.ms on a Digital Ocean server.
 
 ### Support and contributions
 
