@@ -1,1 +1,5 @@
 .build*
+packages/blaze-layout
+packages/cfs-public-folder
+packages/collectionFS
+smart.lock
