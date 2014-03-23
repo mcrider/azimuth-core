@@ -11,7 +11,7 @@
 
 UI.body.capitalize = function (str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
-});
+}
 UI.body.otherLoginServices = function () {
   return Accounts.oauth && Accounts.oauth.serviceNames().length > 0;
 }
