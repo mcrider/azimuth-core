@@ -10,7 +10,7 @@
 //
 
 // Display all blocks for a page in a given block zone
-UI.body.renderBlocks = function () {
+UI.registerHelper('renderBlocks', function () {
   var zone = this.zone;
   if (!zone) {
     console.log('Block zone not specified');
@@ -44,8 +44,8 @@ UI.body.renderBlocks = function () {
   Template.block_display.numSets = numSets > 1 ? _.range(1, numSets + 1) : false;
   Template.block_display.zone = zone;
   return Template.block_display;
-}
-UI.body.renderBlock = function (block) {
+});
+var renderBlock = function (block) {
   var block = block || this;
   if (block && block.template) {
     Template[block.template].block = block;
@@ -65,8 +65,9 @@ UI.body.renderBlock = function (block) {
     console.log('Block not found (or has no template specified)');
   }
 }
+UI.registerHelper('renderBlock', renderBlock);
 // Display a block/blocks from a pageBlock
-UI.body.renderPageBlock = function (pageBlock) {
+UI.registerHelper('renderPageBlock', function (pageBlock) {
   var pageBlock = this;
   if (pageBlock.block_tag) {
     // Fetch blocks with a given tag and add to fragments
@@ -80,49 +81,49 @@ UI.body.renderPageBlock = function (pageBlock) {
     return Template.block_set;
   } else {
     var block = Azimuth.collections.Blocks.findOne(pageBlock.block);
-    return UI.body.renderBlock(block);
+    return renderBlock(block);
   }
-}
+});
 // Renders a form element using a template in views/form/
-UI.body.formHelper = function () {
+UI.registerHelper('formHelper', function () {
   if (this.type == 'wysiwyg')
     this.uniqueId = this.fieldName + '_' + Math.random().toString(36).substring(7);
   // FIXME: Return error if type not valid template
   // return Template[this.type].withData(this);
   return Template[this.type];
-}
+});
 // Get a human readable time from a timestamp
-UI.body.humanReadableTime = function (timestamp) {
+UI.registerHelper('humanReadableTime', function (timestamp) {
   return Azimuth.utils.displayHumanReadableTime(timestamp);
-}
+});
 // Get a setting value
-UI.body.getSetting = function (settingName) {
+UI.registerHelper('getSetting', function (settingName) {
   return Azimuth.utils.getSetting(settingName);
-}
+});
 // Get a setting value as a boolean
-UI.body.getSetting = function (settingName) {
+UI.registerHelper('getSetting', function (settingName) {
   return Azimuth.utils.getSetting(settingName);
-}
+});
 // Return the current page object
-UI.body.page = function () {
+UI.registerHelper('page', function () {
   return Azimuth.utils.getCurrentPage();
-}
+});
 // Custom helper to meteor-roles package to test if user is an admin
-UI.body.isAdmin = function () {
+UI.registerHelper('isAdmin', function () {
   if (!Meteor.user())
     return false;
   var userId = Meteor.user()._id;
   return Roles.userIsInRole({ _id: userId }, ['admin']);
-}
+});
 // Custom helper to meteor-roles package to test if user is an autho
-UI.body.isAuthor = function () {
+UI.registerHelper('isAuthor', function () {
   if (!Meteor.user())
     return false;
   var userId = Meteor.user()._id;
   return Roles.userIsInRole({ _id: userId }, ['author']);
-}
+});
 // Custom helper to meteor-roles package to test if user is an admin or an author
-UI.body.isAuthorOrAdmin = function () {
+UI.registerHelper('isAuthorOrAdmin', function () {
   if (!Meteor.user())
     return false;
   var userId = Meteor.user()._id;
@@ -130,19 +131,19 @@ UI.body.isAuthorOrAdmin = function () {
     'author',
     'admin'
   ]);
-}
+});
 // Check if registration is open to the public
-UI.body.openRegistration = function () {
+UI.registerHelper('openRegistration', function () {
   return Azimuth.utils.getSetting('openRegistration') || !Session.get('usersExist');
-}
+});
 // Get an imageUrl or path to default image
-UI.body.imageUrlOrDefault = function (filename, options) {
+UI.registerHelper('imageUrlOrDefault', function (filename, options) {
   var filename = this.fileHandler.default.url;
   return /\.(gif|jpg|jpeg|tiff|png)$/i.test(filename) ? filename : '/packages/azimuth-core/img/file-large.png';
-}
+});
 
 // Get an appropriate handle for the user or false if not signed in
-UI.body.signedInAs = function () {
+UI.registerHelper('signedInAs', function () {
   if (Meteor.user() && Meteor.user().username) {
     return Meteor.user().username;
   } else if (Meteor.user() && Meteor.user().profile && Meteor.user().profile.name) {
@@ -152,4 +153,4 @@ UI.body.signedInAs = function () {
   } else {
     return false;
   }
-}
+});
