@@ -54,7 +54,7 @@ Then create the custom_layout template [modeled after the default layout](https:
 
 ### Form Elements
 
-Azimuth uses handlebars helpers to make creating form elements easier. Though you can always roll your own form inputs (except in the case of WYSIWYG editors), form helpers make it easy to consolidate form code into a centralized location in the clients/views/form/ directory (which you are free to edit)
+Azimuth uses helpers to make creating form elements easier. Though you can always roll your own form inputs (except in the case of WYSIWYG editors), form helpers make it easy to consolidate form code into a centralized location in the clients/views/form/ directory (which you are free to edit)
 
 Form helper calls take this form:
 ```

@@ -9,15 +9,15 @@
 // Helpers and event handlers for the signup form.
 //
 
-Handlebars.registerHelper('capitalize', function (str) {
+UI.body.capitalize = function (str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 });
-Handlebars.registerHelper('otherLoginServices', function () {
+UI.body.otherLoginServices = function () {
   return Accounts.oauth && Accounts.oauth.serviceNames().length > 0;
-});
-Handlebars.registerHelper('loginServices', function () {
+}
+UI.body.loginServices = function () {
   return Accounts.oauth.serviceNames();
-});
+}
 Template.sign_up.events({
   'submit #signUp': function (e, t) {
     e.preventDefault();

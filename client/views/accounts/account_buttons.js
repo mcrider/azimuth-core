@@ -9,9 +9,9 @@
 // Helpers and event handlers for the login account buttons.
 //
 
-Handlebars.registerHelper('account_buttons', function () {
+UI.body.account_buttons = function () {
   return new Handlebars.SafeString(Template.account_buttons());
-});
+}
 Template.account_buttons.helpers({
   profileUrl: function () {
     if (!Meteor.call('entryProfileRoute')) {
