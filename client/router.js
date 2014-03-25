@@ -21,6 +21,17 @@ Router.configure({
     'admin_panel': { to: 'admin_panel' }
   }
 });
+Router.after(function() {
+  // Set page metadata
+  var page = Azimuth.utils.getCurrentPage();
+  if (page && page.meta) {
+    $('head').find('.azimuth-tag').remove();
+    page.meta.forEach(function (tag) {
+      var metadata = _.findWhere(Azimuth.metadata_fields, { meta_key: tag.key });
+      $('head').append(metadata.template.replace('%s', tag.value));
+    });
+  }
+});
 // Set up our routes
 Router.map(function () {
   // Account routes
