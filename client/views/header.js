@@ -10,8 +10,6 @@
 //
 
 Template.header.rendered = function () {
-  // Set page title
-  document.title = Azimuth.utils.getSetting('siteName');
   // Remove mobile/desktop loginButtons (having two {loginButtons} loaded causes errors with accounts-ui-bootstrap-dropdown)
   if ($('.mobile-login').is(':visible')) {
     $('.desktop-login').remove();
