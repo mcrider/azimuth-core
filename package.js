@@ -11,7 +11,7 @@ Package.on_use(function (api) {
   api.use(['roles','iron-router','analyticsjs', 'collectionFS'], 'client');
 
   // And ensure we have the packages we need server-side available to the server
-  api.use(['accounts-base', 'accounts-password', 'spiderable', 'roles', 'collectionFS', 'cfs-public-folder'], 'server');
+  api.use(['accounts-base', 'accounts-password', 'spiderable', 'roles', 'collectionFS', 'cfs-filesystem'], 'server');
 
   api.add_files([
     'server/server_init.js'

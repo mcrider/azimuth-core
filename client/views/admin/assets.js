@@ -11,8 +11,11 @@
 
 Template.assets.events({
   'change .fileUploader': function (e) {
-    var files = e.target.files;
-    Azimuth.collections.Assets.storeFiles(files);
+    FS.Utility.eachFile(event, function(file) {
+      Azimuth.collections.Assets.insert(file, function (err, fileObj) {
+        //Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
+      });
+    });
   },
   'click .delete-file': function (e) {
     Azimuth.collections.Assets.remove(this._id);

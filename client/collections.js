@@ -17,8 +17,9 @@ Azimuth.collections = {
   Settings: new Meteor.Collection('settings'),
   Navigation: new Meteor.Collection('navigation'),
   UserData: new Meteor.Collection('userData'),
-  Assets: new CollectionFS('assets')
+  Assets: new FS.Collection('assets', {stores: ['default']})
 };
+
 // Set a session variable to tell the client if users exist.
 //  If it is true, we will hide the registration link (unless
 //  registration is open to the public).

@@ -11,17 +11,6 @@
 
 
 // Server-side startup code (set up collections, add default data if needed)
-// Initialize asset collection outside of startup
-Assets = new CollectionFS('assets');
-var handler = {
-    'default': function (options) {
-      return {
-        blob: options.blob,
-        fileRecord: options.fileRecord
-      };
-    }
-  };
-Assets.fileHandlers(handler);
 Meteor.startup(function () {
   // Helper functions for authorization
   authorize = {
@@ -209,21 +198,17 @@ Meteor.startup(function () {
     });
   }
   // Asset Library (uses CollectionFS package)
+  // Initialize asset collection outside of startup
+  Assets = new FS.Collection('assets', {
+    stores: [new FS.Store.FileSystem("default", {path: "/Users/mcrider/uploads/"})]
+  });
   Meteor.publish('assets', function () {
     return Assets.find();
   });
   Assets.allow({
+    download: function() { return true; },
     insert: authorize.authorsAndAdmins,
     update: authorize.authorsAndAdmins,
     remove: authorize.authorsAndAdmins
   });
-  var handler = {
-      'default': function (options) {
-        return {
-          blob: options.blob,
-          fileRecord: options.fileRecord
-        };
-      }
-    };
-  Assets.fileHandlers(handler);
 });

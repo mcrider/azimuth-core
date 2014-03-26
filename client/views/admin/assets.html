@@ -9,15 +9,12 @@
       {{#each files}}
         <tr>
           <td>
-            <a href="{{cfsFileUrl 'default'}}">
-              <img src="{{imageUrlOrDefault 'default'}}">
+            <a href="{{url 'default'}}">{{url}}
+
             </a>
           </td>
           <td>
-            <a href="{{cfsFileUrl 'default'}}">{{filename}}</a>
-            <br />
-            <span class="file-date">{{humanReadableTime uploadDate}}</span>
-            <span class="file-size">{{cfsFormattedSize}}</span>
+
           </td>
           <td>
             <a class="delete-file remove" href="#"><i class="icon-cross"></i></a>

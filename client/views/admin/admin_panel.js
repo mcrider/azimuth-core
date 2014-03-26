@@ -52,7 +52,7 @@ Template.admin_panel.events = {
           registryField.value = block[fieldName];
         });
         Session.set('blockFields', registryFields);
-        Azimuth.adminPanel.loadTemplate('block_edit', 'menu-medium');
+        Azimuth.adminPanel.loadTemplate('block_edit', 'menu-large');
       } else {
         console.log('Block not found (or has no template specified)');
       }

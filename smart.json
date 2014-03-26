@@ -12,8 +12,7 @@
 			"git": "https://github.com/EventedMind/iron-router.git",
 			"branch": "dev"
 		},
-		"collectionFS": {
-			"path": "../../packages/collectionFS"
-		}
+		"collectionFS": {},
+		"cfs-filesystem": {}
 	}
 }
