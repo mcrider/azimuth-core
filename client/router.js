@@ -21,7 +21,7 @@ Router.configure({
     'admin_panel': { to: 'admin_panel' }
   }
 });
-Router.after(function() {
+Router.onAfterAction(function() {
   // Set page metadata
   var page = Azimuth.utils.getCurrentPage();
   if (page && page.meta) {
@@ -43,7 +43,7 @@ Router.map(function () {
         Meteor.subscribe('navigation')
       ];
     },
-    before: function () {
+    onBeforeAction: function () {
       Session.set('error', false);
       Session.set('buttonText', 'in');
     }
@@ -56,7 +56,7 @@ Router.map(function () {
         Meteor.subscribe('navigation')
       ];
     },
-    before: function () {
+    onBeforeAction: function () {
       Session.set('error', false);
       Session.set('buttonText', 'up');
     }
@@ -69,7 +69,7 @@ Router.map(function () {
         Meteor.subscribe('navigation')
       ];
     },
-    before: function () {
+    beforeonBeforeAction: function () {
       Session.set('error', false);
     }
   });
