@@ -208,7 +208,7 @@ Meteor.startup(function () {
   Assets.allow({
     download: function() { return true; },
     insert: authorize.authorsAndAdmins,
-    update: authorize.authorsAndAdmins,
+    update: function() { return true; },
     remove: authorize.authorsAndAdmins
   });
 });

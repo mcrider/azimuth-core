@@ -9,12 +9,15 @@
       {{#each files}}
         <tr>
           <td>
-            <a href="{{url 'default'}}">{{url}}
-
+            <a href="{{url store='default'}}">
+              <img src="{{#if isImage}}{{url store='default'}}{{else}}/packages/azimuth-core/img/file-large.png{{/if}}">
             </a>
           </td>
           <td>
-
+            <a href="{{url store='default'}}">{{name}}</a>
+            <br />
+            <span class="file-date">{{formattedTime}}</span>
+            <span class="file-size">{{formattedSize}}</span>
           </td>
           <td>
             <a class="delete-file remove" href="#"><i class="icon-cross"></i></a>

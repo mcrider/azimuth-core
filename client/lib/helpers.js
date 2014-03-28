@@ -136,11 +136,6 @@ UI.registerHelper('isAuthorOrAdmin', function () {
 UI.registerHelper('openRegistration', function () {
   return Azimuth.utils.getSetting('openRegistration') || !Session.get('usersExist');
 });
-// Get an imageUrl or path to default image
-UI.registerHelper('imageUrlOrDefault', function (filename, options) {
-  var filename = this.fileHandler.default.url;
-  return /\.(gif|jpg|jpeg|tiff|png)$/i.test(filename) ? filename : '/packages/azimuth-core/img/file-large.png';
-});
 
 // Get an appropriate handle for the user or false if not signed in
 UI.registerHelper('signedInAs', function () {
