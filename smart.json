@@ -8,10 +8,8 @@
 	"packages": {
 		"underscore-string": {},
 		"roles": {},
-		"iron-router": {
-			"git": "https://github.com/EventedMind/iron-router.git",
-			"branch": "dev"
-		},
+		"iron-router": {},
+		"blaze-layout": {},
 		"collectionFS": {},
 		"cfs-filesystem": {}
 	}
