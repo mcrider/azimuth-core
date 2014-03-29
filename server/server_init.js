@@ -200,7 +200,7 @@ Meteor.startup(function () {
   // Asset Library (uses CollectionFS package)
   // Initialize asset collection outside of startup
   Assets = new FS.Collection('assets', {
-    stores: [new FS.Store.FileSystem("default", {path: "/Users/mcrider/uploads/"})]
+    stores: [new FS.Store.FileSystem("default", {path: "./azimuth_uploads/"})]
   });
   Meteor.publish('assets', function () {
     return Assets.find();
