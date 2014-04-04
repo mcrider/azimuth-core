@@ -89,9 +89,6 @@ Template.block_edit.events = {
     Azimuth.utils.closeModal('#deleteBlockModal');
     Azimuth.adminPanel.hide();
   },
-  'click .cancel': function () {
-    Azimuth.adminPanel.hide();
-  },
   'click .submit': function () {
     // Save a new block -- create the block and insert into the PageBlock collection
     if (Azimuth.adminPanel.blockEdit.settings.newBlock) {
