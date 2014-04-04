@@ -14,15 +14,15 @@
           {{#each fileList}}
             <tr>
               <td>
-                <a class="insert-file" href="{{cfsFileUrl 'default'}}">
-                  <img src="{{imageUrlOrDefault 'default'}}">
+                <a class="insert-file" href="{{url store='default'}}">
+                  <img src="{{#if isImage}}{{url store='default'}}{{else}}/packages/azimuth-core/img/file-large.png{{/if}}">
                 </a>
               </td>
               <td>
-                <a class="insert-file" href="{{cfsFileUrl 'default'}}">{{filename}}</a>
+                <a class="insert-file" href="{{url store='default'}}">{{name}}</a>
                 <br />
-                <span class="file-date">{{humanReadableTime uploadDate}}</span>
-                <span class="file-size">{{cfsFormattedSize}}</span>
+                <span class="file-date">{{formattedTime}}</span>
+                <span class="file-size">{{formattedSize}}</span>
               </td>
             </tr>
           {{else}}
@@ -49,15 +49,15 @@
           {{#each imageList}}
             <tr>
               <td>
-                <a class="insert-image" href="{{cfsFileUrl 'default'}}">
-                  <img src="{{imageUrlOrDefault 'default'}}">
+                <a class="insert-image" href="{{url store='default'}}">
+                  <img src="{{#if isImage}}{{url store='default'}}{{else}}/packages/azimuth-core/img/file-large.png{{/if}}">
                 </a>
               </td>
               <td>
-                <a class="insert-image" href="{{cfsFileUrl 'default'}}">{{filename}}</a>
+                <a class="insert-image" href="{{url store='default'}}">{{name}}</a>
                 <br />
-                <span class="file-date">{{humanReadableTime uploadDate}}</span>
-                <span class="file-size">{{cfsFormattedSize}}</span>
+                <span class="file-date">{{formattedTime}}</span>
+                <span class="file-size">{{formattedSize}}</span>
               </td>
             </tr>
           {{else}}

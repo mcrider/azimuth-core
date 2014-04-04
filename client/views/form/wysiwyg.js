@@ -22,7 +22,7 @@ Template.wysiwyg.events = {
     e.preventDefault();
     var data = $.cleditor.buttons.image.data;
     var editor = data.editor;
-    editor.execCommand(data.command, '<img src="' + this.fileHandler.default.url + '" />', null, data.button);
+    editor.execCommand(data.command, '<img src="' + this.url({store: 'default'}) + '" />', null, data.button);
     Azimuth.utils.closeModal('#wysiwygImageModal');
     editor.hidePopups();
     editor.focus();
@@ -31,7 +31,7 @@ Template.wysiwyg.events = {
     e.preventDefault();
     var data = $.cleditor.buttons.file.data;
     var editor = data.editor;
-    editor.execCommand(data.command, '<a href="' + this.fileHandler.default.url + '">' + this.filename + '</a>', null, data.button);
+    editor.execCommand(data.command, '<a href="' + this.url({store: 'default'}) + '">' + this.name + '</a>', null, data.button);
     Azimuth.utils.closeModal('#wysiwygFileModal');
     editor.hidePopups();
     editor.focus();
@@ -40,7 +40,7 @@ Template.wysiwyg.events = {
 Template.wysiwyg.imageList = function () {
   //show all files that have been published to the client, with most recently uploaded first
   return Azimuth.collections.Assets.find({
-    contentType: {
+    type: {
       $in: [
         'image/gif',
         'image/jpeg',
@@ -54,3 +54,16 @@ Template.wysiwyg.fileList = function () {
   //show all files that have been published to the client, with most recently uploaded first
   return Azimuth.collections.Assets.find();
 };
+Template.assets.formattedTime = function() {
+  return this.uploadedAt ? this.uploadedAt.toLocaleString() : '';
+}
+Template.assets.formattedSize = function() {
+  function bytesToSize(bytes) {
+    var k = 1000;
+    var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    if (bytes === 0) return '0 Bytes';
+    var i = parseInt(Math.floor(Math.log(bytes) / Math.log(k)),10);
+    return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
+  }
+  return bytesToSize(this.size);
+}
