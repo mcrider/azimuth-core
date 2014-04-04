@@ -207,8 +207,8 @@ Meteor.startup(function () {
   });
   Assets.allow({
     download: function() { return true; },
-    insert: authorize.authorsAndAdmins,
-    update: function() { return true; },
+    insert: function() { return Meteor.userId },
+    update: function() { return Meteor.userId; },
     remove: authorize.authorsAndAdmins
   });
 });
