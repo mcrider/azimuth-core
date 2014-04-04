@@ -74,8 +74,8 @@ Azimuth.adminPanel = {
         // Get the position of the toggle button so we can center the edit panel under it
         var offset = $(this).offset();
         var toggleWidth = $(this).width();
-        var offsetTop = offset.top + 5;
-        var offsetLeft = offset.left - ($('.azimuth-block-edit-panel').width() / 2) + (toggleWidth / 2) + 3;
+        var offsetTop = offset.top;
+        var offsetLeft = offset.left - ($('.azimuth-block-edit-panel').width() / 2) + (toggleWidth / 2) + 7;
         $('.azimuth-block-edit-panel').css('top', offsetTop).css('left', offsetLeft).toggleClass('active');
       })
       $('html').click(function() {
