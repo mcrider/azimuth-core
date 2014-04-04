@@ -26,7 +26,7 @@ Template.assets.files = function () {
   return Azimuth.collections.Assets.find();
 };
 Template.assets.formattedTime = function() {
-  return this.uploadedAt.toLocaleString();
+  return this.uploadedAt ? this.uploadedAt.toLocaleString() : '';
 }
 Template.assets.formattedSize = function() {
   function bytesToSize(bytes) {
