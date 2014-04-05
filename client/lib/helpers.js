@@ -46,6 +46,7 @@ UI.registerHelper('renderBlocks', function () {
   return Template.block_display;
 });
 var renderBlock = function (block) {
+  debugger;
   var block = block || this;
   if (block && block.template) {
     Template[block.template].block = block;
