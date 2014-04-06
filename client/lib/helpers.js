@@ -46,7 +46,6 @@ UI.registerHelper('renderBlocks', function () {
   return Template.block_display;
 });
 var renderBlock = function (block) {
-  debugger;
   var block = block || this;
   if (block && block.template) {
     Template[block.template].block = block;
@@ -61,7 +60,7 @@ var renderBlock = function (block) {
     if (!Template[block.template].rendered || !_.isEqual(Template[block.template].rendered.toString(), _customRendered.toString())) {
       Template[block.template].rendered = _customRendered;
     }
-    return Template[block.template];  // this calls the template and returns the HTML.
+    return Template[block.template].extend({data: block});
   } else {
     console.log('Block not found (or has no template specified)');
   }
