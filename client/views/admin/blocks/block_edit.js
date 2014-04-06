@@ -11,6 +11,7 @@
 
 Template.block_edit.rendered = function () {
   $('.azimuth-admin-panel').find('select').selectize({ sortField: 'text' });
+  $('.admin-view').scrollTop(0);
 };
 Template.block_edit.events = {
   'change .block-template-selector': function (e) {
