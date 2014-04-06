@@ -125,6 +125,9 @@ Template.admin_panel.events = {
     Azimuth.collections.PageBlocks.update({ _id: pageBlock._id }, { $set: { seq: pageBlock.seq + 1 } });
     // Decrement target pageBlock seq
     Azimuth.collections.PageBlocks.update({ _id: targetPageBlock._id }, { $set: { seq: pageBlock.seq } });
+  },
+  'click .cancel': function() {
+    Azimuth.adminPanel.hide();
   }
 };
 Template.admin_panel.actions = function () {
