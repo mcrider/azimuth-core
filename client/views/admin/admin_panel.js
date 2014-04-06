@@ -39,11 +39,15 @@ Template.admin_panel.events = {
     var pageBlock = Azimuth.collections.PageBlocks.findOne(pageBlockId);
     Azimuth.adminPanel.blockEdit.reset({newBlock: false, pageBlockId: pageBlockId});
     if (pageBlock && pageBlock.block_tag) {
+      // Display block tag edit form
+      Azimuth.adminPanel.loadTemplate('block_tag_edit', 'menu-large');
     } else if (pageBlock && pageBlock.block_type) {
+      // Display block type edit form
+      Azimuth.adminPanel.loadTemplate('block_type_edit', 'menu-large');
     } else if (pageBlock && pageBlock.block) {
+      // Display block edit form
       var block = Azimuth.collections.Blocks.findOne(pageBlock.block);
       if (block && block.template) {
-        Azimuth.adminPanel.blockEdit.settings.pageBlockId = pageBlockId;
         Azimuth.adminPanel.blockEdit.settings.blockId = block._id;
         // Get template's fields from block registry, and inject values for each field
         var registryFields = Azimuth.registry.blockTemplates[block.template].fields;

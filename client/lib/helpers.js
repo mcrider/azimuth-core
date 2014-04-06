@@ -72,13 +72,11 @@ UI.registerHelper('renderPageBlock', function (pageBlock) {
   if (pageBlock.block_tag) {
     // Fetch blocks with a given tag and add to fragments
     var blocks = Azimuth.collections.Blocks.find({ tag: pageBlock.block_tag });
-    Template.block_set.blocks = blocks;
-    return Template.block_set;
+    return Template.block_set.extend({blocks: blocks});
   } else if (pageBlock.block_type) {
     // Fetch each block with the given template (== type) and add to fragments
     var blocks = Azimuth.collections.Blocks.find({ template: pageBlock.block_type });
-    Template.block_set.blocks = blocks;
-    return Template.block_set;
+    return Template.block_set.extend({blocks: blocks});
   } else {
     var block = Azimuth.collections.Blocks.findOne(pageBlock.block);
     return renderBlock(block);

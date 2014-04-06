@@ -1,0 +1,17 @@
+<template name="block_type_edit">
+  <div class="block-edit-container">
+    <div class="azimuth-form-section">
+      <div>
+        <h1>Edit Block Type<a class="azimuth-button alert delete-block micro right">Delete Block</a></h1>
+      </div>
+      <br />
+      <p>Modify the block type to display</p>
+      <select class="block-type-selector" placeholder="Select A Block Type">
+        <option>Select A Block Type</option>
+        {{#each templates}}
+          <option value="{{name}}" {{selectIfCurrentType name}}>{{label}}</option>
+        {{/each}}
+      </select>
+    </div>
+  </div>
+</template>

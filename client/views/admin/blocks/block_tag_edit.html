@@ -1,0 +1,17 @@
+<template name="block_tag_edit">
+  <div class="block-edit-container">
+    <div class="azimuth-form-section">
+      <div>
+        <h1>Edit Block Tag <a class="azimuth-button alert delete-block micro right">Delete Block</a></h1>
+      </div>
+      <br />
+      <p>Modify the block tag to display</p>
+      <select class="block-tag-selector" placeholder="Select A Tag">
+        <option>Select A Tag</option>
+        {{#each allTags}}
+          <option value="{{tag}}" {{selectIfCurrentTag tag}}>{{tag}}</option>
+        {{/each}}
+      </select>
+    </div>
+  </div>
+</template>
