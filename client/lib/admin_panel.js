@@ -173,14 +173,16 @@ Azimuth.adminPanel.actions = [
     icon: 'icon-gear',
     description: 'Edit page meta tags',
     template: 'site_settings',
-    size: 'menu-medium'
+    size: 'menu-medium',
+    adminOnly: true
   },
   {
     label: 'Users',
     icon: 'icon-user-group',
     description: 'Edit page meta tags',
     template: 'admin_users',
-    size: 'menu-large'
+    size: 'menu-large',
+    adminOnly: true
   }
 ];
 

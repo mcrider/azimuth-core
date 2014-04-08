@@ -135,5 +135,9 @@ Template.admin_panel.events = {
   }
 };
 Template.admin_panel.actions = function () {
-  return Azimuth.adminPanel.actions;
+  var isAdmin = Roles.userIsInRole({ _id: Meteor.user()._id }, ['admin']);
+  if (isAdmin) return Azimuth.adminPanel.actions;
+  else return _.reject(Azimuth.adminPanel.actions, function(action) {
+    return action.adminOnly;
+  });
 };
