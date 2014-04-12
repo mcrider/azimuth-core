@@ -32,7 +32,13 @@ Template.header.headerNav = function () {
 Template.header.pages = function () {
   return Azimuth.collections.Pages.find();
 };
-Template.header.child = function() {
+Template.header_nav_child.rendered = function() {
+  if (Azimuth.utils.postNavRendered != 'undefined')
+    Azimuth.utils.postNavRendered();
+}
+Template.header_nav_child.child = function() {
   var navId = this.toString();
   return Azimuth.collections.Navigation.findOne(navId);
 }
+
+

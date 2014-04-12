@@ -47,12 +47,14 @@ Template.navigation.rendered = function () {
   };
   $('#header').nestable({
     maxDepth: 4,
-    group: 1
-  }).on('change', updateNav('header'));
+    group: 1,
+    onChange: updateNav('header')
+  });
   $('#footer').nestable({
     maxDepth: 1,
-    group: 2
-  }).on('change', updateNav('footer'));
+    group: 2,
+    onChange: updateNav('footer')
+  });
   $('.azimuth-admin-panel').find('select').selectize({ sortField: 'text' });
 };
 Template.navigation.events = {
