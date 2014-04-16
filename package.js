@@ -8,7 +8,7 @@ Package.on_use(function (api) {
     'less', 'spiderable', 'standard-app-packages'], 'client');
 
   // Use the meteorite smart packages specified in smart.json
-  api.use(['roles', 'iron-router', 'collectionFS', 'cfs-filesystem'], 'client');
+  api.use(['roles', 'iron-router', 'iron-router-progress', 'collectionFS', 'cfs-filesystem'], 'client');
 
   // And ensure we have the packages we need server-side available to the server
   api.use(['accounts-base', 'accounts-password', 'spiderable', 'roles', 'collectionFS', 'cfs-filesystem'], 'server');
@@ -112,7 +112,6 @@ Package.on_use(function (api) {
     'img/file.gif',
     'img/image.gif',
     'img/file-large.png',
-    'img/loading.gif',
   ], 'client');
 });
 

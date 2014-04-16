@@ -9,6 +9,7 @@
 		"underscore-string": {},
 		"roles": {},
 		"iron-router": {},
+		"iron-router-progress": {},
 		"blaze-layout": {},
 		"collectionFS": {},
 		"cfs-filesystem": {}

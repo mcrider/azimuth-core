@@ -13,7 +13,6 @@
 // Global configuration
 Router.configure({
   layoutTemplate: 'layout',
-  loadingTemplate: 'loading',
   notFoundTemplate: '404',
   yieldTemplates: {
     'header': { to: 'header' },
@@ -100,8 +99,6 @@ Router.map(function () {
         }
         this.template = page.template;
         this.render(page.template);
-      } else {
-        this.render('loading');
       }
     }
   });
@@ -132,8 +129,6 @@ Router.map(function () {
         }
         this.template = page.template;
         this.render(page.template);
-      } else {
-        this.render('loading');
       }
     }
   });
