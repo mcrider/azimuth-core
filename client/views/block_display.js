@@ -9,12 +9,50 @@
 // Handles the display and entry point of editing functions for blocks.
 //
 
-Template.block_display.currentBlockPage = function (zone) {
+Template.block_display.blockData = function (zone) {
+  var blockData = {},
+      zone = this.zone;
+  if (!zone) {
+    console.log('Block zone not specified');
+    return false;
+  }
+  // Get zone settings for paging and sorting
   var page = Azimuth.utils.getCurrentPage();
+  var limit = page['zone_' + zone + '_limit'] ? parseInt(page['zone_' + zone + '_limit'], 10) : 0;
+  // The number of blocks to show per 'page' of blocks
+  var skip = Session.get(page.slug + '_' + zone + '_skip') ? Session.get(page.slug + '_' + zone + '_skip') * limit : 0;
+  // The current 'page' of blocks
+  if (limit > 0) {
+    blockData.pageBlocks = Azimuth.collections.PageBlocks.find({
+      page: page._id,
+      zone: zone
+    }, {
+      skip: skip,
+      limit: limit,
+      sort: { seq: 1 }
+    });
+  } else {
+    blockData.pageBlocks = Azimuth.collections.PageBlocks.find({
+      page: page._id,
+      zone: zone
+    }, { sort: { seq: 1 } });
+  }
+  var numSets = limit > 0 ? Math.ceil(Azimuth.collections.PageBlocks.find({
+      page: page._id,
+      zone: zone
+    }).count() / limit) : false;
+  blockData.numSets = numSets > 1 ? _.range(1, numSets + 1) : false;
+  blockData.zone = zone;
+  return blockData;
+};
+Template.block_display.currentBlockPage = function (data) {
+  var zone = data.hash.zone,
+      activeClass = data.hash.activeClass || 'active',
+      page = Azimuth.utils.getCurrentPage();
   if(!Session.get(page.slug + '_' + zone + '_skip')) {
     Session.set(page.slug + '_' + zone + '_skip', 0);
   }
-  return Session.equals(page.slug + '_' + zone + '_skip', this.valueOf() - 1) ? 'active current' : '';
+  return Session.equals(page.slug + '_' + zone + '_skip', this.valueOf() - 1) ? activeClass : '';
 };
 Template.block_display.zoneLabel = function (zone) {
   return zone.charAt(0).toUpperCase() + zone.slice(1);

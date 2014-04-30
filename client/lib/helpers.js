@@ -9,42 +9,6 @@
 // Helpers (additional public functions) for templates
 //
 
-// Display all blocks for a page in a given block zone
-UI.registerHelper('renderBlocks', function () {
-  var zone = this.zone;
-  if (!zone) {
-    console.log('Block zone not specified');
-    return false;
-  }
-  // Get zone settings for paging and sorting
-  var page = Azimuth.utils.getCurrentPage();
-  var limit = page['zone_' + zone + '_limit'] ? parseInt(page['zone_' + zone + '_limit'], 10) : 0;
-  // The number of blocks to show per 'page' of blocks
-  var skip = Session.get(page.slug + '_' + zone + '_skip') ? Session.get(page.slug + '_' + zone + '_skip') * limit : 0;
-  // The current 'page' of blocks
-  if (limit > 0) {
-    Template.block_display.pageBlocks = Azimuth.collections.PageBlocks.find({
-      page: page._id,
-      zone: zone
-    }, {
-      skip: skip,
-      limit: limit,
-      sort: { seq: 1 }
-    });
-  } else {
-    Template.block_display.pageBlocks = Azimuth.collections.PageBlocks.find({
-      page: page._id,
-      zone: zone
-    }, { sort: { seq: 1 } });
-  }
-  var numSets = limit > 0 ? Math.ceil(Azimuth.collections.PageBlocks.find({
-      page: page._id,
-      zone: zone
-    }).count() / limit) : false;
-  Template.block_display.numSets = numSets > 1 ? _.range(1, numSets + 1) : false;
-  Template.block_display.zone = zone;
-  return Template.block_display;
-});
 var renderBlock = function (block) {
   var block = block || this;
   if (block && block.template) {
