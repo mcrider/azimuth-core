@@ -92,3 +92,19 @@ Template.block_display.events = {
     Session.set(page.slug + '_' + zone + '_skip', this.valueOf() - 1);
   }
 };
+
+Template.renderPageBlock.block_template = function () {
+  var pageBlock = this.data;
+  if (pageBlock.block_tag) {
+    // Fetch blocks with a given tag and add to fragments
+    var blocks = Azimuth.collections.Blocks.find({ tag: pageBlock.block_tag });
+    return Template.block_set.extend({blocks: blocks});
+  } else if (pageBlock.block_type) {
+    // Fetch each block with the given template (== type) and add to fragments
+    var blocks = Azimuth.collections.Blocks.find({ template: pageBlock.block_type });
+    return Template.block_set.extend({blocks: blocks});
+  } else {
+    var block = Azimuth.collections.Blocks.findOne(pageBlock.block);
+    return Azimuth.utils.renderBlock(block);
+  }
+}

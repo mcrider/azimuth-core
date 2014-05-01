@@ -9,43 +9,6 @@
 // Helpers (additional public functions) for templates
 //
 
-var renderBlock = function (block) {
-  var block = block || this;
-  if (block && block.template) {
-    Template[block.template].block = block;
-    var _rendered = typeof Template[block.template].rendered == "function" ? Template[block.template].rendered : false;
-    var _customRendered = function() {
-      // Call the existing rendered function from our custom one
-      if (_rendered) {
-        _rendered.apply(this, arguments);
-      }
-      Azimuth.adminPanel.initEditToggle.apply(this, arguments)
-    }
-    if (!Template[block.template].rendered || !_.isEqual(Template[block.template].rendered.toString(), _customRendered.toString())) {
-      Template[block.template].rendered = _customRendered;
-    }
-    return Template[block.template].extend({data: block});
-  } else {
-    console.log('Block not found (or has no template specified)');
-  }
-}
-UI.registerHelper('renderBlock', renderBlock);
-// Display a block/blocks from a pageBlock
-UI.registerHelper('renderPageBlock', function (pageBlock) {
-  var pageBlock = this;
-  if (pageBlock.block_tag) {
-    // Fetch blocks with a given tag and add to fragments
-    var blocks = Azimuth.collections.Blocks.find({ tag: pageBlock.block_tag });
-    return Template.block_set.extend({blocks: blocks});
-  } else if (pageBlock.block_type) {
-    // Fetch each block with the given template (== type) and add to fragments
-    var blocks = Azimuth.collections.Blocks.find({ template: pageBlock.block_type });
-    return Template.block_set.extend({blocks: blocks});
-  } else {
-    var block = Azimuth.collections.Blocks.findOne(pageBlock.block);
-    return renderBlock(block);
-  }
-});
 // Renders a form element using a template in views/form/
 UI.registerHelper('formHelper', function () {
   if (this.type == 'wysiwyg')

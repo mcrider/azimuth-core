@@ -162,3 +162,24 @@ Azimuth.utils.getDistinctBlockTags = function () {
     return { tag: item };
   });
 };
+// Return a block template with its data attached to the block variable
+Azimuth.utils.renderBlock = function (block) {
+  var block = block || this;
+  if (block && block.template) {
+    Template[block.template].block = block;
+    var _rendered = typeof Template[block.template].rendered == "function" ? Template[block.template].rendered : false;
+    var _customRendered = function() {
+      // Call the existing rendered function from our custom one
+      if (_rendered) {
+        _rendered.apply(this, arguments);
+      }
+      Azimuth.adminPanel.initEditToggle.apply(this, arguments)
+    }
+    if (!Template[block.template].rendered || !_.isEqual(Template[block.template].rendered.toString(), _customRendered.toString())) {
+      Template[block.template].rendered = _customRendered;
+    }
+    return Template[block.template];
+  } else {
+    console.log('Block not found (or has no template specified)');
+  }
+};

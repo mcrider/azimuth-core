@@ -93,6 +93,7 @@ Package.on_use(function (api) {
     'client/views/admin/blocks/block_zone_edit.html',
     'client/views/admin/blocks/block_zone_edit.js',
     'client/views/block_set.html',
+    'client/views/block_set.js',
     'client/views/block_display.js',
     'client/views/footer.js',
     'client/views/form/wysiwyg.html',
