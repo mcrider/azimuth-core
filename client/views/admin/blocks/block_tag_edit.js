@@ -17,6 +17,23 @@ Template.block_tag_edit.events = {
     var newTag = $(e.currentTarget).val(), pageBlock = Azimuth.adminPanel.blockEdit.getPageBlock();
     Azimuth.collections.PageBlocks.update(pageBlock._id, { $set: { block_tag: newTag } });
     Azimuth.adminPanel.hide();
+  },
+  'click .delete-block': function (e) {
+    e.preventDefault();
+    Azimuth.utils.openModal('#deleteBlockModal');
+  },
+  'click .delete-block-confirm': function (e) {
+    e.preventDefault();
+    var pageBlock = Azimuth.adminPanel.blockEdit.getPageBlock();
+    var pageBlockId = pageBlock._id;
+    // If the pageBlock is just a block instance, first delete the block
+    if (pageBlock.block) {
+      Azimuth.collections.Blocks.remove(Azimuth.adminPanel.blockEdit.settings.blockId);
+    }
+    // Remove the pageblock from the page
+    Azimuth.collections.PageBlocks.remove(pageBlockId);
+    Azimuth.utils.closeModal('#deleteBlockModal');
+    Azimuth.adminPanel.hide();
   }
 };
 
