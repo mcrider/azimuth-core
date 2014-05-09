@@ -7,7 +7,6 @@
     command: 'inserthtml',
     popupName: 'file',
     popupClass: 'cleditorPrompt',
-    popupContent: '<div id="file_asset_list">No files uploaded.</div>',
     buttonClick: insertFile
   };
   // Add the button to the default controls before the bold button

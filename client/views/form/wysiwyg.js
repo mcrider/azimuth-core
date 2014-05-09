@@ -31,7 +31,7 @@ Template.wysiwyg.events = {
     e.preventDefault();
     var data = $.cleditor.buttons.file.data;
     var editor = data.editor;
-    editor.execCommand(data.command, '<a href="' + this.url({store: 'default'}) + '">' + this.name + '</a>', null, data.button);
+    editor.execCommand(data.command, '<a href="' + this.url({store: 'default'}) + '">' + this.name() + '</a>', null, data.button);
     Azimuth.utils.closeModal('#wysiwygFileModal');
     editor.hidePopups();
     editor.focus();
@@ -39,16 +39,7 @@ Template.wysiwyg.events = {
 }
 Template.wysiwyg.imageList = function () {
   //show all files that have been published to the client, with most recently uploaded first
-  return Azimuth.collections.Assets.find({
-    type: {
-      $in: [
-        'image/gif',
-        'image/jpeg',
-        'image/png',
-        'image/tiff'
-      ]
-    }
-  });
+  return Azimuth.collections.Assets.find({"original.type": {$regex: 'image/*' }});
 };
 Template.wysiwyg.fileList = function () {
   //show all files that have been published to the client, with most recently uploaded first
