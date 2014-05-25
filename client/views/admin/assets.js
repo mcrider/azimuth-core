@@ -11,7 +11,7 @@
 
 Template.assets.events({
   'change .fileUploader': function (e) {
-    FS.Utility.eachFile(event, function(file) {
+    FS.Utility.eachFile(e, function(file) {
       Azimuth.collections.Assets.insert(file, function (err, fileObj) {
         //Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
       });
