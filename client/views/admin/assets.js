@@ -28,7 +28,7 @@ Template.assets.files = function () {
 Template.assets.formattedTime = function() {
   return this.uploadedAt ? this.uploadedAt.toLocaleString() : '';
 }
-Template.assets.formattedSize = function() {
+Template.assets.prettySize = function() {
   function bytesToSize(bytes) {
     var k = 1000;
     var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
@@ -36,5 +36,6 @@ Template.assets.formattedSize = function() {
     var i = parseInt(Math.floor(Math.log(bytes) / Math.log(k)),10);
     return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
   }
-  return bytesToSize(this.size);
+
+  return bytesToSize(this.size());
 }
