@@ -21,6 +21,6 @@ Template.page_template_selector.events = {
     Azimuth.collections.Pages.update({ _id: pageId }, { $set: { template: newTemplate } });
   }
 };
-Template.site_settings.selectIfCurrentTemplate = function (slug) {
+Template.page_template_selector.selectIfCurrentTemplate = function (slug) {
   if (Azimuth.utils.getCurrentPage().template == slug) return 'selected';
 };
