@@ -8,11 +8,11 @@ Package.describe({
 
 Package.on_use(function (api) {
   // Include some core meteor smart packages
-  api.use([ 'service-configuration', 'accounts-ui', 'accounts-base', 'accounts-password', 'underscore', 'jquery',
-    'less', 'spiderable', 'standard-app-packages'], 'client');
+  api.use([ 'service-configuration@1.0.2', 'accounts-ui@1.1.2', 'accounts-base@1.1.2', 'accounts-password@1.0.4', 'underscore@1.0.1', 'jquery@1.0.1',
+    'less@1.0.11', 'spiderable@1.0.5', 'standard-app-packages@1.0.3'], 'client');
 
   // Use the meteorite smart packages specified in smart.json
-  api.use(['alanning:roles@1.2.13', 'iron:router@1.0.1', 'multiply:iron-router-progress', 'mrt:numeral', 'cfs:standard-packages', 'cfs:filesystem'], 'client');
+  api.use(['alanning:roles@1.2.13', 'iron:router@1.0.1', 'multiply:iron-router-progress@1.0.0', 'mrt:numeral@0.0.1', 'cfs:standard-packages@0.0.2', 'cfs:filesystem@0.0.0'], 'client');
 
   // And ensure we have the packages we need server-side available to the server
   api.use(['accounts-base', 'accounts-password', 'spiderable', 'alanning:roles@1.2.13', 'cfs:standard-packages', 'cfs:filesystem'], 'server');
