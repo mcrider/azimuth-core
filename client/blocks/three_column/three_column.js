@@ -11,8 +11,10 @@
 //
 
 Template.three_column = Template.three_column || {};
-Template.three_column.label = '3 Column Block';
-Template.three_column.description = 'A basic content block that takes up 1/4 of a row';
+Template.three_column.helpers({
+  label: '3 Column Block',
+  description: 'A basic content block that takes up 1/4 of a row'
+});
 var fields = [{
       name: 'contents',
       type: 'wysiwyg',

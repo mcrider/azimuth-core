@@ -166,7 +166,7 @@ Azimuth.utils.getDistinctBlockTags = function () {
 Azimuth.utils.renderBlock = function (block) {
   var block = block || this;
   if (block && block.template) {
-    Template[block.template].block = block;
+    Template[block.template].helpers({ block: block });
     var _rendered = typeof Template[block.template].rendered == "function" ? Template[block.template].rendered : false;
     var _customRendered = function() {
       // Call the existing rendered function from our custom one

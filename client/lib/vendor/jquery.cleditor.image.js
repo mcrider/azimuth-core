@@ -2,7 +2,7 @@
   // Define the hello button
   $.cleditor.buttons.image = {
     name: 'image',
-    image: '../packages/azimuth-core/img/image.gif',
+    image: '../packages/mcrider_azimuth-core/img/image.gif',
     title: 'Insert Image',
     command: 'inserthtml',
     // popupName: 'image',

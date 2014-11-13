@@ -3,7 +3,7 @@
 .cleditorMain textarea {border:none; margin:0; padding:0; overflow-y:scroll; font:10pt courier,Arial,Verdana; resize:none; outline:none /* webkit grip focus */}
 .cleditorToolbar {background: #2d353b;}
 .cleditorGroup {float:left; height:26px}
-.cleditorButton {float:left; width:24px; height:24px; margin:0; background: url('/packages/azimuth-core/img/buttons.png') no-repeat;}
+.cleditorButton {float:left; width:24px; height:24px; margin:0; background: url('/packages/mcrider_azimuth-core/img/buttons.png') no-repeat;}
 .cleditorDisabled {opacity:0.3; filter:alpha(opacity=30)}
 .cleditorDivider {
   display: none;

@@ -45,6 +45,7 @@ Router.map(function () {
     onBeforeAction: function () {
       Session.set('error', false);
       Session.set('buttonText', 'in');
+      this.next();
     }
   });
   this.route('sign_up', {
@@ -58,6 +59,7 @@ Router.map(function () {
     onBeforeAction: function () {
       Session.set('error', false);
       Session.set('buttonText', 'up');
+      this.next();
     }
   });
   this.route('forgot_password', {
@@ -68,8 +70,9 @@ Router.map(function () {
         Meteor.subscribe('navigation')
       ];
     },
-    beforeonBeforeAction: function () {
+    onBeforeAction: function () {
       Session.set('error', false);
+      this.next();
     }
   });
   // Route / to the admin-set root page or the first page

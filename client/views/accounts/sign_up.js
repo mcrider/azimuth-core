@@ -18,7 +18,7 @@ UI.body.otherLoginServices = function () {
 UI.body.loginServices = function () {
   return Accounts.oauth.serviceNames();
 }
-Template.sign_up.events({
+Template.signUp.events({
   'submit #signUp': function (e, t) {
     e.preventDefault();
     // var username = t.find('input[name="username"]') ? t.find('input[name="username"]').value : false;
