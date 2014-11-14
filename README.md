@@ -12,7 +12,7 @@ For further documentation and a demo of Azimuth in action, visit [http://azimuth
 
 ### File structure
 
-The (Azimuth core library)[http://github.com/mcrider/azimuth-core] is laid out as follows:
+The [Azimuth core library](http://github.com/mcrider/azimuth-core) is laid out as follows:
 
 *   `/client/` JS/HTML/CSS that is available to the browser.  The bulk of the code lives here.
 *   `/client/blocks/` Default block templates, and their accompanying JS/CSS files are stored here.  Block are stored in a modular fashion where everything needed to display a type of block them is stored in its own directory.
