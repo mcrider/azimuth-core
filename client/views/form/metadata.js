@@ -12,7 +12,7 @@
 Template.metadata.rendered = function () {
   $('.azimuth-admin-panel').find('select').selectize({ sortField: 'text' });
 };
-Template.metadata.events = {
+Template.metadata.events ({
   'click .add-meta-tag': function (e) {
     e.preventDefault();
     var meta_key = $(e.currentTarget).closest('tr').find('.meta-key').val();
@@ -41,11 +41,13 @@ Template.metadata.events = {
     var page = Azimuth.utils.getCurrentPage();
     Azimuth.collections.Pages.update({ _id: page._id }, { $pull: { 'meta': { key: meta_key } } });
   }
-};
-Template.metadata.current_fields = function () {
-  var page = Azimuth.utils.getCurrentPage();
-  return Azimuth.collections.Pages.findOne(page._id).meta;
-};
-Template.metadata.metadata_field_list = function () {
-  return Azimuth.metadata_fields;
-};
+});
+Template.metadata.helpers({
+    current_fields: function () {
+        var page = Azimuth.utils.getCurrentPage();
+        return Azimuth.collections.Pages.findOne(page._id).meta;
+    },
+    metadata_field_list: function () {
+    return Azimuth.metadata_fields;
+    }
+})

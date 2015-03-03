@@ -35,7 +35,7 @@ Template.navigation.rendered = function () {
 
         return childIds;
       }
-      var links = $('#' + location).nestable('serialize');
+      var links = $('#navigation-' + location).nestable('serialize');
       // Set root attribute to true for root links
       _.map(links, function(link){ link.root = true; return link });
       // Remove all links and then re-add
@@ -45,12 +45,12 @@ Template.navigation.rendered = function () {
       createNavItems(links, location);
     };
   };
-  $('#header').nestable({
+  $('#navigation-header').nestable({
     maxDepth: 4,
     group: 1,
     onChange: updateNav('header')
   });
-  $('#footer').nestable({
+  $('#navigation-footer').nestable({
     maxDepth: 1,
     group: 2,
     onChange: updateNav('footer')
@@ -145,16 +145,24 @@ Template.navigation.events = {
     Azimuth.utils.closeModal('#deleteLinkModal');
   }
 };
-Template.navigation.headerNav = function () {
-  return Azimuth.collections.Navigation.find({ location: 'header', root: true });
-};
-Template.navigation.footerNav = function () {
-  return Azimuth.collections.Navigation.find({ location: 'footer' });
-};
-Template.navigation.allPages = function () {
-  return Azimuth.collections.Pages.find();
-}
-Template.navigation_child.child = function() {
-  var navId = this.toString();
-  return Azimuth.collections.Navigation.findOne(navId);
-}
+Template.navigation.helpers ({
+    headerNav: function () {
+        return Azimuth.collections.Navigation.find({ location: 'header', root: true });
+    }
+});
+
+Template.navigation.helpers ({
+    footerNav: function () {
+        return Azimuth.collections.Navigation.find({location: 'footer'});
+    },
+    allPages: function () {
+        return Azimuth.collections.Pages.find();
+    }
+});
+
+Template.navigation_child.helpers({
+    child: function() {
+        var navId = this.toString();
+        return Azimuth.collections.Navigation.findOne(navId);
+    }
+});

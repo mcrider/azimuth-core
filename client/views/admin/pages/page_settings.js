@@ -12,7 +12,7 @@
 Template.page_settings.rendered = function () {
   $('.azimuth-admin-panel').find('select').selectize({ sortField: 'text' });
 };
-Template.page_settings.events = {
+Template.page_settings.events ({
   'click .delete-page': function(e) {
     e.preventDefault();
     Azimuth.utils.openModal('#deletePageModal');
@@ -38,4 +38,4 @@ Template.page_settings.events = {
       type: 'success'
     });
   }
-};
+});

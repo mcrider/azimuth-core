@@ -1,0 +1,14 @@
+<template name="home_page">
+{{#with page}}
+  <div class="jumbotron">
+    {{> block_display zone="hero"}}
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        {{> block_display zone="body"}}
+      </div>
+    </div>
+  </div>
+{{/with}}
+</template>

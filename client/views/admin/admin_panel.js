@@ -56,6 +56,7 @@ Template.admin_panel.events = {
           registryField.value = block[fieldName];
         });
         Session.set('blockFields', registryFields);
+        Session.set('addBlock', false);
         Azimuth.adminPanel.loadTemplate('block_edit', 'menu-large');
       } else {
         console.log('Block not found (or has no template specified)');
@@ -134,10 +135,12 @@ Template.admin_panel.events = {
     Azimuth.adminPanel.hide();
   }
 };
-Template.admin_panel.actions = function () {
-  var isAdmin = Roles.userIsInRole({ _id: Meteor.user()._id }, ['admin']);
-  if (isAdmin) return Azimuth.adminPanel.actions;
-  else return _.reject(Azimuth.adminPanel.actions, function(action) {
-    return action.adminOnly;
-  });
-};
+Template.admin_panel.helpers({
+    actions: function () {
+        var isAdmin = Roles.userIsInRole({_id: Meteor.user()._id}, ['admin']);
+        if (isAdmin) return Azimuth.adminPanel.actions;
+        else return _.reject(Azimuth.adminPanel.actions, function (action) {
+            return action.adminOnly;
+        });
+    }
+});

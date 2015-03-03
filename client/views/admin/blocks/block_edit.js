@@ -17,6 +17,7 @@ Template.block_edit.events = {
   'change .block-template-selector': function (e) {
     var template = $(e.currentTarget).val();
     // Get template's fields from block registry
+    debugger;
     Session.set('blockFields', Azimuth.registry.blockTemplates[template].fields);
     Session.set('addBlock', false);
     Azimuth.adminPanel.blockEdit.settings.template = template;
@@ -140,30 +141,32 @@ Template.block_edit.events = {
     Azimuth.adminPanel.hide();
   }
 };
-Template.block_edit.templates = function () {
-  return $.map(Azimuth.registry.blockTemplates, function (value, index) {
-    return [value];
-  });
-};
-Template.block_edit.allTags = function () {
-  return Azimuth.utils.getDistinctBlockTags();
-};
-Template.block_edit.blockId = function () {
-  return Azimuth.adminPanel.blockEdit.settings.blockId;
-};
-Template.block_edit.addBlock = function (options) {
-  return Session.get('addBlock');
-};
-Template.block_edit.blockFields = function () {
-  return Session.get('blockFields') ? Session.get('blockFields') : false;
-};
-Template.block_edit.renderField = function (field) {
-  return field.name;
-};
-Template.block_edit.currentBlockTags = function () {
-  var block = Azimuth.adminPanel.blockEdit.getBlock();
-  if (block && block.tag)
-    return block.tag;
-  else
-    return '';
-};
+Template.block_edit.helpers ({
+    templates: function () {
+        return $.map(Azimuth.registry.blockTemplates, function (value, index) {
+            return [value];
+        });
+    },
+    allTags: function () {
+    return Azimuth.utils.getDistinctBlockTags();
+    },
+    blockId: function () {
+    return Azimuth.adminPanel.blockEdit.settings.blockId;
+    },
+    addBlock: function (options) {
+    return Session.get('addBlock');
+    },
+    blockFields: function () {
+    return Session.get('blockFields') ? Session.get('blockFields') : false;
+    },
+    renderField : function (field) {
+    return field.name;
+    },
+    currentBlockTags: function () {
+        var block = Azimuth.adminPanel.blockEdit.getBlock();
+        if (block && block.tag)
+            return block.tag;
+        else
+            return '';
+    }
+});

@@ -12,7 +12,7 @@
 Template.site_settings.rendered = function () {
   $('.azimuth-admin-panel').find('select').selectize({ sortField: 'text' });
 };
-Template.site_settings.events = {
+Template.site_settings.events ({
   'click .save-site-settings': function (e) {
     e.preventDefault();
     var settings = Azimuth.utils.getFormValues('#siteSettingsForm');
@@ -22,19 +22,22 @@ Template.site_settings.events = {
       type: 'success'
     });
   }
-};
-Template.site_settings.settings = function () {
-  return Azimuth.collections.Settings.findOne();
-};
-Template.site_settings.pages = function () {
-  return Azimuth.collections.Pages.find();
-};
-Template.site_settings.allPages = function() {
-  return Azimuth.collections.Pages.find();
-}
-Template.site_settings.checkSetting = function(settingName) {
-  if (Azimuth.utils.getSetting(settingName)) return 'checked';
-}
-Template.site_settings.selectIfIndexEquals = function (slug) {
-  if (Azimuth.utils.getSetting('indexPage') === slug) return 'selected';
-};
+});
+Template.site_settings.helpers ({
+    settings: function () {
+        return Azimuth.collections.Settings.findOne();
+    },
+    pages: function () {
+    return Azimuth.collections.Pages.find();
+    },
+    allPages: function() {
+    return Azimuth.collections.Pages.find();
+    },
+    checkSetting: function(settingName) {
+    if (Azimuth.utils.getSetting(settingName)) return 'checked';
+    },
+    selectIfIndexEquals: function (slug) {
+    if (Azimuth.utils.getSetting('indexPage') === slug) return 'selected';
+    }
+
+});

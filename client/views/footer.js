@@ -9,6 +9,8 @@
 // Helpers for the footer template.
 //
 
-Template.footer.footerNav = function () {
-  return Azimuth.collections.Navigation.find({ location: 'footer' });
-};
+Template.footer.helpers({
+    footerNav: function () {
+        return Azimuth.collections.Navigation.find({ location: 'footer' });
+    }
+})

@@ -24,19 +24,23 @@ Template.header.displayName = function () {
   return user.profile && user.profile.name || user.username || user.emails && user.emails[0] && user.emails[0].address;
 };
 
-Template.header.headerNav = function () {
-  return Azimuth.collections.Navigation.find({ location: 'header', root: true });
-};
-Template.header.pages = function () {
-  return Azimuth.collections.Pages.find();
-};
+Template.header.helpers({
+    headerNav: function () {
+        return Azimuth.collections.Navigation.find({ location: 'header', root: true });
+    },
+    pages: function () {
+        return Azimuth.collections.Pages.find();
+    }
+});
 Template.header_nav_child.rendered = function() {
-  if (Azimuth.utils.postNavRendered != 'undefined')
+  if (Azimuth.utils.postNavRendered != undefined)
     Azimuth.utils.postNavRendered();
 }
-Template.header_nav_child.child = function() {
-  var navId = this.toString();
-  return Azimuth.collections.Navigation.findOne(navId);
-}
+Template.header_nav_child.helpers({
+    child: function() {
+        var navId = this.toString();
+        return Azimuth.collections.Navigation.findOne(navId);
+    }
+});
 
 

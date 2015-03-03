@@ -83,6 +83,7 @@ Template.block_display.events = {
   },
   // Edit a block zone's settings
   'click .block-zone-edit': function (e) {
+    debugger;
     e.stopPropagation();
     var zone = $(e.currentTarget).closest('.azimuth-block-zone').data('zone');
     Azimuth.adminPanel.blockEdit.reset({zone: zone});
