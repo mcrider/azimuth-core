@@ -1,7 +1,7 @@
 Package.describe({
   name: 'mcrider:azimuth-core',
   summary: 'Azimuth CMS core code',
-  version: '0.3.20',
+  version: '0.3.21',
   git: 'https://github.com/mcrider/azimuth-core/ '
 });
 

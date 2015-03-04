@@ -16,9 +16,10 @@ Azimuth.utils.getCurrentPage = function () {
       notFound: true,
       title: 'Sorry, we couldn\'t find the requested page'
     };
-  if (!Router.current() || !Router.current().path)
+  if (!Iron.Location.get() || !Iron.Location.get().path)
     return notFound;
-  var page_slug = Router.current().path.split('/')[1];
+  var page_slug = Iron.Location.get().path.split('/')[1];
+
   var page;
   if (!page_slug || page_slug == '') {
     page_slug = Azimuth.utils.getSetting('indexPage');

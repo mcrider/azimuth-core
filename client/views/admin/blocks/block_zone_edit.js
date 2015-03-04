@@ -57,18 +57,20 @@ Template.block_zone_edit.events = {
     }
   }
 };
-Template.block_zone_edit.blockCount = function () {
-  return _.range(1, 51);
-};
-Template.block_zone_edit.limit = function () {
-  var zone = Azimuth.adminPanel.blockEdit.settings.zone;
-  var page = Azimuth.utils.getCurrentPage();
-  var limit = page['zone_' + zone + '_limit'];
-  return limit && limit > 0 ? page['zone_' + zone + '_limit'] : false;
-};
-Template.block_zone_edit.selectIfLimitEquals = function () {
-  var page = Azimuth.utils.getCurrentPage();
-  var zone = Azimuth.adminPanel.blockEdit.settings.zone;
-  var limit = page['zone_' + zone + '_limit'];
-  if (limit == this.valueOf()) return 'selected';
-};
+Template.block_zone_edit.helpers({
+    blockCount: function () {
+        return _.range(1, 51);
+    },
+    limit: function () {
+        var zone = Azimuth.adminPanel.blockEdit.settings.zone;
+        var page = Azimuth.utils.getCurrentPage();
+        var limit = page['zone_' + zone + '_limit'];
+        return limit && limit > 0 ? page['zone_' + zone + '_limit'] : false;
+    },
+    selectIfLimitEquals: function () {
+        var page = Azimuth.utils.getCurrentPage();
+        var zone = Azimuth.adminPanel.blockEdit.settings.zone;
+        var limit = page['zone_' + zone + '_limit'];
+        if (limit == this.valueOf()) return 'selected';
+    }
+});

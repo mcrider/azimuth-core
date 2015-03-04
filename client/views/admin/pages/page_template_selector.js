@@ -9,18 +9,20 @@
 // Setup the page template selector dropdown.
 //
 
-Template.page_template_selector.templates = function () {
-  return $.map(Azimuth.registry.pageTemplates, function (value, index) {
-    return [value];
-  });
-};
-Template.page_template_selector.events = {
+Template.page_template_selector.helpers({
+    templates: function () {
+        return $.map(Azimuth.registry.pageTemplates, function (value, index) {
+            return [value];
+        });
+    },
+    selectIfCurrentTemplate: function (slug) {
+    if (Azimuth.utils.getCurrentPage().template == slug) return 'selected';
+    }
+});
+Template.page_template_selector.events({
   'change .page-template-selector': function (e) {
     var newTemplate = $(e.currentTarget).val();
     var pageId = Azimuth.utils.getCurrentPage()._id;
     Azimuth.collections.Pages.update({ _id: pageId }, { $set: { template: newTemplate } });
   }
-};
-Template.page_template_selector.selectIfCurrentTemplate = function (slug) {
-  if (Azimuth.utils.getCurrentPage().template == slug) return 'selected';
-};
+});
